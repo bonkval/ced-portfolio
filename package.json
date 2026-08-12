@@ -6,7 +6,7 @@
     "predev": "npm run bundle",
     "dev": "node scripts/serve.mjs",
     "bundle": "vite build --config vite.enhancements.config.mjs",
-    "build": "npm run bundle && node scripts/validate.mjs",
+    "build": "node scripts/validate.mjs",
     "test": "node scripts/validate.mjs"
   },
   "dependencies": {

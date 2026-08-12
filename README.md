@@ -25,6 +25,7 @@ The validation checks required pages, internal links, referenced local assets, e
 - Hobby placeholders live in `public/assets/hobbies/`.
 - Add a certification image to `public/assets/certifications/`, then add its title, issuer, image path, and issued or expiry date to `public/content/certifications.js`.
 - Add the CV at `public/Cedrick-Vales-CV.pdf`.
+- The deployment build validates the committed static bundle. If you edit `enhancements.js`, run `npm run bundle` before committing so `public/vendor/enhancements.bundle.js` is refreshed.
 
 Missing profile and CV files have visible, accessible fallback states.
 
