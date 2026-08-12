@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Cedrick Rafael Vales — cybersecurity student building practical security tools with evidence, restraint, and care.">
+  <meta name="theme-color" content="#f6f5f1">
+  <meta property="og:title" content="Cedrick Vales — Cybersecurity Portfolio">
+  <meta property="og:description" content="Security projects, network labs, and documented learning.">
+  <title>Cedrick Vales — Cybersecurity Portfolio</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/custom-overrides.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="site-texture" aria-hidden="true"><span></span><span></span></div>
+  <div class="pointer-aura" aria-hidden="true"></div>
+  <div class="theme-wave" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="identity" href="/" aria-label="CRDV home"><span class="identity-name">CRDV</span></a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span class="sr-only">Menu</span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="#work">Work</a><a href="#about">About</a><a href="#certifications">Credentials</a><a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-symbol" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
+  </header>
+
+  <main id="content">
+    <section class="hero page-width">
+      <div class="hero-status reveal"><span class="pulse" aria-hidden="true"></span><span>Third-year student · Philippines</span></div>
+      <h1 class="reveal delay-1" data-split>Cedrick Rafael Vales</h1>
+      <div class="hero-lower reveal delay-2"><p>I’m Cedrick Rafael Vales. I build defensive tools, break down their signals, and keep the limits visible.</p><div class="hero-role"><span>Next</span><strong>[ TARGET ROLE ]</strong></div></div>
+      <div class="hero-signal" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b></div>
+      <a class="scroll-cue" href="#work"><span>View projects</span><i aria-hidden="true">↓</i></a>
+    </section>
+
+    <section class="statement"><div class="page-width"><p class="section-label reveal">01 — Approach</p><blockquote class="reveal">Evidence before confidence.<br><em>Always.</em></blockquote><div class="signal-field reveal" data-signal-field aria-hidden="true"></div><div class="principles reveal"><span>Authorized</span><span>Local-first</span><span>Explainable</span><span>Honest</span></div></div></section>
+
+    <section class="work page-width" id="work">
+      <header class="section-header reveal"><div><p class="section-label">02 — Work</p><h2>Projects</h2></div><div class="section-orbit" aria-hidden="true"><i></i><i></i><b></b></div></header>
+
+      <a class="project-card project-primary reveal" href="/projects/phishhook/" data-project-link>
+        <div class="project-meta"><span class="project-index">01</span><span>Primary feature · Awareness engineering</span><span>Python / TypeScript</span></div>
+        <div class="project-title"><h3 data-scramble="PhishHook">PhishHook</h3><span class="open-mark" aria-hidden="true">↗</span></div>
+        <p class="project-summary">A local-first, authorized phishing-awareness simulator with explicit campaign review, SMTP sending, anonymous interaction signals, and a Cloudflare Worker backed by D1.</p>
+        <figure class="project-image" data-tilt><div class="image-glint" aria-hidden="true"></div><img src="/public/projects/phishhook/dashboard.svg" alt="Synthetic PhishHook dashboard showing campaign engagement and recent signals" width="1200" height="760"><figcaption><span>Dashboard / synthetic data</span><span>Open case study</span></figcaption></figure>
+      </a>
+
+      <a class="project-card reveal" href="/projects/sentiflow-network-lab/" data-project-link>
+        <div class="project-meta"><span class="project-index">02</span><span>Network security lab</span><span>Python / HTML</span></div>
+        <div class="project-title"><h3 data-scramble="SentiFlow">SentiFlow</h3><span class="open-mark" aria-hidden="true">↗</span></div>
+        <p class="project-summary">A Windows-friendly network threat detection lab with transparent rules, traffic simulation, PCAP ingestion, local persistence, and a SOC-style workflow.</p>
+        <figure class="project-image dark-frame" data-tilt><div class="image-glint" aria-hidden="true"></div><img src="/public/projects/sentiflow/dashboard.png" alt="SentiFlow SOC-style network monitoring dashboard" width="1850" height="1004" loading="lazy"><figcaption><span>Network lab / local only</span><span>Open case study</span></figcaption></figure>
+      </a>
+
+      <a class="project-card reveal" href="/projects/huli-na-honeypot/" data-project-link>
+        <div class="project-meta"><span class="project-index">03</span><span>Behavioral decoy</span><span>Python / SQLite</span></div>
+        <div class="project-title"><h3 data-scramble="Huli na!">Huli na!</h3><span class="open-mark" aria-hidden="true">↗</span></div>
+        <p class="project-summary">A GUI-first SSH and HTTP behavioral honeypot that turns connection metadata into explainable risk scores, alerts, analytics, and incident reports.</p>
+        <figure class="project-image dark-frame" data-tilt><div class="image-glint" aria-hidden="true"></div><img src="/public/projects/huli/overview.png" alt="Huli na honeypot security overview interface" width="1600" height="900" loading="lazy"><figcaption><span>Behavioral decoy / defensive analysis</span><span>Open case study</span></figcaption></figure>
+      </a>
+    </section>
+
+    <section class="project-index-section page-width">
+      <header class="section-header compact reveal"><div><p class="section-label">03 — More projects</p><h2>Other work</h2></div></header>
+      <div class="project-list">
+        <a href="/projects/network-security-lab/" class="project-row reveal" data-project-link><span>04</span><strong>NetworkSecLab</strong><p>Guarded SSH previews, SNMP monitoring, authentication detection, and incident workflows.</p><i>Python · HTML · JavaScript</i><b>↗</b></a>
+        <a href="https://github.com/bonkval/TrustWho" target="_blank" rel="noopener noreferrer" class="project-row reveal"><span>05</span><strong>TrustWho?</strong><p>Local-first URL risk analysis using blacklists and an explainable lexical classifier.</p><i>Python · CSS · JavaScript</i><b>↗</b></a>
+        <a href="https://github.com/bonkval/LiveScreenView" target="_blank" rel="noopener noreferrer" class="project-row reveal"><span>06</span><strong>LiveScreenView</strong><p>Lightweight trusted-network screen viewing with touch zoom and OCR text extraction.</p><i>Python</i><b>↗</b></a>
+        <a href="https://github.com/bonkval/CanvasCopyPasta" target="_blank" rel="noopener noreferrer" class="project-row reveal"><span>07</span><strong>CanvasCopyPasta</strong><p>A small quiz text-copying utility. Repository documentation is still in progress.</p><i>JavaScript · AutoHotkey</i><b>↗</b></a>
+        <a href="https://github.com/bonkval/Starlium" target="_blank" rel="noopener noreferrer" class="project-row reveal"><span>08</span><strong>Starlium</strong><p>A PHP-based final project. A fuller public write-up is still being prepared.</p><i>PHP · CSS · JavaScript</i><b>↗</b></a>
+      </div>
+    </section>
+
+    <section class="composition" id="composition"><div class="page-width"><header class="section-header reveal"><div><p class="section-label">04 — Across the repos</p><h2>Language mix</h2></div><div class="code-glyph" aria-hidden="true">{<span>···</span>}</div></header><div class="language-stack reveal" role="img" aria-label="Repository language composition: Python 56.6 percent, PHP 12.4 percent, CSS 10.3 percent, HTML 10 percent, JavaScript 6.8 percent, TypeScript 1.9 percent, other 2 percent"><span class="lang-python"></span><span class="lang-php"></span><span class="lang-css"></span><span class="lang-html"></span><span class="lang-js"></span><span class="lang-ts"></span><span class="lang-other"></span></div><div class="language-legend reveal"><span><i class="dot-python"></i>Python <b>56.6%</b></span><span><i class="dot-php"></i>PHP <b>12.4%</b></span><span><i class="dot-css"></i>CSS <b>10.3%</b></span><span><i class="dot-html"></i>HTML <b>10.0%</b></span><span><i class="dot-js"></i>JavaScript <b>6.8%</b></span><span><i class="dot-ts"></i>TypeScript <b>1.9%</b></span><span><i class="dot-other"></i>Other <b>2.0%</b></span></div></div></section>
+
+    <section class="about page-width" id="about"><div class="profile-wrap reveal"><div class="profile-fallback"><span>CV</span><small>profile.jpg</small></div><img class="profile-image" src="/public/assets/profile/profile.jpg" alt="Portrait of Cedrick Rafael Vales" width="800" height="1000"><img class="profile-image secondary" src="/public/assets/profile/profile2.jpg" alt="Alternate portrait of Cedrick Rafael Vales" width="800" height="1000"><div class="scan-grid" aria-hidden="true"></div></div><div class="about-copy reveal"><p class="section-label">05 — About</p><h2>Curious by default.<br>Careful by practice.</h2><p>Third-year cybersecurity student. Most at home around monitoring, networks, automation, and the questions hiding between them.</p><div class="profile-links" aria-label="Professional profiles"><a href="https://github.com/bonkval" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile"><img src="/public/icons/github.svg" alt="" width="24" height="24"><span>GitHub</span></a><a href="https://www.linkedin.com/in/cedrick-rafael-vales-517b4340b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile"><img src="/public/icons/linkedin.svg" alt="" width="24" height="24"><span>LinkedIn</span></a><a href="https://tryhackme.com/p/cedrickvales1111" target="_blank" rel="noopener noreferrer" aria-label="TryHackMe profile"><img src="/public/icons/tryhackme.svg" alt="" width="24" height="24"><span>TryHackMe</span></a><a href="https://profile.hackthebox.com" target="_blank" rel="noopener noreferrer" aria-label="Hack The Box profile"><img src="/public/icons/hackthebox.svg" alt="" width="24" height="24"><span>Hack The Box</span></a></div></div></section>
+
+    <section class="credentials" id="certifications"><div class="page-width"><header class="section-header reveal"><div><p class="section-label">06 — Credentials</p><h2>Certifications</h2></div><div class="credential-stamp" aria-hidden="true"><span>07</span><i>records</i></div></header><div class="cert-list">
+      <article class="cert reveal"><span class="cert-mark">C</span><div><p>Cisco</p><h3>Ethical Hacker</h3></div><span>Verification pending</span></article>
+      <article class="cert reveal"><span class="cert-mark">C</span><div><p>Cisco</p><h3>Introduction to Cybersecurity</h3></div><span>Verification pending</span></article>
+      <article class="cert reveal"><span class="cert-mark">C</span><div><p>Cisco</p><h3>Junior Cybersecurity Analyst Career Path</h3></div><span>Verification pending</span></article>
+      <article class="cert reveal"><span class="cert-mark">C</span><div><p>Cisco</p><h3>Network Defense</h3></div><span>Verification pending</span></article>
+      <article class="cert reveal"><span class="cert-mark">IT</span><div><p>Certiport</p><h3>IT Specialist — Databases</h3></div><span>Verification pending</span></article>
+      <article class="cert reveal"><span class="cert-mark">IT</span><div><p>Certiport</p><h3>IT Specialist — Java</h3></div><span>Verification pending</span></article>
+      <article class="cert reveal"><span class="cert-mark">IT</span><div><p>Certiport</p><h3>IT Specialist — Python</h3></div><span>Verification pending</span></article>
+    </div></div></section>
+
+    <section class="cv-section page-width"><div class="cv-icon reveal" aria-hidden="true"><span>&gt;</span><b>cv_</b><i></i></div><div class="cv-copy reveal"><p class="section-label">07 — CV</p><h2>The short version.</h2><p><code>Cedrick-Vales-CV.pdf</code> — coming soon.</p><div class="cv-actions"><a class="button disabled" href="/public/Cedrick-Vales-CV.pdf" data-cv-link aria-disabled="true">View CV</a><a class="button secondary-button disabled" href="/public/Cedrick-Vales-CV.pdf" data-cv-link download aria-disabled="true">Download PDF</a></div></div></section>
+
+    <section class="hobbies"><div class="page-width"><header class="section-header reveal"><div><p class="section-label">08 — Off screen</p><h2>Life outside the lab</h2></div><div class="gallery-mark" aria-hidden="true"><i></i><i></i><i></i></div></header><article class="social-post reveal" data-carousel aria-label="Hobby photo carousel"><header class="post-header"><span class="post-avatar">CV</span><div><strong>cedrickvales</strong><small>Outside the lab</small></div><span class="post-menu" aria-hidden="true">•••</span></header><div class="post-window"><div class="post-track" data-carousel-track><div class="post-slide"><span>01</span><p>Drop a hobby photo here</p></div><div class="post-slide"><span>02</span><p>Drop a hobby photo here</p></div><div class="post-slide"><span>03</span><p>Drop a hobby photo here</p></div><div class="post-slide"><span>04</span><p>Drop a hobby photo here</p></div><div class="post-slide"><span>05</span><p>Drop a hobby photo here</p></div><div class="post-slide"><span>06</span><p>Drop a hobby photo here</p></div><div class="post-slide"><span>07</span><p>Drop a hobby photo here</p></div><div class="post-slide"><span>08</span><p>Drop a hobby photo here</p></div></div><button class="post-arrow previous" type="button" data-carousel-prev aria-label="Previous photo">‹</button><button class="post-arrow next" type="button" data-carousel-next aria-label="Next photo">›</button><span class="post-count" data-carousel-count>1 / 8</span></div><div class="post-actions"><div><button type="button" aria-label="Like this photo">♡</button><button type="button" aria-label="Comment on this photo">○</button><button type="button" aria-label="Share this photo">↗</button></div><button type="button" aria-label="Save this photo">▯</button></div><div class="post-dots" data-carousel-dots aria-label="Choose a photo"></div><p class="post-caption"><strong>cedrickvales</strong> Photos coming soon.</p></article></div></section>
+
+    <section class="contact page-width" id="contact"><div class="contact-intro"><p class="section-label reveal">09 — Contact</p><h2 class="reveal">Leave a message.</h2><a class="email reveal" href="mailto:cedrickvales1111@gmail.com">cedrickvales1111@gmail.com <span>↗</span></a></div><form class="contact-form reveal" data-contact-form><label><span>Your name</span><input type="text" name="name" autocomplete="name" maxlength="80" required placeholder="Name"></label><label><span>Your email</span><input type="email" name="email" autocomplete="email" maxlength="160" required placeholder="Email"></label><label><span>Message</span><textarea name="message" rows="6" maxlength="2000" required placeholder="Write your message"></textarea></label><div class="form-footer"><span data-form-status aria-live="polite">Uses your email app</span><button class="send-button" type="submit">Send message <i aria-hidden="true">↗</i></button></div></form></section>
+  </main>
+  <footer class="footer page-width"><span>© <span data-year></span> Cedrick Rafael Vales</span><a href="#content">Back to top ↑</a></footer>
+  <script src="/public/content/certifications.js"></script>
+  <script src="/script.js" defer></script>
+  <script type="module" src="/public/vendor/enhancements.bundle.js"></script>
+</body>
+</html>
