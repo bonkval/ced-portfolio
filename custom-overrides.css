@@ -1,3 +1,25 @@
+/* Social post controls: quiet, geometric, and consistent at every viewport. */
+.social-post{width:min(560px,100%)!important;border-radius:14px!important}
+.post-menu{font-size:0!important;width:34px!important;height:34px!important;border:0!important;background:transparent!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:4px!important;padding:0!important;color:var(--ink)!important}
+.post-menu:before{content:'•••';font-size:18px;letter-spacing:3px;line-height:1}
+.post-window{background:var(--panel)!important}
+.post-slide{aspect-ratio:4 / 3!important}
+.post-actions{height:68px!important;padding:0 20px!important;border-top:1px solid var(--line)!important;gap:20px!important}
+.post-actions>div{gap:18px!important}
+.post-actions button{width:34px!important;height:34px!important;display:grid!important;place-items:center!important;border-radius:50%!important;font-size:0!important}
+.post-actions button:hover{background:color-mix(in srgb,var(--ink) 7%,transparent)!important;transform:none!important}
+.post-actions button:focus-visible{outline:2px solid var(--accent)!important;outline-offset:3px}
+.post-actions button:before{display:block!important;color:currentColor!important;font-size:26px!important;line-height:1!important}
+.post-actions button[aria-label*="Like"]:before{content:'♡';font-family:Arial,sans-serif!important}
+.post-actions button[aria-label*="Comment"]:before{content:'○';font-family:Arial,sans-serif!important;font-size:25px!important}
+.post-actions button[aria-label*="Share"]:before{content:'↗';font-family:Arial,sans-serif!important}
+.post-actions button[aria-label*="Save"]:before{content:'▯';font-family:Arial,sans-serif!important}
+.post-dots{height:12px!important;margin:-40px auto 28px!important;position:relative!important;z-index:2!important;gap:6px!important}
+.post-dots button{width:7px!important;height:7px!important;background:color-mix(in srgb,var(--ink) 18%,transparent)!important}
+.post-dots button.active{width:22px!important;background:var(--accent)!important}
+.post-caption{padding:16px 20px 19px!important}
+@media(max-width:850px){.social-post{width:min(100%,520px)!important}.post-slide{aspect-ratio:1 / 1!important}.post-actions{height:70px!important;padding-inline:18px!important}.post-dots{margin-top:-40px!important;margin-bottom:26px!important}}
+
 .identity-name{font-weight:900;letter-spacing:.16em;font-size:15px}
 body{transition:background-color 1.35s ease,color 1.35s ease}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:1.35s;animation-timing-function:cubic-bezier(.22,.75,.18,1)}
