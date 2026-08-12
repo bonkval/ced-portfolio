@@ -20,6 +20,22 @@
 .post-caption{padding:16px 20px 19px!important}
 @media(max-width:850px){.social-post{width:min(100%,520px)!important}.post-slide{aspect-ratio:1 / 1!important}.post-actions{height:70px!important;padding-inline:18px!important}.post-dots{margin-top:-40px!important;margin-bottom:26px!important}}
 
+/* Keep the mobile controls in distinct rows; the dots must never overlap the buttons. */
+.social-post .post-actions{position:relative!important;display:flex!important;align-items:center!important;justify-content:space-between!important;margin:0!important}
+.social-post .post-actions>div{display:flex!important;align-items:center!important;gap:12px!important}
+.social-post .post-dots{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;height:28px!important;margin:0!important;padding:0!important;gap:6px!important;background:var(--panel)!important}
+.social-post .post-dots button,.social-post .post-dots .post-dot{flex:0 0 auto!important}
+.social-post .post-caption{margin:0!important}
+@media(max-width:480px){
+  .social-post{border-radius:12px!important}
+  .social-post .post-header{height:68px!important;padding-inline:14px!important}
+  .social-post .post-actions{height:62px!important;padding-inline:14px!important}
+  .social-post .post-actions>div{gap:8px!important}
+  .social-post .post-actions button{width:36px!important;height:36px!important}
+  .social-post .post-dots{height:22px!important}
+  .social-post .post-caption{padding:13px 14px 16px!important;line-height:1.5!important}
+}
+
 .identity-name{font-weight:900;letter-spacing:.16em;font-size:15px}
 body{transition:background-color 1.35s ease,color 1.35s ease}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:1.35s;animation-timing-function:cubic-bezier(.22,.75,.18,1)}
