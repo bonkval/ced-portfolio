@@ -41,6 +41,11 @@
   .social-post .post-caption{padding:13px 14px 16px!important;line-height:1.5!important}
 }
 
+/* Final state: photo-only post with double-tap feedback. */
+.social-post .post-actions,
+.social-post .post-dots,
+.social-post .post-arrow{display:none!important}
+
 .identity-name{font-weight:900;letter-spacing:.16em;font-size:15px}
 body{transition:background-color 1.35s ease,color 1.35s ease}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:1.35s;animation-timing-function:cubic-bezier(.22,.75,.18,1)}
