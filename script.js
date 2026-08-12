@@ -77,10 +77,20 @@
     if (avatar) { avatar.textContent = ''; const avatarImage = document.createElement('img'); avatarImage.alt = 'Cedrick profile'; avatarImage.src = '/public/assets/profile/instagram-profile.jpg'; avatar.append(avatarImage); }
     hobbyPost.querySelector('.post-header strong').textContent = 'c.valllll';
     hobbyPost.querySelector('.post-caption strong').textContent = 'c.valllll';
-    hobbyPost.querySelector('.post-caption').lastChild.textContent = ' Photos coming soon.';
+    hobbyPost.querySelector('.post-caption').lastChild.textContent = ' Outside the lab.';
+    const hobbyPhotos = [
+      '953dd1d313670e3e1337c30b66257594.jpeg',
+      'IMG_0138.jpeg',
+      'IMG_0965.jpeg',
+      'IMG_1241.jpeg',
+      'IMG_20251219_180615.jpeg',
+      'IMG_2466.jpeg',
+      'IMG_5929.jpeg',
+      'IMG_7682.jpeg'
+    ];
     hobbyPost.querySelectorAll('.post-slide').forEach((slide, index) => {
       slide.textContent = '';
-      const photo = document.createElement('img'); photo.className = 'post-photo'; photo.alt = `Hobby photo ${index + 1}`; photo.src = '/public/assets/hobbies/placeholder.jpg';
+      const photo = document.createElement('img'); photo.className = 'post-photo'; photo.alt = `Hobby photo ${index + 1}`; photo.src = `/public/assets/hobbies/instagram/${hobbyPhotos[index] || hobbyPhotos[0]}`;
       photo.addEventListener('error', () => photo.classList.add('missing'));
       slide.append(photo);
     });
