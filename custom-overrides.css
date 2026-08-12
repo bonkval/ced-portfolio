@@ -1,9 +1,9 @@
 /* Social post controls: quiet, geometric, and consistent at every viewport. */
 .social-post .post-actions,.social-post .post-dots{display:none!important}
 .social-post .post-window{position:relative!important;touch-action:pan-x!important}
-.double-tap-heart{position:absolute;z-index:8;transform:translate(-50%,-50%) scale(.2) rotate(-8deg);color:#fff;font:100px/1 Arial,sans-serif;text-shadow:0 8px 28px rgba(0,0,0,.28);pointer-events:none;animation:double-tap-heart .82s cubic-bezier(.16,1,.3,1) forwards}
-.double-tap-heart:before{content:'♥'}
-@keyframes double-tap-heart{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(-8deg)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.08) rotate(4deg)}55%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-60%) scale(1.2) rotate(0)}}
+.double-tap-heart{position:absolute;z-index:8;transform:translate(-50%,-50%) scale(.2);color:#ff304f;font:100px/1 Arial,sans-serif;text-shadow:0 0 8px rgba(255,48,79,.28),0 10px 30px rgba(0,0,0,.18);-webkit-font-smoothing:antialiased;filter:blur(.15px);pointer-events:none;animation:double-tap-heart 1.05s cubic-bezier(.22,.8,.24,1) forwards}
+.double-tap-heart:before{content:'♥';display:block;transform:scaleX(.98);filter:drop-shadow(0 0 5px rgba(255,48,79,.22))}
+@keyframes double-tap-heart{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}12%{opacity:.92;transform:translate(-50%,-50%) scale(.72)}28%{opacity:1;transform:translate(-50%,-50%) scale(1.04)}46%{opacity:.98;transform:translate(-50%,-50%) scale(.96)}68%{opacity:.82;transform:translate(-50%,-53%) scale(1)}100%{opacity:0;transform:translate(-50%,-64%) scale(1.12)}}
 .social-post{width:min(560px,100%)!important;border-radius:14px!important}
 .post-menu{font-size:0!important;width:34px!important;height:34px!important;border:0!important;background:transparent!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:4px!important;padding:0!important;color:var(--ink)!important}
 .post-menu:before{content:'•••';font-size:18px;letter-spacing:3px;line-height:1}
