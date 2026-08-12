@@ -84,6 +84,25 @@
       photo.addEventListener('error', () => photo.classList.add('missing'));
       slide.append(photo);
     });
+    const postWindow = hobbyPost.querySelector('.post-window');
+    const showDoubleTapHeart = event => {
+      const heart = document.createElement('span');
+      heart.className = 'double-tap-heart';
+      heart.setAttribute('aria-hidden', 'true');
+      const bounds = postWindow.getBoundingClientRect();
+      heart.style.left = `${event.clientX - bounds.left}px`;
+      heart.style.top = `${event.clientY - bounds.top}px`;
+      postWindow.append(heart);
+      heart.addEventListener('animationend', () => heart.remove(), { once: true });
+    };
+    postWindow?.addEventListener('dblclick', showDoubleTapHeart);
+    let lastTap = 0;
+    postWindow?.addEventListener('pointerup', event => {
+      if (event.pointerType !== 'touch') return;
+      const now = Date.now();
+      if (now - lastTap < 360) showDoubleTapHeart(event);
+      lastTap = now;
+    }, { passive: true });
   }
 
   function setThemeState(theme) {
