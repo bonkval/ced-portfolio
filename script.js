@@ -258,12 +258,13 @@
     const open = menuButton.getAttribute('aria-expanded') === 'true';
     menuButton.setAttribute('aria-expanded', String(!open)); navigation?.classList.toggle('open', !open); document.body.classList.toggle('menu-open', !open);
   });
-  navigation?.querySelectorAll('a').forEach(link => link.addEventListener('click', event => {
+  document.querySelectorAll('.site-nav a, .footer a[href^="#"]').forEach(link => link.addEventListener('click', event => {
     const targetId = new URL(link.href, location.href).hash;
     const target = targetId ? document.querySelector(targetId) : null;
     if (!target) { closeMenu(); return; }
     event.preventDefault(); closeMenu();
     const start = scrollY, destination = Math.max(0, target.getBoundingClientRect().top + scrollY - 90);
+    if (reducedMotion.matches) { scrollTo(0, destination); history.replaceState(null, '', targetId); return; }
     const distance = destination - start, duration = Math.min(1450, Math.max(500, Math.abs(distance) * .34));
     const began = performance.now();
     const tick = now => { const progress = Math.min(1, (now - began) / duration); const eased = 1 - Math.pow(1 - progress, 4); scrollTo(0, start + distance * eased); if (progress < 1) requestAnimationFrame(tick); else history.replaceState(null, '', targetId); };
