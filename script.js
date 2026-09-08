@@ -1,6 +1,7 @@
 (() => {
   const root = document.documentElement;
   if (!document.querySelector('link[href="/brand-dots.css"]')) { const dotStyles = document.createElement('link'); dotStyles.rel = 'stylesheet'; dotStyles.href = '/brand-dots.css'; document.head.append(dotStyles); }
+  if (!document.querySelector('link[rel~="icon"]')) { const icon = document.createElement('link'); icon.rel = 'icon'; icon.type = 'image/svg+xml'; icon.href = '/favicon.svg'; document.head.append(icon); }
   const themeButton = document.querySelector('.theme-toggle');
   const themeWave = document.querySelector('.theme-wave');
   const themeMeta = document.querySelector('meta[name="theme-color"]');
