@@ -275,6 +275,13 @@
   routeLayer.className = 'route-layer'; routeLayer.setAttribute('aria-hidden', 'true');
   routeLayer.innerHTML = '<i></i><b></b>'; document.body.append(routeLayer);
   requestAnimationFrame(() => routeLayer.classList.add('route-enter'));
+  // Browsers can restore this page from the back/forward cache while the exit
+  // animation is still covering it. Hide the transition layer immediately.
+  addEventListener('pageshow', event => {
+    if (!event.persisted) return;
+    routeLayer.classList.remove('route-enter', 'route-exit');
+    routeLayer.style.transform = 'translateY(-100%)';
+  });
   document.querySelectorAll('a[href]').forEach(link => link.addEventListener('click', event => {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === '_blank' || link.hasAttribute('download')) return;
     const rawHref = link.getAttribute('href');
