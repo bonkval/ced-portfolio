@@ -14,6 +14,16 @@ const pages = [
   'projects/network-security-lab/index.html',
   'projects/live-screen-view/index.html',
   'projects/starlium/index.html'
+  , 'projects/secure-me-pls/screenshots/index.html'
+  , 'projects/canvas-copy-pasta/screenshots/index.html'
+  , 'projects/sentiflow-network-lab/screenshots/index.html'
+  , 'projects/project-chameleon/screenshots/index.html'
+  , 'projects/phishhook/screenshots/index.html'
+  , 'projects/huli-na-honeypot/screenshots/index.html'
+  , 'projects/trustwho/screenshots/index.html'
+  , 'projects/network-security-lab/screenshots/index.html'
+  , 'projects/live-screen-view/screenshots/index.html'
+  , 'projects/starlium/screenshots/index.html'
 ];
 const errors = [];
 const optionalAssets = new Set(['/public/Cedrick-Vales-CV.pdf']);

@@ -225,6 +225,7 @@
       contribution: 'Designed and built the private browser-based checker, learning guide, exercises, route structure, responsive interface, and security-focused deployment configuration.',
       technologies: 'Next.js, TypeScript, React 19, Tailwind CSS, localStorage, Vercel, and browser-side pattern analysis.',
       evidence: 'The case-study hero and gallery show the checker, study workflow, passphrase exercises, and privacy-first product direction.',
+      screenshots: '/projects/secure-me-pls/screenshots/',
       challenges: 'Provide useful feedback without transmitting, storing, or logging the password entered by the visitor.',
       results: 'Checks eight documented weak-pattern categories and delivers four focused routes with interactive lessons, exercises, scenarios, and a locally saved checklist.',
       demo: 'Open securemepls.vercel.app and use a made-up test password—never a real credential—then explore the Security Guide.',
@@ -235,6 +236,7 @@
       contribution: 'Built the Manifest V3 extension, isolated toolbar, active-question selection, text and image copying, configurable prompts, history, and optional school-origin access.',
       technologies: 'JavaScript, Chrome Extension APIs, Manifest V3, Shadow DOM, Clipboard API, MutationObserver, and AutoHotkey.',
       evidence: 'The project illustration summarizes question detection, selected-answer handling, image processing, and the clipboard workflow.',
+      screenshots: '/projects/canvas-copy-pasta/screenshots/',
       challenges: 'Handle changing Canvas markup, same-page updates, selected controls, images, and frames without allowing site CSS to alter the toolbar.',
       results: 'Supports text, prompt-appended text, single or combined images, selected radio and checkbox answers, persisted history, and user-approved Canvas origins.',
       demo: 'Open the browser extensions page, enable Developer mode, load the repository folder unpacked, and test only in an authorized Canvas workflow.',
@@ -245,6 +247,7 @@
       contribution: 'Built the normalized event pipeline, local SQLite storage, SOC-style dashboard, editable Traffic Lab, incident workflow, PCAP ingestion, and optional live capture path.',
       technologies: 'Python, SQLite, HTTP, JSON Lines, HTML, Bootstrap, PCAP, TShark, and Npcap.',
       evidence: 'Dashboard and Traffic Lab screenshots show the incident view, editable event input, and evidence-first workflow.',
+      screenshots: '/projects/sentiflow-network-lab/screenshots/',
       challenges: 'Keep simulated events, recorded PCAPs, and optional live traffic on one validated analysis path while avoiding unsafe traffic generation.',
       results: 'Includes eight labeled traffic scenarios and seven documented detection families, with a validation script that reports precision, recall, and a confusion matrix.',
       demo: 'Run start-monitor.bat, open http://127.0.0.1:8000, choose a Traffic Lab example, and select Analyze traffic.',
@@ -255,6 +258,7 @@
       contribution: 'Built a consent-first controller and client with training-only windows, visible recording state, buffered logging, configuration, and forensic record review.',
       technologies: 'Python, CustomTkinter, threading, JSON, SHA-256, unittest, and local file storage.',
       evidence: 'The case-study visual maps the consent boundary, approved training windows, buffered events, and local forensic log.',
+      screenshots: '/projects/project-chameleon/screenshots/',
       challenges: 'Keep capture visibly bounded to project-owned windows and make persistence and clipboard demonstrations explicit rather than covert.',
       results: 'Handles spaces, backspaces, tabs, Enter, foreground-title records, and opt-in clipboard tests while excluding networking, global hooks, stealth, and autostart.',
       demo: 'Install requirements, run python run_chameleon.py, launch the client, accept the disclosure, and type only inside the Training Arena.',
@@ -265,6 +269,7 @@
       contribution: 'Built the desktop campaign workflow, review gates, SMTP integration, SQLite history, dashboard, and companion Cloudflare Worker with anonymous interaction events.',
       technologies: 'Python 3.12, CustomTkinter, SQLite, SMTP, HTTPX, TypeScript, Cloudflare Workers, and D1.',
       evidence: 'Campaign-review and dashboard visuals use synthetic data to show pre-send checks, engagement interpretation, and event history.',
+      screenshots: '/projects/phishhook/screenshots/',
       challenges: 'Separate scanner activity from likely human interaction while keeping SMTP and Worker secrets out of source and packaged builds.',
       results: 'Enforces a 25-recipient cap, final review, no-credential education page, anonymous tracking signals, send-failure summaries, and demo mode without external services.',
       demo: 'Install the desktop package and run python -m antiphish in demo mode. Real sending requires documented authorization and separately supplied services.',
@@ -275,6 +280,7 @@
       contribution: 'Built the GUI-first SSH and HTTP decoy, behavior scoring, trusted ranges, SQLite analytics, alert delivery, exports, retention, and self-tests.',
       technologies: 'Python, AsyncSSH, SQLite, GeoIP2, ReportLab, Windows notifications, Discord webhooks, and DPAPI.',
       evidence: 'The overview screenshot presents listener state, severity-aware activity, analytics, and incident review in one interface.',
+      screenshots: '/projects/huli-na-honeypot/screenshots/',
       challenges: 'Balance realistic protocol handling with resource limits, privacy boundaries, optional enrichment, and safe fallback behavior.',
       results: 'Classifies activity into five severity levels, recognizes multiple scanner, automation, exploit, burst, login, and cross-service signals, and exports CSV, JSON, and PDF reports.',
       demo: 'Run Huli na!.bat, select Start monitoring, and use Run listener self-test on a system and network you are authorized to monitor.',
@@ -285,6 +291,7 @@
       contribution: 'Built URL normalization, layered blacklist matching, optional URLhaus intelligence, feature extraction, model training, safe artifact loading, API, and web interface.',
       technologies: 'Python, FastAPI, scikit-learn, Pandas, NumPy, skops, tldextract, Uvicorn, and pytest.',
       evidence: 'The dashboard screenshot shows the non-technical risk report, verdict, confidence, indicators, and engine status.',
+      screenshots: '/projects/trustwho/screenshots/',
       challenges: 'Avoid SSRF-style retrieval, validate large training inputs, limit memory use, and refuse untrusted model artifact types.',
       results: 'Extracts 34 lexical features and evaluates URLs through three ordered layers: local indicators, optional URLhaus lookup, and machine-learning inference.',
       demo: 'Create the virtual environment, install the package, train the included smoke-test model, then run Uvicorn and open http://127.0.0.1:8000.',
@@ -295,6 +302,7 @@
       contribution: 'Built one local dashboard joining authentication monitoring, SNMP event handling, incident management, SSH previews, simulators, audit logs, and reports.',
       technologies: 'Python, Flask, SQLite, Paramiko, Waitress, SNMP, UDP, Docker, HTML, CSS, and JavaScript.',
       evidence: 'The project screenshots cover dashboard posture, event streams, guided labs, incidents, detection rules, and reporting.',
+      screenshots: '/projects/network-security-lab/screenshots/',
       challenges: 'Demonstrate realistic operations while keeping device changes explicit, inventory-bound, backed up, validated, and reversible.',
       results: 'Provides three guided labs, five credential-attack detection patterns, a five-attempt/30-second brute-force threshold, and a real localhost SNMP datagram path.',
       demo: 'Run python start.py. The launcher creates its environment, installs changed dependencies, initializes databases, and opens http://127.0.0.1:5000.',
@@ -305,6 +313,7 @@
       contribution: 'Built an on-demand capture shortcut, local HTTP viewer, responsive zoom controls, OCR extraction, and copy-all workflow.',
       technologies: 'Python, MSS, Pillow, pynput, pytesseract, Tesseract OCR, HTML, CSS, and local HTTP networking.',
       evidence: 'The interface-flow visual documents the implemented computer-to-phone path; the repository does not yet include a captured product screenshot.',
+      screenshots: '/projects/live-screen-view/screenshots/',
       challenges: 'Make desktop-scale captures usable on a touch screen while keeping the unauthenticated server limited to a trusted local network.',
       results: 'Delivers on-demand primary-screen capture, fit-to-screen and actual-size viewing, touch zoom, selectable OCR output, and one-action text copying.',
       demo: 'Install Tesseract and requirements, run python screen_streamer.py, press the apostrophe key to capture, then open the displayed local address on your phone.',
@@ -315,6 +324,7 @@
       contribution: 'Built account registration and login, shared authentication helpers, categorized product pages, cart, checkout, inventory administration, user management, and reports.',
       technologies: 'PHP, MySQL, SQL, JavaScript, HTML, CSS, sessions, and server-rendered templates.',
       evidence: 'The gallery uses the project’s actual brand and catalog assets; a full deployed-interface screenshot is not currently stored in the repository.',
+      screenshots: '/projects/starlium/screenshots/',
       challenges: 'Keep authentication, cart state, inventory data, and administrative actions consistent across a multi-page PHP application.',
       results: 'Connects the customer flow from account and category browsing through cart and checkout with three dedicated administration areas for inventory, users, and reports.',
       demo: 'Import Final_Adidas.sql into a local MySQL database, configure local credentials in db.php, serve the folder through PHP or XAMPP, and open index.php.',
@@ -330,7 +340,7 @@
       ['Problem', currentCase.problem],
       ['My contribution', currentCase.contribution],
       ['Technologies', currentCase.technologies],
-      ['Screenshot evidence', currentCase.evidence],
+      ['Screenshots', 'Open the dedicated project gallery with the available interface and workflow visuals.'],
       ['Challenges', currentCase.challenges],
       ['Results', currentCase.results],
       ['Demo instructions', currentCase.demo],
@@ -353,6 +363,12 @@
       const paragraph = document.createElement('p');
       paragraph.textContent = copy;
       item.append(number, heading, paragraph);
+      if (label === 'Screenshots') {
+        const gallery = document.createElement('a');
+        gallery.href = currentCase.screenshots;
+        gallery.textContent = 'View project screenshots →';
+        item.append(gallery);
+      }
       if (label === 'GitHub link') {
         const source = document.createElement('a');
         source.href = currentCase.github;
