@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="LiveScreenView case study — local-network screen capture with mobile viewing and OCR-assisted text copying.">
+  <link rel="canonical" href="https://crdv.vercel.app/projects/live-screen-view/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>LiveScreenView — Cedrick Vales</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#case">Skip to case study</a><div class="theme-wave" aria-hidden="true"></div>
+  <header class="site-header"><a class="identity" href="/"><span class="identity-name">CRDV</span></a><button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span class="sr-only">Menu</span></button><nav class="site-nav" id="site-nav" aria-label="Primary"><a href="/#work">Work</a><a href="/#skills">Skills</a><a href="/#certifications">Credentials</a><a href="/#contact">Contact</a></nav><button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-symbol" aria-hidden="true"></span><span data-theme-label>Dark</span></button></header>
+  <main id="case">
+    <section class="case-header page-width"><a class="back-link" href="/#work">← Back to Projects</a><div class="case-kicker reveal"><span>Project</span><span>Local screen and OCR utility</span></div><h1 class="case-title-long reveal">LiveScreenView</h1><div class="case-deck reveal"><p>A lightweight way to capture a computer screen on demand, inspect it from a phone on the same network, and copy OCR-detected text.</p><div class="case-tags"><span>Python</span><span>MSS</span><span>Pillow</span><span>Tesseract OCR</span><span>LAN HTTP</span></div></div></section>
+    <figure class="case-hero-image case-interface-preview reveal" aria-label="LiveScreenView interface flow"><div class="screen-preview"><span>COMPUTER</span><strong>Capture on demand</strong><code>screen_streamer.py</code></div><div class="preview-link" aria-hidden="true">→</div><div class="phone-preview"><span>PHONE</span><strong>Zoom · OCR · Copy</strong><code>http://local-ip:8000</code></div><figcaption>Interface flow derived from the local application</figcaption></figure>
+    <section class="case-grid page-width reveal"><aside class="case-aside">Problem</aside><div class="case-content"><h2>Move visible screen information to a phone without a cloud service.</h2><p>The project creates an intentionally small local-network workflow: capture only when requested, then view and extract text from another device connected to the same trusted network.</p></div></section>
+    <section class="case-grid page-width reveal"><aside class="case-aside">Approach</aside><div class="case-content"><h2>Capture, serve, zoom, and copy.</h2><div class="flow"><span>Trigger</span><span>Capture</span><span>OCR</span><span>View</span></div><p>The Python application uses MSS and Pillow for screen imagery, pynput for the capture shortcut, and Tesseract through pytesseract for selectable OCR output. The mobile viewer supports fit-to-screen and actual-size modes.</p><a class="case-source" href="https://github.com/bonkval/LiveScreenView" target="_blank" rel="noopener noreferrer">Review the source on GitHub ↗</a></div></section>
+    <a class="next-project page-width" href="/projects/starlium/" data-project-link><span>Next project</span><div><strong>Starlium</strong><i>↗</i></div></a>
+  </main>
+  <footer class="footer page-width"><span>© <span data-year></span> Cedrick Rafael Vales</span><a href="#case">Back to top ↑</a></footer><script src="/script.js" defer></script>
+</body>
+</html>

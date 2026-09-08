@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="TrustWho case study — local-first malicious URL analysis with explainable lexical features.">
+  <link rel="canonical" href="https://crdv.vercel.app/projects/trustwho/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>TrustWho — Cedrick Vales</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#case">Skip to case study</a><div class="theme-wave" aria-hidden="true"></div>
+  <header class="site-header"><a class="identity" href="/"><span class="identity-name">CRDV</span></a><button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span class="sr-only">Menu</span></button><nav class="site-nav" id="site-nav" aria-label="Primary"><a href="/#work">Work</a><a href="/#skills">Skills</a><a href="/#certifications">Credentials</a><a href="/#contact">Contact</a></nav><button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-symbol" aria-hidden="true"></span><span data-theme-label>Dark</span></button></header>
+  <main id="case">
+    <section class="case-header page-width"><a class="back-link" href="/#work">← Back to Projects</a><div class="case-kicker reveal"><span>Project</span><span>Explainable URL risk analysis</span></div><h1 class="case-title-long reveal">TrustWho</h1><div class="case-deck reveal"><p>A local-first service that evaluates URLs without opening them, combining reviewed blacklists, optional URLhaus intelligence, and lexical machine learning.</p><div class="case-tags"><span>Python</span><span>FastAPI</span><span>scikit-learn</span><span>Pandas</span><span>Uvicorn</span></div></div></section>
+    <figure class="case-hero-image reveal"><img src="/public/projects/trustwho/dashboard.png" alt="TrustWho URL analysis dashboard showing an explainable risk result" width="1840" height="977"></figure>
+    <section class="case-grid page-width reveal"><aside class="case-aside">Problem</aside><div class="case-content"><h2>Analyze a suspicious URL without visiting it.</h2><p>Opening or resolving an unknown address during classification can create unnecessary risk. TrustWho treats the URL as data, producing a reviewable verdict while avoiding live-page retrieval.</p></div></section>
+    <section class="case-grid page-width reveal"><aside class="case-aside">Approach</aside><div class="case-content"><h2>Three layers, one explainable result.</h2><div class="flow"><span>Normalize</span><span>Blacklist</span><span>Classify</span><span>Explain</span></div><p>The service checks exact URLs, domains, and carefully selected substrings before optional URLhaus lookup and inference from a 34-feature lexical classifier. Model artifacts use a restricted loading path rather than trusting arbitrary serialized objects.</p><a class="case-source" href="https://github.com/bonkval/TrustWho" target="_blank" rel="noopener noreferrer">Review the source on GitHub ↗</a></div></section>
+    <a class="next-project page-width" href="/projects/network-security-lab/" data-project-link><span>Next project</span><div><strong>NetworkSecLab</strong><i>↗</i></div></a>
+  </main>
+  <footer class="footer page-width"><span>© <span data-year></span> Cedrick Rafael Vales</span><a href="#case">Back to top ↑</a></footer><script src="/script.js" defer></script>
+</body>
+</html>

@@ -219,19 +219,154 @@
     });
   }
 
-  document.querySelector('[data-contact-form]')?.addEventListener('submit', event => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    const name = String(data.get('name')).trim();
-    const email = String(data.get('email')).trim();
-    const message = String(data.get('message')).trim();
-    const subject = encodeURIComponent(`Portfolio message from ${name}`);
-    const body = encodeURIComponent(`${message}\n\nFrom: ${name}\nReply to: ${email}`);
-    const status = form.querySelector('[data-form-status]');
-    if (status) status.textContent = 'Opening your email app…';
-    window.location.href = `mailto:cedrickvales1111@gmail.com?subject=${subject}&body=${body}`;
-  });
+  const caseStudyBriefs = {
+    '/projects/secure-me-pls/': {
+      problem: 'Password advice is often reduced to an unexplained score, leaving people unsure which patterns actually weaken a password.',
+      contribution: 'Designed and built the private browser-based checker, learning guide, exercises, route structure, responsive interface, and security-focused deployment configuration.',
+      technologies: 'Next.js, TypeScript, React 19, Tailwind CSS, localStorage, Vercel, and browser-side pattern analysis.',
+      evidence: 'The case-study hero and gallery show the checker, study workflow, passphrase exercises, and privacy-first product direction.',
+      challenges: 'Provide useful feedback without transmitting, storing, or logging the password entered by the visitor.',
+      results: 'Checks eight documented weak-pattern categories and delivers four focused routes with interactive lessons, exercises, scenarios, and a locally saved checklist.',
+      demo: 'Open securemepls.vercel.app and use a made-up test password—never a real credential—then explore the Security Guide.',
+      github: 'https://github.com/bonkval/secure-me-pls'
+    },
+    '/projects/canvas-copy-pasta/': {
+      problem: 'Canvas question content can be awkward to copy cleanly for accessibility, review, and explicitly permitted AI-assisted coursework.',
+      contribution: 'Built the Manifest V3 extension, isolated toolbar, active-question selection, text and image copying, configurable prompts, history, and optional school-origin access.',
+      technologies: 'JavaScript, Chrome Extension APIs, Manifest V3, Shadow DOM, Clipboard API, MutationObserver, and AutoHotkey.',
+      evidence: 'The project illustration summarizes question detection, selected-answer handling, image processing, and the clipboard workflow.',
+      challenges: 'Handle changing Canvas markup, same-page updates, selected controls, images, and frames without allowing site CSS to alter the toolbar.',
+      results: 'Supports text, prompt-appended text, single or combined images, selected radio and checkbox answers, persisted history, and user-approved Canvas origins.',
+      demo: 'Open the browser extensions page, enable Developer mode, load the repository folder unpacked, and test only in an authorized Canvas workflow.',
+      github: 'https://github.com/bonkval/CanvasCopyPasta'
+    },
+    '/projects/sentiflow-network-lab/': {
+      problem: 'Security dashboards can announce a verdict without showing which evidence and thresholds produced it.',
+      contribution: 'Built the normalized event pipeline, local SQLite storage, SOC-style dashboard, editable Traffic Lab, incident workflow, PCAP ingestion, and optional live capture path.',
+      technologies: 'Python, SQLite, HTTP, JSON Lines, HTML, Bootstrap, PCAP, TShark, and Npcap.',
+      evidence: 'Dashboard and Traffic Lab screenshots show the incident view, editable event input, and evidence-first workflow.',
+      challenges: 'Keep simulated events, recorded PCAPs, and optional live traffic on one validated analysis path while avoiding unsafe traffic generation.',
+      results: 'Includes eight labeled traffic scenarios and seven documented detection families, with a validation script that reports precision, recall, and a confusion matrix.',
+      demo: 'Run start-monitor.bat, open http://127.0.0.1:8000, choose a Traffic Lab example, and select Analyze traffic.',
+      github: 'https://github.com/bonkval/SentiFlow-Network-Lab'
+    },
+    '/projects/project-chameleon/': {
+      problem: 'Input-event forensics is difficult to demonstrate responsibly when examples behave like unrestricted keyloggers.',
+      contribution: 'Built a consent-first controller and client with training-only windows, visible recording state, buffered logging, configuration, and forensic record review.',
+      technologies: 'Python, CustomTkinter, threading, JSON, SHA-256, unittest, and local file storage.',
+      evidence: 'The case-study visual maps the consent boundary, approved training windows, buffered events, and local forensic log.',
+      challenges: 'Keep capture visibly bounded to project-owned windows and make persistence and clipboard demonstrations explicit rather than covert.',
+      results: 'Handles spaces, backspaces, tabs, Enter, foreground-title records, and opt-in clipboard tests while excluding networking, global hooks, stealth, and autostart.',
+      demo: 'Install requirements, run python run_chameleon.py, launch the client, accept the disclosure, and type only inside the Training Arena.',
+      github: 'https://github.com/bonkval/Project-Chameleon'
+    },
+    '/projects/phishhook/': {
+      problem: 'Phishing-awareness demonstrations need measurable signals without collecting credentials or encouraging uncontrolled bulk campaigns.',
+      contribution: 'Built the desktop campaign workflow, review gates, SMTP integration, SQLite history, dashboard, and companion Cloudflare Worker with anonymous interaction events.',
+      technologies: 'Python 3.12, CustomTkinter, SQLite, SMTP, HTTPX, TypeScript, Cloudflare Workers, and D1.',
+      evidence: 'Campaign-review and dashboard visuals use synthetic data to show pre-send checks, engagement interpretation, and event history.',
+      challenges: 'Separate scanner activity from likely human interaction while keeping SMTP and Worker secrets out of source and packaged builds.',
+      results: 'Enforces a 25-recipient cap, final review, no-credential education page, anonymous tracking signals, send-failure summaries, and demo mode without external services.',
+      demo: 'Install the desktop package and run python -m antiphish in demo mode. Real sending requires documented authorization and separately supplied services.',
+      github: 'https://github.com/bonkval/phishhook'
+    },
+    '/projects/huli-na-honeypot/': {
+      problem: 'A defensive decoy should expose suspicious behavior without becoming a repository for submitted passwords or request bodies.',
+      contribution: 'Built the GUI-first SSH and HTTP decoy, behavior scoring, trusted ranges, SQLite analytics, alert delivery, exports, retention, and self-tests.',
+      technologies: 'Python, AsyncSSH, SQLite, GeoIP2, ReportLab, Windows notifications, Discord webhooks, and DPAPI.',
+      evidence: 'The overview screenshot presents listener state, severity-aware activity, analytics, and incident review in one interface.',
+      challenges: 'Balance realistic protocol handling with resource limits, privacy boundaries, optional enrichment, and safe fallback behavior.',
+      results: 'Classifies activity into five severity levels, recognizes multiple scanner, automation, exploit, burst, login, and cross-service signals, and exports CSV, JSON, and PDF reports.',
+      demo: 'Run Huli na!.bat, select Start monitoring, and use Run listener self-test on a system and network you are authorized to monitor.',
+      github: 'https://github.com/bonkval/huli-na-honeypot'
+    },
+    '/projects/trustwho/': {
+      problem: 'Checking an unknown URL should not require the analysis service to visit or resolve the potentially dangerous destination.',
+      contribution: 'Built URL normalization, layered blacklist matching, optional URLhaus intelligence, feature extraction, model training, safe artifact loading, API, and web interface.',
+      technologies: 'Python, FastAPI, scikit-learn, Pandas, NumPy, skops, tldextract, Uvicorn, and pytest.',
+      evidence: 'The dashboard screenshot shows the non-technical risk report, verdict, confidence, indicators, and engine status.',
+      challenges: 'Avoid SSRF-style retrieval, validate large training inputs, limit memory use, and refuse untrusted model artifact types.',
+      results: 'Extracts 34 lexical features and evaluates URLs through three ordered layers: local indicators, optional URLhaus lookup, and machine-learning inference.',
+      demo: 'Create the virtual environment, install the package, train the included smoke-test model, then run Uvicorn and open http://127.0.0.1:8000.',
+      github: 'https://github.com/bonkval/TrustWho'
+    },
+    '/projects/network-security-lab/': {
+      problem: 'Students often lack managed network hardware for practicing monitoring, incident handling, and guarded configuration workflows.',
+      contribution: 'Built one local dashboard joining authentication monitoring, SNMP event handling, incident management, SSH previews, simulators, audit logs, and reports.',
+      technologies: 'Python, Flask, SQLite, Paramiko, Waitress, SNMP, UDP, Docker, HTML, CSS, and JavaScript.',
+      evidence: 'The project screenshots cover dashboard posture, event streams, guided labs, incidents, detection rules, and reporting.',
+      challenges: 'Demonstrate realistic operations while keeping device changes explicit, inventory-bound, backed up, validated, and reversible.',
+      results: 'Provides three guided labs, five credential-attack detection patterns, a five-attempt/30-second brute-force threshold, and a real localhost SNMP datagram path.',
+      demo: 'Run python start.py. The launcher creates its environment, installs changed dependencies, initializes databases, and opens http://127.0.0.1:5000.',
+      github: 'https://github.com/bonkval/NetworkSecLab'
+    },
+    '/projects/live-screen-view/': {
+      problem: 'Moving visible computer-screen information to a phone usually depends on cloud sync, remote desktop software, or manual retyping.',
+      contribution: 'Built an on-demand capture shortcut, local HTTP viewer, responsive zoom controls, OCR extraction, and copy-all workflow.',
+      technologies: 'Python, MSS, Pillow, pynput, pytesseract, Tesseract OCR, HTML, CSS, and local HTTP networking.',
+      evidence: 'The interface-flow visual documents the implemented computer-to-phone path; the repository does not yet include a captured product screenshot.',
+      challenges: 'Make desktop-scale captures usable on a touch screen while keeping the unauthenticated server limited to a trusted local network.',
+      results: 'Delivers on-demand primary-screen capture, fit-to-screen and actual-size viewing, touch zoom, selectable OCR output, and one-action text copying.',
+      demo: 'Install Tesseract and requirements, run python screen_streamer.py, press the apostrophe key to capture, then open the displayed local address on your phone.',
+      github: 'https://github.com/bonkval/LiveScreenView'
+    },
+    '/projects/starlium/': {
+      problem: 'A storefront needs both a usable customer journey and practical administration for products, inventory, users, and reports.',
+      contribution: 'Built account registration and login, shared authentication helpers, categorized product pages, cart, checkout, inventory administration, user management, and reports.',
+      technologies: 'PHP, MySQL, SQL, JavaScript, HTML, CSS, sessions, and server-rendered templates.',
+      evidence: 'The gallery uses the project’s actual brand and catalog assets; a full deployed-interface screenshot is not currently stored in the repository.',
+      challenges: 'Keep authentication, cart state, inventory data, and administrative actions consistent across a multi-page PHP application.',
+      results: 'Connects the customer flow from account and category browsing through cart and checkout with three dedicated administration areas for inventory, users, and reports.',
+      demo: 'Import Final_Adidas.sql into a local MySQL database, configure local credentials in db.php, serve the folder through PHP or XAMPP, and open index.php.',
+      github: 'https://github.com/bonkval/Starlium'
+    }
+  };
+
+  const currentCasePath = location.pathname.endsWith('/') ? location.pathname : `${location.pathname}/`;
+  const currentCase = caseStudyBriefs[currentCasePath];
+  const nextProject = document.querySelector('.next-project');
+  if (currentCase && nextProject) {
+    const fields = [
+      ['Problem', currentCase.problem],
+      ['My contribution', currentCase.contribution],
+      ['Technologies', currentCase.technologies],
+      ['Screenshot evidence', currentCase.evidence],
+      ['Challenges', currentCase.challenges],
+      ['Results', currentCase.results],
+      ['Demo instructions', currentCase.demo],
+      ['GitHub link', 'Read the source, setup notes, tests, and project documentation.']
+    ];
+    const brief = document.createElement('section');
+    brief.className = 'case-brief';
+    const briefWidth = document.createElement('div');
+    briefWidth.className = 'page-width';
+    briefWidth.innerHTML = '<header class="case-brief-header"><div><p class="section-label">Project brief</p><h2>Built, tested, explained.</h2></div><p>A consistent summary of the work, implementation decisions, evidence, and practical way to explore it.</p></header>';
+    const facts = document.createElement('div');
+    facts.className = 'case-facts';
+    fields.forEach(([label, copy], index) => {
+      const item = document.createElement('article');
+      item.className = 'case-fact';
+      const number = document.createElement('span');
+      number.textContent = String(index + 1).padStart(2, '0');
+      const heading = document.createElement('h3');
+      heading.textContent = label;
+      const paragraph = document.createElement('p');
+      paragraph.textContent = copy;
+      item.append(number, heading, paragraph);
+      if (label === 'GitHub link') {
+        const source = document.createElement('a');
+        source.href = currentCase.github;
+        source.target = '_blank';
+        source.rel = 'noopener noreferrer';
+        source.textContent = 'Open repository ↗';
+        item.append(source);
+      }
+      facts.append(item);
+    });
+    briefWidth.append(facts);
+    brief.append(briefWidth);
+    nextProject.before(brief);
+  }
 
   const featuredCards = [...document.querySelectorAll('.work .project-card')];
   if (featuredCards.length) {

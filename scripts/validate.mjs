@@ -3,14 +3,17 @@ import { resolve, dirname } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
 const pages = [
-  'index.html', '404.html', 'projects/index.html',
+  'index.html', '404.html', 'cv/index.html', 'thanks/index.html', 'projects/index.html',
   'projects/secure-me-pls/index.html',
   'projects/canvas-copy-pasta/index.html',
   'projects/phishhook/index.html',
   'projects/sentiflow-network-lab/index.html',
   'projects/project-chameleon/index.html',
   'projects/huli-na-honeypot/index.html',
-  'projects/network-security-lab/index.html'
+  'projects/trustwho/index.html',
+  'projects/network-security-lab/index.html',
+  'projects/live-screen-view/index.html',
+  'projects/starlium/index.html'
 ];
 const errors = [];
 const optionalAssets = new Set(['/public/Cedrick-Vales-CV.pdf']);
