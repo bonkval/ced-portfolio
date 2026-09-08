@@ -40,6 +40,11 @@ for (const relative of pages) {
 const config = JSON.parse(await readFile(resolve(root, 'vercel.json'), 'utf8'));
 if (!config.headers?.length) errors.push('vercel.json: security headers missing');
 
+const clientScript = await readFile(resolve(root, 'script.js'), 'utf8');
+if (!/addEventListener\(['"]pageshow['"]/.test(clientScript) || !/event\.persisted/.test(clientScript)) {
+  errors.push('script.js: page transitions must reset after back/forward cache restoration');
+}
+
 const catalogPath = resolve(root, 'public/content/certifications.js');
 const catalog = await readFile(catalogPath, 'utf8');
 const certificates = [...catalog.matchAll(/\{\s*title:\s*'([^']+)',\s*issuer:\s*'([^']+)',\s*image:\s*'([^']+)'(?:,\s*(issued|expires):\s*'([^']+)')?\s*\}/g)];
