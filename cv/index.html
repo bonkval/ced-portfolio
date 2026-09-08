@@ -3,15 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Cedrick Rafael Vales CV status and upcoming download.">
+  <meta name="description" content="Cedrick Rafael Vales CV is currently being updated.">
   <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#f6f5f1">
   <link rel="canonical" href="https://crdv.vercel.app/cv/">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <title>CV — Cedrick Rafael Vales</title>
+  <title>CV | Cedrick Vales</title>
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/custom-overrides.css">
 </head>
 <body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="site-texture" aria-hidden="true"><span></span><span></span></div>
   <div class="theme-wave" aria-hidden="true"></div>
   <header class="site-header">
     <a class="identity" href="/" aria-label="CRDV home"><span class="identity-name">CRDV</span></a>
@@ -20,20 +22,21 @@
     <button class="theme-toggle" type="button" aria-label="Switch to dark mode"><span class="theme-symbol" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
   </header>
   <main class="cv-preview page-width" id="content">
-    <div class="cv-preview-copy">
-      <p class="section-label">CV preview</p>
-      <h1>In progress.</h1>
-      <p>My CV is not finished yet, but it will be available here soon.</p>
-    </div>
-    <figure class="cv-placeholder" aria-label="CV preview coming soon">
-      <span aria-hidden="true">CV</span>
-      <figcaption>Document preview will appear here</figcaption>
-    </figure>
-    <div class="cv-download-row">
-      <button class="button cv-download-disabled" type="button" disabled aria-disabled="true">Download CV · Coming soon</button>
-      <small>The PDF download will be enabled when the CV is ready.</small>
-    </div>
-    <a class="button secondary-button" href="/#cv">← Back to portfolio</a>
+    <section class="cv-unavailable" aria-labelledby="cv-status-title">
+      <div class="cv-status-copy">
+        <p class="cv-status-label"><span>Document status</span><strong>Updating</strong></p>
+        <h1 id="cv-status-title">A stronger CV is in progress.</h1>
+        <p>I am preparing an updated version that accurately reflects my latest cybersecurity projects, technical experience, and credentials.</p>
+        <p class="cv-status-note">For now, the portfolio contains the most current overview of my work.</p>
+        <a class="button secondary-button" href="/#cv">&larr; Return to portfolio</a>
+      </div>
+      <div class="cv-document" aria-hidden="true">
+        <div class="cv-document-head"><span>CRDV</span><small>Curriculum vitae</small></div>
+        <strong>CV</strong>
+        <div class="cv-document-lines"><i></i><i></i><i></i><i></i></div>
+        <p>Revised edition<br>in preparation</p>
+      </div>
+    </section>
   </main>
   <script src="/script.js" defer></script>
 </body>

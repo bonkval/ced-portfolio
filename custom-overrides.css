@@ -109,6 +109,26 @@ html.custom-cursor-ready body,html.custom-cursor-ready a,html.custom-cursor-read
 .click-ripple{position:fixed;z-index:2147483646;width:18px;height:18px;margin:-9px 0 0 -9px;border:2px solid var(--accent);border-radius:50%;pointer-events:none;mix-blend-mode:difference;animation:click-ripple .72s cubic-bezier(.14,.7,.2,1) forwards}@keyframes click-ripple{0%{opacity:1;transform:scale(.25)}65%{opacity:.85}100%{opacity:0;transform:scale(6)}}
 .cv-preview{padding-top:130px!important}.cv-preview figure{margin:0 0 28px!important}.cv-preview figure img{min-height:min(72vh,760px)!important}
 
+/* Purposeful temporary state for the CV route. */
+.cv-preview{min-height:calc(100dvh - 82px);display:flex;align-items:center;padding-bottom:80px!important}
+.cv-unavailable{width:100%;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:clamp(54px,9vw,120px);align-items:center}
+.cv-status-copy{max-width:690px}
+.cv-status-label{display:flex;align-items:center;gap:16px;margin:0 0 42px;font:10px "Cascadia Code","SFMono-Regular",monospace;text-transform:uppercase;letter-spacing:.13em;color:var(--muted)}
+.cv-status-label:after{content:"";width:64px;height:1px;background:var(--line)}
+.cv-status-label strong{color:var(--accent);font-weight:600}
+.cv-preview .cv-status-copy h1{max-width:760px;margin:0 0 32px;font-size:clamp(54px,7.3vw,96px);line-height:.93;letter-spacing:-.07em;font-weight:620}
+.cv-preview .cv-status-copy>p:not(.cv-status-label){max-width:610px;margin:0;color:var(--muted);font-size:clamp(16px,1.5vw,20px);line-height:1.65}
+.cv-preview .cv-status-copy .cv-status-note{margin-top:18px;font-size:14px}
+.cv-status-copy .button{margin-top:42px}
+.cv-document{aspect-ratio:3/4;max-height:520px;border:1px solid var(--line);background:var(--panel);box-shadow:18px 18px 0 color-mix(in srgb,var(--accent) 12%,transparent);padding:24px;display:flex;flex-direction:column;position:relative;overflow:hidden;transform:rotate(2deg)}
+.cv-document:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 49.7%,color-mix(in srgb,var(--accent) 8%,transparent) 50%,transparent 50.3%);pointer-events:none}
+.cv-document-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--line);font:10px "Cascadia Code",monospace;text-transform:uppercase;letter-spacing:.1em}
+.cv-document-head span{color:var(--accent);font-weight:700}.cv-document-head small{color:var(--muted);font:inherit}
+.cv-document>strong{margin:auto 0;font-size:clamp(88px,12vw,150px);line-height:.8;letter-spacing:-.12em;font-weight:650;color:color-mix(in srgb,var(--ink) 9%,transparent)}
+.cv-document-lines{display:grid;gap:8px;margin-bottom:28px}.cv-document-lines i{display:block;height:1px;background:var(--line)}.cv-document-lines i:nth-child(2){width:82%}.cv-document-lines i:nth-child(3){width:91%}.cv-document-lines i:nth-child(4){width:65%}
+.cv-document>p{margin:0;color:var(--muted);font:9px/1.6 "Cascadia Code",monospace;text-transform:uppercase;letter-spacing:.1em}
+@media(max-width:850px){.cv-preview{min-height:calc(100dvh - 70px);padding-top:90px!important}.cv-unavailable{grid-template-columns:1fr;gap:64px}.cv-document{width:min(360px,88%);grid-row:1;max-height:none}.cv-status-label{margin-bottom:30px}.cv-preview .cv-status-copy h1{font-size:clamp(48px,14vw,76px)}.cv-status-copy .button{width:100%}}
+
 .project-card .image-glint{opacity:0!important;transition:opacity .3s ease,background .18s ease!important}.project-card:hover .image-glint{opacity:1!important}
 
 /* Replaced the glow with a precise evidence-frame response. */
