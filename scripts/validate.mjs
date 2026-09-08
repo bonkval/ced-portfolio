@@ -4,8 +4,11 @@ import { resolve, dirname } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const pages = [
   'index.html', '404.html', 'projects/index.html',
+  'projects/secure-me-pls/index.html',
+  'projects/canvas-copy-pasta/index.html',
   'projects/phishhook/index.html',
   'projects/sentiflow-network-lab/index.html',
+  'projects/project-chameleon/index.html',
   'projects/huli-na-honeypot/index.html',
   'projects/network-security-lab/index.html'
 ];
