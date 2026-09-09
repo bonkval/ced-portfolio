@@ -12,6 +12,13 @@
 
   document.querySelectorAll('.identity-name').forEach(name => { name.textContent = 'CRDV'; });
   document.querySelectorAll('.identity-role').forEach(role => role.remove());
+  document.querySelectorAll('.footer').forEach(footer => {
+    if (footer.querySelector('.site-update')) return;
+    const update = document.createElement('span');
+    update.className = 'site-update';
+    update.textContent = 'Updated 09 Sep 2026';
+    footer.prepend(update);
+  });
   const cvBack = document.querySelector('.cv-preview .back-link');
   if (cvBack) cvBack.textContent = '← Back to portfolio';
   document.querySelectorAll('.case-kicker span:first-child').forEach(label => { label.textContent = 'Project'; });
