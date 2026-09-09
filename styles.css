@@ -78,3 +78,4 @@ body.intro-active{overflow:hidden}.intro{opacity:1;visibility:visible;clip-path:
 @media(min-width:651px){.case-fact:last-child,.case-fact:last-child:nth-child(odd){grid-column:1/-1;text-align:center;display:flex;flex-direction:column;align-items:center}}
 @media(min-width:651px){.case-fact:not(:last-child):nth-child(even){border-right:1px solid var(--line)!important}}
 @media(min-width:651px){.case-fact:not(:last-child):nth-child(even){border-right:0!important;box-shadow:inset -1px 0 0 var(--line)}}
+@media(min-width:651px){.case-fact:last-child{grid-column:1 / -1!important;border-right:0!important;text-align:center;display:flex;flex-direction:column;align-items:center}}
