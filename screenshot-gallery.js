@@ -2,17 +2,17 @@ const galleries = {
   'secure-me-pls': {
     title: 'Secure me, pls?', intro: 'Product screens from the private password-learning experience.',
     items: [
-      ['image', '/public/projects/secure-me-pls/spotlight.png', 'Password checker landing experience'],
-      ['image', '/public/projects/secure-me-pls/guide-study-v2.png', 'Security guide study workflow'],
-      ['image', '/public/projects/secure-me-pls/human-passphrase.png', 'Human-friendly passphrase exercise']
+      ['image', '/projects/secure-me-pls/screenshots/password-analysis.png', 'Password analysis screen'],
+      ['image', '/projects/secure-me-pls/screenshots/password-comparison.png', 'Password comparison screen'],
+      ['image', '/projects/secure-me-pls/screenshots/security-foundations.png', 'Security foundations lesson'],
+      ['image', '/projects/secure-me-pls/screenshots/threat-model-basics.png', 'Threat model basics lesson']
     ]
   },
   'canvas-copy-pasta': {
     title: 'CanvasCopyPasta', intro: 'Interface and workflow evidence for the browser extension.',
     items: [
-      ['image', '/public/projects/canvas-copy-pasta/spotlight.png', 'Extension workflow illustration'],
-      ['panel', 'Question detection', 'Finds the active Canvas question and keeps the helper toolbar isolated from page styles.'],
-      ['panel', 'Clipboard workflow', 'Copies selected text, prompts, images, and answer controls through user-triggered actions.']
+      ['image', '/projects/canvas-copy-pasta/screenshots/toolbar-expanded.png', 'Expanded CanvasCopyPasta toolbar'],
+      ['image', '/projects/canvas-copy-pasta/screenshots/toolbar-collapsed.png', 'Collapsed CanvasCopyPasta toolbar']
     ]
   },
   'sentiflow-network-lab': {

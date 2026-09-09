@@ -340,7 +340,6 @@
       ['Problem', currentCase.problem],
       ['My contribution', currentCase.contribution],
       ['Technologies', currentCase.technologies],
-      ['Screenshots', 'Open the dedicated project gallery with the available interface and workflow visuals.'],
       ['Challenges', currentCase.challenges],
       ['Results', currentCase.results],
       ['Demo instructions', currentCase.demo],
@@ -363,12 +362,6 @@
       const paragraph = document.createElement('p');
       paragraph.textContent = copy;
       item.append(number, heading, paragraph);
-      if (label === 'Screenshots') {
-        const gallery = document.createElement('a');
-        gallery.href = currentCase.screenshots;
-        gallery.textContent = 'View project screenshots →';
-        item.append(gallery);
-      }
       if (label === 'GitHub link') {
         const source = document.createElement('a');
         source.href = currentCase.github;
