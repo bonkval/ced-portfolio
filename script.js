@@ -227,6 +227,17 @@
   }
 
   const caseStudyBriefs = {
+    '/projects/codex-pulse/': {
+      problem: 'Codex usage is easy to lose track of when limits, live activity, and session history are spread across separate surfaces.',
+      contribution: 'Designed and built the Electron tray companion, local session reader, usage refresh flow, token history, charts, alerts, theme support, and compact desktop interface.',
+      technologies: 'Electron, JavaScript, Node.js, VS Code session data, local JSON and CSV exports, and Windows tray APIs.',
+      evidence: 'The light and dark theme screenshots show the usage windows, token activity, history chart, connection state, and compact tray companion surface.',
+      screenshots: '/projects/codex-pulse/screenshots/',
+      challenges: 'Make account limits and live token activity useful at a glance without collecting API keys or turning a tray companion into another full-size dashboard.',
+      results: 'Combines five-hour and weekly usage windows, current token activity, history charts, reset estimates, local exports, theme support, and optional notifications in one desktop surface.',
+      demo: 'Install the Windows release, open Codex through VS Code, then open the tray companion to review usage and session activity. Use only your own local account data.',
+      github: 'https://github.com/bonkval/Codex-Pulse'
+    },
     '/projects/secure-me-pls/': {
       problem: 'Password advice is often reduced to an unexplained score, leaving people unsure which patterns actually weaken a password.',
       contribution: 'Designed and built the private browser-based checker, learning guide, exercises, route structure, responsive interface, and security-focused deployment configuration.',
