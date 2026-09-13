@@ -213,8 +213,6 @@
   });
 
   const progress = document.createElement('div'); progress.className = 'reading-progress'; progress.setAttribute('aria-hidden', 'true'); document.body.append(progress);
-  const updateProgress = () => { const max = document.documentElement.scrollHeight - innerHeight; progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`; };
-  addEventListener('scroll', updateProgress, { passive: true }); updateProgress();
 
   if (!reducedMotion.matches && matchMedia('(pointer:fine)').matches) {
     document.querySelectorAll('[data-tilt]').forEach(frame => {
@@ -246,7 +244,7 @@
       screenshots: '/projects/secure-me-pls/screenshots/',
       challenges: 'Provide useful feedback without transmitting, storing, or logging the password entered by the visitor.',
       results: 'Checks eight documented weak-pattern categories and delivers four focused routes with interactive lessons, exercises, scenarios, and a locally saved checklist.',
-      demo: 'Open securemepls.vercel.app and use a made-up test password—never a real credential—then explore the Security Guide.',
+      demo: 'Open securemepls.vercel.app and use a made-up test password, never a real credential, then explore the Security Guide.',
       github: 'https://github.com/bonkval/secure-me-pls'
     },
     '/projects/canvas-copy-pasta/': {
@@ -572,7 +570,7 @@
     const animateAura = () => { auraX += (pointerX - auraX) * .12; auraY += (pointerY - auraY) * .12; if (aura) aura.style.transform = `translate3d(${auraX}px,${auraY}px,0)`; requestAnimationFrame(animateAura); };
     animateAura();
 
-    const glyphs = '01/<>[]{}—';
+    const glyphs = '01/<>[]{}-';
     document.querySelectorAll('[data-scramble]').forEach(title => title.addEventListener('pointerenter', () => {
       const finalText = title.dataset.scramble; let frame = 0; clearInterval(title.scrambleTimer);
       title.scrambleTimer = setInterval(() => {
