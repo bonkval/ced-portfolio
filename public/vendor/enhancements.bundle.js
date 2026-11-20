@@ -3176,16 +3176,9 @@ function Da(e) {
 			a(t, e(), n % 2 * .12);
 		}, { amount: .4 });
 	});
-	let o = document.querySelector("#certifications .section-header");
-	if (o && r.length) {
-		let e = document.createElement("button");
-		e.type = "button", e.className = "cert-replay", e.innerHTML = "<span aria-hidden=\"true\">&#8635;</span> Replay", e.setAttribute("aria-label", "Replay certification reveal"), e.addEventListener("click", () => {
-			r.forEach((e, t) => a(e, !0, t * .08));
-		}), o.append(e);
-	}
-	let s = document.querySelector(".footer");
-	s && Q(s, () => {
-		e() && Z(s.children, {
+	let o = document.querySelector(".footer");
+	o && Q(o, () => {
+		e() && Z(o.children, {
 			opacity: [0, 1],
 			y: [12, 0]
 		}, {

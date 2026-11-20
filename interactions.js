@@ -62,19 +62,6 @@ export function initInteractions(enabled) {
   certificates.forEach((card, index) => {
     inView(card, () => { revealCertificate(card, enabled(), index % 2 * .12); }, { amount: .4 });
   });
-  const certificateHeading = document.querySelector('#certifications .section-header');
-  if (certificateHeading && certificates.length) {
-    const replay = document.createElement('button');
-    replay.type = 'button'; replay.className = 'cert-replay';
-    replay.innerHTML = '<span aria-hidden="true">&#8635;</span> Replay';
-    replay.setAttribute('aria-label', 'Replay certification reveal');
-    replay.addEventListener('click', () => {
-      // An explicit replay opts into this one animation, leaving OS preferences intact.
-      certificates.forEach((card, index) => revealCertificate(card, true, index * .08));
-    });
-    certificateHeading.append(replay);
-  }
-
   const footer = document.querySelector('.footer');
   if (footer) inView(footer, () => {
     if (enabled()) animate(footer.children, { opacity: [0, 1], y: [12, 0] }, {
