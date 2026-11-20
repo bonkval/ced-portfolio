@@ -3235,17 +3235,127 @@ function Da(e) {
 	});
 }
 //#endregion
-//#region enhancements.js
-var Oa = document.documentElement, ka = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => Oa.dataset.motion !== "paused";
-$() && Oa.classList.add("js-motion");
-var Aa = document.querySelector(".theme-toggle");
-if (Aa) {
-	let e = document.createElement("div");
-	e.className = "header-actions", Aa.before(e), e.append(Aa);
+//#region cat-investigation.js
+var Oa = "<svg viewBox=\"0 0 32 32\" fill=\"currentColor\" aria-hidden=\"true\"><ellipse cx=\"16\" cy=\"22\" rx=\"8\" ry=\"6\"/><ellipse cx=\"7\" cy=\"13\" rx=\"3\" ry=\"4\" transform=\"rotate(-25 7 13)\"/><ellipse cx=\"14\" cy=\"8\" rx=\"3\" ry=\"4\"/><ellipse cx=\"22\" cy=\"9\" rx=\"3\" ry=\"4\"/><ellipse cx=\"27\" cy=\"15\" rx=\"3\" ry=\"4\" transform=\"rotate(25 27 15)\"/></svg>";
+function ka(e) {
+	let t = document.querySelector(".hero .profile-wrap"), n = document.querySelector(".hero .about-copy");
+	if (!t || !n) return;
+	t.tabIndex = 0, t.setAttribute("role", "button"), t.setAttribute("aria-label", "Reveal the hidden cat. Activate again to follow it.");
+	let r = document.createElement("button");
+	r.className = "cat-hint", r.type = "button", r.innerHTML = `${Oa}<span>Find the cat</span>`, t.after(r);
+	let i = document.createElement("button");
+	i.type = "button", i.className = "cat-folder", i.hidden = !0, i.innerHTML = "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path d=\"M3 7V5h7l2 2h9v13H3Z\"/><path d=\"M3 10h18\"/></svg><span>Sealed note</span>", i.setAttribute("aria-expanded", "false"), i.setAttribute("aria-controls", "cat-case"), n.append(i);
+	let a = document.createElement("section");
+	a.id = "cat-case", a.className = "cat-case", a.hidden = !0, a.setAttribute("aria-labelledby", "cat-case-title"), a.innerHTML = "<div><p class=\"interaction-label\">Recovered note</p><h2 id=\"cat-case-title\">The cat stayed.</h2><p>The portrait and the cat behind it were part of the original portfolio. During the redesign, the original mosaic hover was restored and the extra particles over the portrait were removed.</p><a class=\"text-link\" href=\"https://github.com/bonkval/ced-portfolio/commit/315ac3b\" target=\"_blank\" rel=\"noopener noreferrer\">Portfolio redesign source &nearr;</a></div><div class=\"cat-terminal\"><span>cat /notes/portfolio</span><pre>Mosaic reveal: preserved\nFace particles: removed\nVerdict: keep the cat.</pre><small>A fictional terminal, a real design decision.</small></div>", n.after(a);
+	let o = document.createElement("span");
+	o.className = "sr-only", o.setAttribute("role", "status"), n.append(o);
+	let s = !1, c, l, u = !1;
+	try {
+		u = sessionStorage.getItem("portfolio-cat-found") === "yes";
+	} catch {}
+	function d() {
+		r.querySelector("span").textContent = "Cat found", i.hidden = !1;
+	}
+	u && d();
+	function f() {
+		clearTimeout(c), s = !1, l?.remove(), u = !0, d();
+		try {
+			sessionStorage.setItem("portfolio-cat-found", "yes");
+		} catch {}
+		a.hidden = !1, i.setAttribute("aria-expanded", "true"), i.querySelector("span").textContent = "Cat found", o.textContent = "Cat found. Recovered note opened below the contact links.";
+	}
+	function p() {
+		if (s) return;
+		if (u) {
+			a.hidden = !a.hidden, i.setAttribute("aria-expanded", String(!a.hidden));
+			return;
+		}
+		if (s = !0, i.hidden = !1, !e()) {
+			f();
+			return;
+		}
+		let n = t.getBoundingClientRect(), r = i.getBoundingClientRect();
+		l = document.createElement("div"), l.className = "cat-paw-trail", l.setAttribute("aria-hidden", "true"), document.body.append(l);
+		let o = {
+			x: n.left + n.width * .6,
+			y: n.bottom - 15
+		}, d = {
+			x: r.left + r.width * .5,
+			y: r.top + r.height * .5
+		};
+		for (let e = 0; e < 10; e++) {
+			let t = e / 9, n = document.createElement("span");
+			n.innerHTML = Oa;
+			let r = o.x + (d.x - o.x) * t + Math.sin(t * Math.PI) * -55, i = o.y + (d.y - o.y) * t + (e % 2 ? 6 : -6);
+			n.style.left = `${r}px`, n.style.top = `${i}px`, n.style.rotate = `${-25 + t * 70}deg`, l.append(n), n.animate([
+				{
+					opacity: 0,
+					scale: .65
+				},
+				{
+					opacity: .7,
+					scale: 1,
+					offset: .25
+				},
+				{
+					opacity: 0,
+					scale: 1.1
+				}
+			], {
+				duration: 700,
+				delay: e * 115,
+				fill: "both",
+				easing: "ease-out"
+			});
+			let a = document.createElement("i");
+			a.className = "cat-ascii-disturbance", a.textContent = " : / + : ", a.style.left = `${r - 20}px`, a.style.top = `${i + 12}px`, l.append(a), a.animate([
+				{
+					opacity: 0,
+					translate: "0 0"
+				},
+				{
+					opacity: .5,
+					offset: .3
+				},
+				{
+					opacity: 0,
+					translate: "0 12px"
+				}
+			], {
+				duration: 650,
+				delay: e * 115,
+				fill: "both"
+			});
+		}
+		c = setTimeout(f, 1800);
+	}
+	function m() {
+		if (t.classList.contains("cat-peek")) {
+			p();
+			return;
+		}
+		t.classList.add("cat-peek"), t.setAttribute("aria-label", "Follow the revealed cat to its hidden note."), r.querySelector("span").textContent = u ? "Cat found" : "Follow the cat";
+	}
+	r.addEventListener("click", () => u ? p() : m()), t.addEventListener("click", (e) => {
+		e.pointerType === "mouse" ? p() : m();
+	}), t.addEventListener("keydown", (e) => {
+		(e.key === "Enter" || e.key === " ") && (e.preventDefault(), m());
+	}), i.addEventListener("click", () => s ? f() : p()), document.addEventListener("visibilitychange", () => {
+		document.hidden && s && (clearTimeout(c), l?.remove(), s = !1);
+	});
 }
-ka.addEventListener("change", () => {
-	Oa.dataset.motion = ka.matches ? "paused" : "full", Oa.classList.toggle("js-motion", !ka.matches), document.dispatchEvent(new Event("portfolio:motion"));
-}), Ta($), Ea($), Da($), document.querySelectorAll("[data-project-rail]").forEach((e, t) => {
+//#endregion
+//#region enhancements.js
+var Aa = document.documentElement, ja = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => Aa.dataset.motion !== "paused";
+$() && Aa.classList.add("js-motion");
+var Ma = document.querySelector(".theme-toggle");
+if (Ma) {
+	let e = document.createElement("div");
+	e.className = "header-actions", Ma.before(e), e.append(Ma);
+}
+ja.addEventListener("change", () => {
+	Aa.dataset.motion = ja.matches ? "paused" : "full", Aa.classList.toggle("js-motion", !ja.matches), document.dispatchEvent(new Event("portfolio:motion"));
+}), Ta($), Ea($), Da($), ka($), document.querySelectorAll("[data-project-rail]").forEach((e, t) => {
 	let n = [...e.querySelectorAll(":scope > a")];
 	if (n.length < 2) return;
 	e.id ||= `project-rail-${t + 1}`, e.tabIndex = 0, e.setAttribute("role", "region"), e.setAttribute("aria-roledescription", "carousel");
@@ -3386,9 +3496,9 @@ ka.addEventListener("change", () => {
 		_(), y();
 	}).observe(e), y();
 });
-var ja = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Ma = ja.map((e) => document.querySelector(e.hash)).filter(Boolean), Na = new IntersectionObserver((e) => {
+var Na = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Pa = Na.map((e) => document.querySelector(e.hash)).filter(Boolean), Fa = new IntersectionObserver((e) => {
 	e.forEach((e) => {
-		e.isIntersecting && ja.forEach((t) => {
+		e.isIntersecting && Na.forEach((t) => {
 			t.hash === `#${e.target.id}` ? t.setAttribute("aria-current", "location") : t.removeAttribute("aria-current");
 		});
 	});
@@ -3396,7 +3506,7 @@ var ja = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Ma = ja.map
 	rootMargin: "-15% 0px -60% 0px",
 	threshold: 0
 });
-Ma.forEach((e) => Na.observe(e)), document.addEventListener("keydown", (e) => {
+Pa.forEach((e) => Fa.observe(e)), document.addEventListener("keydown", (e) => {
 	if (e.key !== "Escape") return;
 	let t = document.querySelector(".menu-button");
 	t?.getAttribute("aria-expanded") === "true" && (t.click(), t.focus());

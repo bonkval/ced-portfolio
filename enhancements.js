@@ -2,6 +2,7 @@ import { animate, inView } from 'motion';
 import { initAscii } from './ascii.js';
 import { initCinematic } from './cinematic.js';
 import { initInteractions } from './interactions.js';
+import { initCatInvestigation } from './cat-investigation.js';
 
 const root = document.documentElement;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -24,6 +25,7 @@ reducedMotion.addEventListener('change', () => {
 initAscii(motionEnabled);
 initCinematic(motionEnabled);
 initInteractions(motionEnabled);
+initCatInvestigation(motionEnabled);
 
 // Native scrolling remains available for trackpads, touch and the scrollbar.
 document.querySelectorAll('[data-project-rail]').forEach((rail, railIndex) => {
