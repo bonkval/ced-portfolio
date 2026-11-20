@@ -3220,16 +3220,53 @@ function Da(e) {
 	});
 }
 //#endregion
-//#region enhancements.js
-var Oa = document.documentElement, ka = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => Oa.dataset.motion !== "paused";
-$() && Oa.classList.add("js-motion");
-var Aa = document.querySelector(".theme-toggle");
-if (Aa) {
-	let e = document.createElement("div");
-	e.className = "header-actions", Aa.before(e), e.append(Aa);
+//#region music.js
+function Oa() {
+	let e = document.querySelector(".header-actions");
+	if (!e) return;
+	let t = "0UOG0zUn7t8m8QcxfzR7AH", n = `https://open.spotify.com/track/${t}`, r = document.createElement("button");
+	r.type = "button", r.className = "music-toggle", r.innerHTML = "<span aria-hidden=\"true\">&#9834;</span>", r.setAttribute("aria-label", "Open Spotify music player"), r.setAttribute("aria-expanded", "false"), r.setAttribute("aria-controls", "portfolio-music"), r.title = "Music: Bleachers", e.prepend(r);
+	let i = document.createElement("section");
+	i.id = "portfolio-music", i.className = "music-panel", i.hidden = !0, i.setAttribute("role", "dialog"), i.setAttribute("aria-label", "Spotify music player"), i.innerHTML = "<header><h2>Music</h2><button type=\"button\" class=\"music-close\" aria-label=\"Close music player and stop playback\">&#215;</button></header><p class=\"music-status\" role=\"status\"></p><div class=\"music-frame\"></div><a class=\"music-spotify-link\" target=\"_blank\" rel=\"noopener noreferrer\">Open in Spotify &nearr;</a>", i.querySelector("a").href = n;
+	let a = i.querySelector(".music-frame"), o = i.querySelector("button");
+	document.body.append(i);
+	let s, c = !1;
+	function l(e = !0) {
+		s?.cancel(), c = !1, a.replaceChildren(), i.hidden = !0, r.setAttribute("aria-expanded", "false"), r.setAttribute("aria-label", "Open Spotify music player"), r.innerHTML = "<span aria-hidden=\"true\">&#9834;</span>", r.title = "Music: Bleachers", e && r.focus({ preventScroll: !0 });
+	}
+	function u() {
+		s?.cancel(), c = !0, i.hidden = !1, r.setAttribute("aria-expanded", "true"), r.setAttribute("aria-label", "Close music player and stop playback"), r.innerHTML = "<span aria-hidden=\"true\">&#215;</span>", r.title = "Close player and stop music";
+		let e = document.createElement("iframe"), n = i.querySelector(".music-status");
+		n.textContent = "Loading Spotify…", e.title = "Merry Christmas, Please Don't Call by Bleachers — Spotify player", e.src = `https://open.spotify.com/embed/track/${t}?utm_source=generator&theme=0`, e.width = "100%", e.height = "152", e.allow = "autoplay; encrypted-media", e.referrerPolicy = "strict-origin-when-cross-origin", e.addEventListener("load", () => {
+			c && (n.textContent = "Press Play in Spotify to listen.");
+		}), a.replaceChildren(e);
+		let l = matchMedia("(prefers-reduced-motion: reduce)").matches;
+		s = i.animate(l ? [{ opacity: 0 }, { opacity: 1 }] : [{
+			opacity: 0,
+			transform: "translateY(-8px) scale(.97)"
+		}, {
+			opacity: 1,
+			transform: "translateY(0) scale(1)"
+		}], {
+			duration: l ? 120 : 260,
+			easing: "cubic-bezier(.16,1,.3,1)"
+		}), o.focus({ preventScroll: !0 });
+	}
+	r.addEventListener("click", () => c ? l() : u()), o.addEventListener("click", () => l()), document.addEventListener("keydown", (e) => {
+		e.key === "Escape" && c && (e.preventDefault(), l());
+	}), addEventListener("pagehide", () => l(!1));
 }
-ka.addEventListener("change", () => {
-	Oa.dataset.motion = ka.matches ? "paused" : "full", Oa.classList.toggle("js-motion", !ka.matches), document.dispatchEvent(new Event("portfolio:motion"));
+//#endregion
+//#region enhancements.js
+var ka = document.documentElement, Aa = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => ka.dataset.motion !== "paused";
+$() && ka.classList.add("js-motion");
+var ja = document.querySelector(".theme-toggle");
+if (ja) {
+	let e = document.createElement("div");
+	e.className = "header-actions", ja.before(e), e.append(ja);
+}
+Oa(), Aa.addEventListener("change", () => {
+	ka.dataset.motion = Aa.matches ? "paused" : "full", ka.classList.toggle("js-motion", !Aa.matches), document.dispatchEvent(new Event("portfolio:motion"));
 }), Ta($), Ea($), Da($), document.querySelectorAll("[data-project-rail]").forEach((e, t) => {
 	let n = [...e.querySelectorAll(":scope > a")];
 	if (n.length < 2) return;
@@ -3371,9 +3408,9 @@ ka.addEventListener("change", () => {
 		_(), y();
 	}).observe(e), y();
 });
-var ja = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Ma = ja.map((e) => document.querySelector(e.hash)).filter(Boolean), Na = new IntersectionObserver((e) => {
+var Ma = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Na = Ma.map((e) => document.querySelector(e.hash)).filter(Boolean), Pa = new IntersectionObserver((e) => {
 	e.forEach((e) => {
-		e.isIntersecting && ja.forEach((t) => {
+		e.isIntersecting && Ma.forEach((t) => {
 			t.hash === `#${e.target.id}` ? t.setAttribute("aria-current", "location") : t.removeAttribute("aria-current");
 		});
 	});
@@ -3381,7 +3418,7 @@ var ja = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Ma = ja.map
 	rootMargin: "-15% 0px -60% 0px",
 	threshold: 0
 });
-Ma.forEach((e) => Na.observe(e)), document.addEventListener("keydown", (e) => {
+Na.forEach((e) => Pa.observe(e)), document.addEventListener("keydown", (e) => {
 	if (e.key !== "Escape") return;
 	let t = document.querySelector(".menu-button");
 	t?.getAttribute("aria-expanded") === "true" && (t.click(), t.focus());
