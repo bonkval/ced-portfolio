@@ -3227,11 +3227,14 @@ function Oa() {
 	let t = "0UOG0zUn7t8m8QcxfzR7AH", n = `https://open.spotify.com/track/${t}`, r = document.createElement("button");
 	r.type = "button", r.className = "music-toggle", r.innerHTML = "<span aria-hidden=\"true\">&#9834;</span>", r.setAttribute("aria-label", "Open Spotify music player"), r.setAttribute("aria-expanded", "false"), r.setAttribute("aria-controls", "portfolio-music"), r.title = "Music: Bleachers", e.prepend(r);
 	let i = document.createElement("section");
-	i.id = "portfolio-music", i.className = "music-panel", i.hidden = !0, i.setAttribute("role", "dialog"), i.setAttribute("aria-label", "Spotify music player"), i.innerHTML = "<header><h2>Music</h2><button type=\"button\" class=\"music-close\" aria-label=\"Close music player and stop playback\">&#215;</button></header><p class=\"music-status\" role=\"status\"></p><div class=\"music-frame\"></div><a class=\"music-spotify-link\" target=\"_blank\" rel=\"noopener noreferrer\">Open in Spotify &nearr;</a>", i.querySelector("a").href = n;
+	i.id = "portfolio-music", i.className = "music-panel", i.hidden = !0, i.setAttribute("role", "region"), i.setAttribute("aria-label", "Spotify music player"), i.innerHTML = "<header><h2>Music</h2><button type=\"button\" class=\"music-close\" aria-label=\"Close music player and stop playback\">&#215;</button></header><p class=\"music-status\" role=\"status\"></p><div class=\"music-frame\"></div><a class=\"music-spotify-link\" target=\"_blank\" rel=\"noopener noreferrer\">Open in Spotify &nearr;</a>", i.querySelector("a").href = n;
 	let a = i.querySelector(".music-frame"), o = i.querySelector("button");
 	document.body.append(i);
 	let s, c = !1, l, u = 0, d, f;
-	function p() {
+	function p(e = !1) {
+		!c || i.hidden || (s?.cancel(), i.hidden = !0, r.setAttribute("aria-expanded", "false"), r.setAttribute("aria-label", "Show music controls"), r.innerHTML = "<span aria-hidden=\"true\">&#9834;</span>", r.title = "Music playing - show controls", (e || i.contains(document.activeElement)) && r.focus({ preventScroll: !0 }));
+	}
+	function m() {
 		return f || (f = new Promise((e, t) => {
 			let n = setTimeout(() => t(/* @__PURE__ */ Error("Spotify API timed out")), 1e4);
 			window.onSpotifyIframeApiReady = (t) => {
@@ -3243,7 +3246,7 @@ function Oa() {
 			}, document.head.append(r);
 		}), f);
 	}
-	function m(e = !0) {
+	function h(e = !0) {
 		if (s?.cancel(), c = !1, u++, clearTimeout(d), l) {
 			try {
 				l.pause(), l.destroy();
@@ -3252,14 +3255,18 @@ function Oa() {
 		}
 		a.replaceChildren(), i.hidden = !0, r.setAttribute("aria-expanded", "false"), r.setAttribute("aria-label", "Open Spotify music player"), r.innerHTML = "<span aria-hidden=\"true\">&#9834;</span>", r.title = "Music: Bleachers", e && r.focus({ preventScroll: !0 });
 	}
-	function h() {
-		s?.cancel(), c = !0, i.hidden = !1;
+	function g() {
+		if (s?.cancel(), c) {
+			i.hidden = !1, r.setAttribute("aria-expanded", "true"), r.setAttribute("aria-label", "Minimize music controls"), r.title = "Minimize controls - keep music playing";
+			return;
+		}
+		c = !0, i.hidden = !1;
 		let e = ++u;
-		r.setAttribute("aria-expanded", "true"), r.setAttribute("aria-label", "Close music player and stop playback"), r.innerHTML = "<span aria-hidden=\"true\">&#215;</span>", r.title = "Close player and stop music";
-		let f = document.createElement("iframe"), m = i.querySelector(".music-status");
-		m.textContent = "Loading Spotify…", f.title = "Merry Christmas, Please Don't Call by Bleachers — Spotify player", f.src = `https://open.spotify.com/embed/track/${t}?utm_source=generator&theme=0`, f.width = "100%", f.height = "152", f.allow = "autoplay; encrypted-media", f.referrerPolicy = "strict-origin-when-cross-origin", f.addEventListener("load", () => {
-			c && u === e && (m.textContent = "Starting music. If it stays silent, press Play below.");
-		}), a.replaceChildren(), p().then((t) => {
+		r.setAttribute("aria-expanded", "true"), r.setAttribute("aria-label", "Minimize music controls"), r.innerHTML = "<span aria-hidden=\"true\">&#215;</span>", r.title = "Minimize controls - keep music playing";
+		let f = document.createElement("iframe"), p = i.querySelector(".music-status");
+		p.textContent = "Loading Spotify…", f.title = "Merry Christmas, Please Don't Call by Bleachers — Spotify player", f.src = `https://open.spotify.com/embed/track/${t}?utm_source=generator&theme=0`, f.width = "100%", f.height = "152", f.allow = "autoplay; encrypted-media", f.referrerPolicy = "strict-origin-when-cross-origin", f.addEventListener("load", () => {
+			c && u === e && (p.textContent = "Starting music. If it stays silent, press Play below.");
+		}), a.replaceChildren(), m().then((t) => {
 			if (!c || u !== e) return;
 			let r = document.createElement("div");
 			a.replaceChildren(r);
@@ -3277,27 +3284,27 @@ function Oa() {
 					let n = a.querySelector("iframe");
 					n && (n.title = f.title, n.allow = "autoplay; encrypted-media"), t.addListener("ready", () => {
 						if (!(!c || u !== e)) {
-							m.textContent = "Starting music. If it stays silent, press Play below.";
+							p.textContent = "Starting music. If it stays silent, press Play below.";
 							try {
 								t.play();
 							} catch {
-								m.textContent = "Press Play in Spotify to listen.";
+								p.textContent = "Press Play in Spotify to listen.";
 							}
 							d = setTimeout(() => {
-								c && u === e && (m.textContent = "If the music is silent, press Play below.");
+								c && u === e && (p.textContent = "If the music is silent, press Play below.");
 							}, 4e3);
 						}
 					}), t.addListener("playback_started", () => {
-						!c || u !== e || (clearTimeout(d), m.textContent = "Playing Bleachers via Spotify.");
+						!c || u !== e || (clearTimeout(d), p.textContent = "Playing Bleachers via Spotify.");
 					}), t.addListener("playback_update", (t) => {
-						!c || u !== e || (!t.data.isPaused && !t.data.isBuffering ? (clearTimeout(d), m.textContent = "Playing Bleachers via Spotify.") : t.data.isPaused && (m.textContent = "Paused. Press Play below to resume."));
+						!c || u !== e || (!t.data.isPaused && !t.data.isBuffering ? (clearTimeout(d), p.textContent = "Playing Bleachers via Spotify.") : t.data.isPaused && (p.textContent = "Paused. Press Play below to resume."));
 					});
 				});
 			} catch {
-				a.replaceChildren(f), m.textContent = "Press Play in Spotify to listen.";
+				a.replaceChildren(f), p.textContent = "Press Play in Spotify to listen.";
 			}
 		}).catch(() => {
-			c && u === e && (a.replaceChildren(f), m.textContent = "Press Play in Spotify to listen.");
+			c && u === e && (a.replaceChildren(f), p.textContent = "Press Play in Spotify to listen.");
 		});
 		let h = matchMedia("(prefers-reduced-motion: reduce)").matches;
 		s = i.animate(h ? [{ opacity: 0 }, { opacity: 1 }] : [{
@@ -3311,9 +3318,11 @@ function Oa() {
 			easing: "cubic-bezier(.16,1,.3,1)"
 		}), o.focus({ preventScroll: !0 });
 	}
-	r.addEventListener("click", () => c ? m() : h()), o.addEventListener("click", () => m()), document.addEventListener("keydown", (e) => {
-		e.key === "Escape" && c && (e.preventDefault(), m());
-	}), addEventListener("pagehide", () => m(!1));
+	r.addEventListener("click", () => c && !i.hidden ? p(!0) : g()), document.addEventListener("pointerdown", (e) => {
+		!i.contains(e.target) && !r.contains(e.target) && p();
+	}), addEventListener("scroll", () => p(), { passive: !0 }), o.addEventListener("click", () => h()), document.addEventListener("keydown", (e) => {
+		e.key === "Escape" && c && (e.preventDefault(), p(!0));
+	}), addEventListener("pagehide", () => h(!1));
 }
 //#endregion
 //#region enhancements.js

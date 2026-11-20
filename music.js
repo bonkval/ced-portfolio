@@ -15,7 +15,7 @@ export function initMusicPlayer() {
 
   const panel = document.createElement('section');
   panel.id = 'portfolio-music'; panel.className = 'music-panel'; panel.hidden = true;
-  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('role', 'region');
   panel.setAttribute('aria-label', 'Spotify music player');
   panel.innerHTML = '<header><h2>Music</h2><button type="button" class="music-close" aria-label="Close music player and stop playback">&#215;</button></header><p class="music-status" role="status"></p><div class="music-frame"></div><a class="music-spotify-link" target="_blank" rel="noopener noreferrer">Open in Spotify &nearr;</a>';
   panel.querySelector('a').href = trackUrl;
@@ -28,6 +28,16 @@ export function initMusicPlayer() {
   let session = 0;
   let playbackTimer;
   let apiPromise;
+  function minimize(restoreFocus = false) {
+    if (!open || panel.hidden) return;
+    animation?.cancel();
+    panel.hidden = true;
+    button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('aria-label', 'Show music controls');
+    button.innerHTML = '<span aria-hidden="true">&#9834;</span>';
+    button.title = 'Music playing - show controls';
+    if (restoreFocus || panel.contains(document.activeElement)) button.focus({ preventScroll: true });
+  }
   function loadApi() {
     if (apiPromise) return apiPromise;
     apiPromise = new Promise((resolve, reject) => {
@@ -58,12 +68,19 @@ export function initMusicPlayer() {
   }
   function show() {
     animation?.cancel();
+    if (open) {
+      panel.hidden = false;
+      button.setAttribute('aria-expanded', 'true');
+      button.setAttribute('aria-label', 'Minimize music controls');
+      button.title = 'Minimize controls - keep music playing';
+      return;
+    }
     open = true; panel.hidden = false;
     const currentSession = ++session;
     button.setAttribute('aria-expanded', 'true');
-    button.setAttribute('aria-label', 'Close music player and stop playback');
+    button.setAttribute('aria-label', 'Minimize music controls');
     button.innerHTML = '<span aria-hidden="true">&#215;</span>';
-    button.title = 'Close player and stop music';
+    button.title = 'Minimize controls - keep music playing';
     const frame = document.createElement('iframe');
     const status = panel.querySelector('.music-status');
     status.textContent = 'Loading Spotify…';
@@ -122,10 +139,15 @@ export function initMusicPlayer() {
     ], {duration:quiet ? 120 : 260, easing:'cubic-bezier(.16,1,.3,1)'});
     closeButton.focus({ preventScroll:true });
   }
-  button.addEventListener('click', () => open ? close() : show());
+  button.addEventListener('click', () => open && !panel.hidden ? minimize(true) : show());
+  // Collapse controls without unloading the Spotify frame or interrupting playback.
+  document.addEventListener('pointerdown', event => {
+    if (!panel.contains(event.target) && !button.contains(event.target)) minimize();
+  });
+  addEventListener('scroll', () => minimize(), { passive: true });
   closeButton.addEventListener('click', () => close());
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && open) { event.preventDefault(); close(); }
+    if (event.key === 'Escape' && open) { event.preventDefault(); minimize(true); }
   });
   addEventListener('pagehide', () => close(false));
 }
