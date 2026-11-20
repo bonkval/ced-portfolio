@@ -16,7 +16,7 @@ export function initCatInvestigation(enabled) {
   let phase='closed',round=0,cat=0,slots=[0,1,2],timers=[];
   const schedule=(fn,delay)=>{const timer=setTimeout(fn,delay);timers.push(timer);};
   function cancel(){timers.forEach(clearTimeout);timers=[];}
-  function position(){boxes.forEach((box,id)=>{box.style.setProperty('--cat-slot',slots[id]);box.setAttribute('aria-label',`Open the ${['left','middle','right'][slots[id]]} box`);});}
+  function position(){boxes.forEach((box,id)=>{box.style.setProperty('--cat-slot',slots[id]);box.setAttribute('aria-label',`Open the ${['left','middle','right'][slots[id]]} box`);box.querySelector('.cat-box-number').textContent=String(slots[id]+1);});}
   function progress(){game.querySelectorAll('[data-cat-score]').forEach((node,i)=>node.classList.toggle('is-earned',i<round));game.querySelector('.cat-game-score').setAttribute('aria-label',`${round} of 3 rounds complete`);}
   function prepare(){
     cancel();phase='preview';cat=Math.floor(Math.random()*3);slots=[0,1,2];
