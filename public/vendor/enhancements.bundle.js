@@ -3274,7 +3274,22 @@ function ja(e) {
 		i.finished.then(a, a);
 	}
 	function y() {
-		if (_(), a.textContent = "Secret discovered. You found the hidden cat game.", !e()) return;
+		if (_(), a.textContent = "Secret discovered. You found the hidden cat game.", !e()) {
+			let e = document.createElement("div");
+			e.className = "cat-secret-note", e.setAttribute("aria-hidden", "true"), e.innerHTML = `${ka}<span><strong>Secret unlocked.</strong><small>You found my hiding spot. Let's play.</small></span>`, document.body.append(e), v(e, [
+				{ opacity: 0 },
+				{
+					opacity: 1,
+					offset: .15
+				},
+				{
+					opacity: 1,
+					offset: .8
+				},
+				{ opacity: 0 }
+			], { duration: 2400 }, !0);
+			return;
+		}
 		let t = n.getBoundingClientRect(), i = document.createElement("div");
 		i.className = "cat-secret-effects", i.setAttribute("aria-hidden", "true"), i.style.left = `${t.left + t.width / 2}px`, i.style.top = `${t.top + t.height / 2}px`;
 		let o = document.createElement("span");
@@ -3320,24 +3335,24 @@ function ja(e) {
 			easing: "ease-out"
 		}), v(i, [{ opacity: 1 }, { opacity: 0 }], { duration: 1700 }, !0);
 		let s = document.createElement("div");
-		s.className = "cat-secret-note", s.setAttribute("aria-hidden", "true"), s.innerHTML = `${ka}<span><strong>Psst… you found me.</strong><small>This little corner is yours to explore.</small></span>`, document.body.append(s), v(s, [
+		s.className = "cat-secret-note", s.setAttribute("aria-hidden", "true"), s.innerHTML = `${ka}<span><strong>Psst… you found me.</strong><small>You found my hiding spot. Let's play.</small></span>`, document.body.append(s), v(s, [
 			{
 				opacity: 0,
-				transform: "translate(-50%,14px) scale(.97)"
+				transform: "translate(-50%,-40%) scale(.8) rotate(-4deg)"
 			},
 			{
 				opacity: 1,
-				transform: "translate(-50%,0) scale(1)",
+				transform: "translate(-50%,-50%) scale(1)",
 				offset: .14
 			},
 			{
 				opacity: 1,
-				transform: "translate(-50%,0) scale(1)",
+				transform: "translate(-50%,-50%) scale(1)",
 				offset: .82
 			},
 			{
 				opacity: 0,
-				transform: "translate(-50%,-6px) scale(.99)"
+				transform: "translate(-50%,-60%) scale(1.05)"
 			}
 		], {
 			duration: 3e3,
@@ -3472,7 +3487,9 @@ function ja(e) {
 		});
 	});
 	function O() {
-		S(), b(), _(), l = "closed", r.hidden = !0, a.textContent = "", n.setAttribute("aria-expanded", "false"), n.focus({ preventScroll: !0 });
+		S(), b(), _(), l = "closed", r.hidden = !0, a.textContent = "", n.setAttribute("aria-expanded", "false"), n.focus({ preventScroll: !0 }), t.classList.remove("cat-peek"), t.querySelectorAll(".profile-mosaic i").forEach((e) => {
+			e.style.setProperty("--tile-opacity", "0"), e.style.setProperty("--tile-scale", ".72"), e.dataset.visible = "false";
+		});
 	}
 	r.querySelector(".cat-game-close").addEventListener("click", O), r.addEventListener("keydown", (e) => {
 		e.key === "Escape" && (e.preventDefault(), O());

@@ -28,7 +28,13 @@ export function initCatInvestigation(enabled) {
   }
   function revealSecret(){
     stopDiscovery();announcement.textContent='Secret discovered. You found the hidden cat game.';
-    if(!enabled())return;
+    if(!enabled()){
+      const note=document.createElement('div');note.className='cat-secret-note';note.setAttribute('aria-hidden','true');
+      note.innerHTML=`${paw}<span><strong>Secret unlocked.</strong><small>You found my hiding spot. Let's play.</small></span>`;
+      document.body.append(note);
+      revealMotion(note,[{opacity:0},{opacity:1,offset:.15},{opacity:1,offset:.8},{opacity:0}],{duration:2400},true);
+      return;
+    }
     const rect=trigger.getBoundingClientRect();
     const origin=document.createElement('div');origin.className='cat-secret-effects';origin.setAttribute('aria-hidden','true');
     origin.style.left=`${rect.left+rect.width/2}px`;origin.style.top=`${rect.top+rect.height/2}px`;
@@ -42,9 +48,9 @@ export function initCatInvestigation(enabled) {
     revealMotion(ring,[{opacity:0,transform:'translate(-50%,-50%) scale(.25)'},{opacity:.7,offset:.15},{opacity:0,transform:'translate(-50%,-50%) scale(1.5)'}],{duration:1400,easing:'ease-out'});
     revealMotion(origin,[{opacity:1},{opacity:0}],{duration:1700},true);
     const note=document.createElement('div');note.className='cat-secret-note';note.setAttribute('aria-hidden','true');
-    note.innerHTML=`${paw}<span><strong>Psst… you found me.</strong><small>This little corner is yours to explore.</small></span>`;
+    note.innerHTML=`${paw}<span><strong>Psst… you found me.</strong><small>You found my hiding spot. Let's play.</small></span>`;
     document.body.append(note);
-    revealMotion(note,[{opacity:0,transform:'translate(-50%,14px) scale(.97)'},{opacity:1,transform:'translate(-50%,0) scale(1)',offset:.14},{opacity:1,transform:'translate(-50%,0) scale(1)',offset:.82},{opacity:0,transform:'translate(-50%,-6px) scale(.99)'}],{duration:3000,easing:'cubic-bezier(.16,1,.3,1)'},true);
+    revealMotion(note,[{opacity:0,transform:'translate(-50%,-40%) scale(.8) rotate(-4deg)'},{opacity:1,transform:'translate(-50%,-50%) scale(1)',offset:.14},{opacity:1,transform:'translate(-50%,-50%) scale(1)',offset:.82},{opacity:0,transform:'translate(-50%,-60%) scale(1.05)'}],{duration:3000,easing:'cubic-bezier(.16,1,.3,1)'},true);
     revealMotion(game,[{opacity:0,transform:'translateY(16px) scale(.985)'},{opacity:1,transform:'translateY(0) scale(1)'}],{duration:550,easing:'cubic-bezier(.16,1,.3,1)'});
   }
   function stopMotions(){motions.forEach(animation=>animation.cancel());motions.clear();}
@@ -124,7 +130,9 @@ export function initCatInvestigation(enabled) {
       const next=candidates[(candidates.indexOf(box)+(event.key==='ArrowRight'?1:candidates.length-1))%candidates.length];next?.focus();
     });
   });
-  function close(){cancel();stopMotions();stopDiscovery();phase='closed';game.hidden=true;announcement.textContent='';trigger.setAttribute('aria-expanded','false');trigger.focus({preventScroll:true});}
+  function close(){cancel();stopMotions();stopDiscovery();phase='closed';game.hidden=true;announcement.textContent='';trigger.setAttribute('aria-expanded','false');trigger.focus({preventScroll:true});portrait.classList.remove('cat-peek');
+    portrait.querySelectorAll('.profile-mosaic i').forEach(tile=>{tile.style.setProperty('--tile-opacity','0');tile.style.setProperty('--tile-scale','.72');tile.dataset.visible='false';});
+  }
   game.querySelector('.cat-game-close').addEventListener('click',close);
   game.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();close();}});
   trigger.addEventListener('focus',()=>portrait.classList.add('cat-peek'));

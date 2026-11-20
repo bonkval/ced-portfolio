@@ -836,3 +836,13 @@ html.js-motion .reveal:not(.visible) { opacity: 0; transform: translateY(30px); 
 
 /* Vector arrows keep their shape and inherit text color on every platform. */
 .ui-arrow{display:inline-block;width:1em;height:1em;vertical-align:-.12em;flex-shrink:0;pointer-events:none}
+
+/* The discovery is a brief, unmistakable reveal, anchored above the page. */
+.cat-secret-note{top:50%;bottom:auto;z-index:10001;transform:translate(-50%,-50%);padding:28px 34px;gap:22px;border-color:#d4af67;box-shadow:0 0 0 100vmax #0009,0 0 80px #d4af6740;isolation:isolate}
+.cat-secret-note>svg{width:46px;height:46px;flex-basis:46px;color:#c39443}
+.cat-secret-note strong{font-size:clamp(23px,5vw,34px);letter-spacing:-.04em}
+.cat-secret-note small{font-size:13px}
+.cat-secret-effects{z-index:10002;color:#dbb66d}
+.cat-secret-ring{width:250px;height:250px;border-width:2px}
+.cat-secret-paw{width:28px;height:28px}
+@media(max-width:600px){.cat-secret-note{padding:22px;gap:14px}.cat-secret-note small{font-size:11px}}
