@@ -7,7 +7,7 @@ export function initSecurityLab(enabled){
   const anchor=document.querySelector('#skills');if(!anchor)return;
   const section=document.createElement('section');section.id='security-lab';section.className='security-lab signal-arcade page-width';section.setAttribute('aria-labelledby','signal-arcade-title');
   section.innerHTML=`<header class="arcade-heading"><div><h2 id="signal-arcade-title">Signal Chase</h2><p>Catch diamonds, dodge decoys, and survive an ever-faster signal storm.</p></div><div class="arcade-scoreboard"><span><small>Score</small><strong data-arcade-score>0</strong></span><span><small>Best</small><strong data-arcade-best>0</strong></span><span class="arcade-combo"><small>Combo</small><strong data-arcade-combo>×1</strong></span></div></header>
-    <div class="arcade-shell"><div class="arcade-toolbar"><span class="arcade-round">Level <strong data-arcade-round>1</strong><span class="arcade-lives" data-arcade-lives>3 lives</span></span><div class="arcade-catch-meter" role="img" aria-label="0 of 6 signals caught">${Array.from({length:6},()=>'<i></i>').join('')}</div><button type="button" class="arcade-motion" aria-pressed="${enabled()}" title="Switch between moving signals and pop-up targets">${enabled()?'Flow mode':'Pop-up mode'}</button><button type="button" class="arcade-pause" disabled>Pause</button></div>
+    <div class="arcade-shell"><div class="arcade-toolbar"><span class="arcade-round">Level <strong data-arcade-round>1</strong><span class="arcade-lives" data-arcade-lives>3 lives</span></span><div class="arcade-catch-meter" role="img" aria-label="0 of 6 signals caught">${Array.from({length:6},()=>'<i></i>').join('')}</div><button type="button" class="arcade-motion" aria-pressed="${enabled()}" title="Switch mode and start a fresh run">${enabled()?'Flow mode':'Pop-up mode'}</button><button type="button" class="arcade-pause" disabled>Pause</button></div>
     <div class="arcade-field" tabindex="0" role="group" aria-label="Signal field. Catch diamonds and leave circles. Up and down choose a lane; Space catches a rogue signal in that lane."><div class="arcade-grid" aria-hidden="true"></div>${[0,1,2].map(row=>`<div class="arcade-lane" data-arcade-lane="${row}"><span class="arcade-lane-label">0${row+1}</span><span class="arcade-lane-wire" aria-hidden="true"></span><span class="arcade-lane-end" aria-hidden="true">⊕</span></div>`).join('')}<div class="arcade-tokens"></div><div class="arcade-fx" aria-hidden="true"></div><div class="arcade-overlay"></div></div>
     <footer class="arcade-footer"><div class="arcade-legend"><span>${diamond}Catch</span><span>${friendly}Leave alone</span></div><span class="arcade-controls-help">Tap targets · ↑ ↓ + Space</span><span class="arcade-status sr-only" role="status"></span></footer></div>
     <details class="arcade-behind"><summary>Behind the signals <span>Packet examples</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m5 8 5 5 5-5"/></svg></summary><div class="arcade-behind-content"><p>Explore the network patterns that inspired the game.</p><div class="arcade-samples" role="group" aria-label="Packet examples"><button type="button" data-arcade-sample="timing" aria-pressed="true">Repeating connections</button><button type="button" data-arcade-sample="dns" aria-pressed="false">Long DNS queries</button></div><div class="arcade-sample-note"></div><div class="arcade-sample-scroll"><table><caption class="sr-only">Browser-only sample packet records</caption><thead><tr><th scope="col">Time</th><th scope="col">Destination</th><th scope="col">Protocol</th><th scope="col">Bytes</th></tr></thead><tbody></tbody></table></div></div></details>`;
@@ -65,10 +65,23 @@ export function initSecurityLab(enabled){
     const loads=[0,1,2].map(row=>existing.filter(token=>token.row===row).length);
     const candidates=[0,1,2].filter(row=>rogue?!existing.some(token=>token.rogue&&token.row===row):loads[row]===Math.min(...loads));
     if(!candidates.length)return;
-    const row=candidates[(serial+round)%candidates.length];node.type='button';node.className=`arcade-token ${rogue?'is-rogue':'is-friendly'}`;node.dataset.arcadeToken=String(id);node.innerHTML=rogue?diamond:friendly;node.setAttribute('aria-label',`${rogue?'Catch rogue':'Leave friendly'} signal in lane ${row+1}`);
+    const availableRows=flowMode?candidates.filter(row=>!existing.some(token=>token.row===row&&token.node.getBoundingClientRect().left<field.getBoundingClientRect().left+90)):candidates;
+    if(!availableRows.length)return;
+    const row=availableRows[Math.floor(Math.random()*availableRows.length)];
+    let popupX;
+    if(!flowMode){
+      // Sample the actual free space, rather than always taking the first of
+      // three slots. Keep the entire 64px touch target clear of its neighbours.
+      const right=Math.max(12,field.clientWidth-76);
+      let gaps=[[12,right]];
+      existing.filter(token=>token.row===row).forEach(token=>{const x=parseFloat(token.node.style.left);gaps=gaps.flatMap(([a,b])=>[[a,Math.min(b,x-76)],[Math.max(a,x+76),b]].filter(([lo,hi])=>hi>lo));});
+      const total=gaps.reduce((sum,[a,b])=>sum+b-a,0);if(!total)return;
+      let pick=Math.random()*total;for(const [a,b] of gaps){if(pick<=b-a){popupX=a+pick;break;}pick-=b-a;}
+    }
+    node.type='button';node.className=`arcade-token ${rogue?'is-rogue':'is-friendly'}`;node.dataset.arcadeToken=String(id);node.innerHTML=rogue?diamond:friendly;node.setAttribute('aria-label',`${rogue?'Catch rogue':'Leave friendly'} signal in lane ${row+1}`);
     const h=field.clientHeight,rowHeight=h/3,width=field.clientWidth,token={id,node,rogue,row,animation:null};tokens.set(id,token);tokensLayer.append(node);node.style.top=`${row*rowHeight+rowHeight/2-32}px`;
-    if(flowMode){node.style.left='-70px';token.animation=node.animate([{transform:'translateX(0)'},{transform:`translateX(${width+140}px)`}],{duration:rogue?difficulty().flow:difficulty().friendly,easing:'linear',fill:'forwards'});}
-    else{const occupied=[...tokens.values()].filter(other=>other!==token&&other.row===row).map(other=>parseFloat(other.node.style.left)),options=[.18,.5,.82].map(value=>Math.max(12,width*value-32)),x=options.find(x=>occupied.every(other=>Math.abs(x-other)>68))??options[0];node.style.left=`${x}px`;token.animation=node.animate([{opacity:0},{opacity:1,offset:.08},{opacity:1,offset:.87},{opacity:0}],{duration:rogue?difficulty().popup:difficulty().friendly,fill:'forwards'});}
+    if(flowMode){node.style.left='-70px';token.animation=node.animate([{transform:'translateX(0)'},{transform:`translateX(${width+140}px)`}],{duration:difficulty().flow,easing:'linear',fill:'forwards'});}
+    else{node.style.left=`${popupX}px`;token.animation=node.animate([{opacity:0},{opacity:1,offset:.08},{opacity:1,offset:.87},{opacity:0}],{duration:rogue?difficulty().popup:difficulty().friendly,fill:'forwards'});}
     token.animation.finished.then(()=>{if(!tokens.has(id))return;tokens.delete(id);node.remove();if(rogue)loseLife('A diamond slipped by.');keepRogues();},()=>{});
   }
   function syncSpawning(){stopSpawning();if(phase!=='playing')return;spawnTimer=setTimeout(()=>{if(tokens.size<7)spawn(false);keepRogues();syncSpawning();},difficulty().interval);}
@@ -79,7 +92,7 @@ export function initSecurityLab(enabled){
     if(phase!=='playing'||!token)return;const rect=token.node.getBoundingClientRect(),bounds=field.getBoundingClientRect(),x=rect.x+rect.width/2-bounds.x,y=rect.y+rect.height/2-bounds.y,quick=Number(token.animation?.currentTime)<1500,hadFocus=document.activeElement===token.node;removeToken(token);
     if(token.rogue){streak++;bestStreak=Math.max(bestStreak,streak);const points=10*Math.min(3,1+Math.floor(streak/3))+(quick?5:0);score+=points;caught++;particleBurst(x,y);toast(`+${points}${quick?' quick':''}${streak>1?' · '+streak+' streak':''}`,x,y);status.textContent=`Caught. ${caught} of 6. ${score} points.`;if(caught===6){finishRound();return;}keepRogues();}
     else{score=Math.max(0,score-5);loseLife('That was a friendly circle.');}
-    updateHUD();if(hadFocus)field.focus({preventScroll:true});
+    updateHUD();if(hadFocus&&phase==='playing')field.focus({preventScroll:true});
   }
   function setPaused(){if(phase!=='playing')return;phase='paused';stopSpawning();tokens.forEach(token=>{token.animation?.pause();token.node.disabled=true;});clearEffects();showOverlay();updateHUD();}
   function resume(){if(phase!=='paused'||document.hidden)return;phase='playing';const empty=tokens.size===0;tokens.forEach(token=>{token.node.disabled=false;token.animation?.play();});showOverlay();updateHUD();if(empty)seedField();else keepRogues();syncSpawning();field.focus({preventScroll:true});}
@@ -122,7 +135,7 @@ export function initSecurityLab(enabled){
     else if(button.hasAttribute('data-arcade-next')){round++;beginRound();}
     else if(button.hasAttribute('data-arcade-resume'))resume();
     else if(button.matches('.arcade-pause')){if(phase==='playing')setPaused();else resume();}
-    else if(button.matches('.arcade-motion')){flowMode=!flowMode;const active=phase==='playing';clearTokens();updateHUD();if(active){seedField();syncSpawning();field.focus({preventScroll:true});}}
+    else if(button.matches('.arcade-motion')){saveBest();flowMode=!flowMode;const wasPaused=phase==='paused';stopSpawning();clearTokens();clearEffects();round=0;caught=0;score=0;streak=0;bestStreak=0;mistakes=0;lives=3;if(phase==='ready'){showOverlay();updateHUD();}else{beginRound();if(wasPaused)setPaused();else toast('New mode. Fresh run!',field.clientWidth/2,65);}}
     else if(button.hasAttribute('data-arcade-confetti'))particleBurst(field.clientWidth/2,65,true);
     else if(button.dataset.arcadeSample)renderSamples(button.dataset.arcadeSample);
   });
