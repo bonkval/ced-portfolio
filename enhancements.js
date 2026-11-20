@@ -5,6 +5,7 @@ import { initInteractions } from './interactions.js';
 import { initCatInvestigation } from './cat-investigation.js';
 import { initSecurityLab } from './security-lab.js';
 import { initProjectConstellation } from './project-constellation.js';
+import { initProjectTimeline } from './project-timeline.js';
 
 const root = document.documentElement;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -30,6 +31,7 @@ initInteractions(motionEnabled);
 initCatInvestigation(motionEnabled);
 initSecurityLab(motionEnabled);
 initProjectConstellation(motionEnabled);
+initProjectTimeline(motionEnabled);
 
 // Native scrolling remains available for trackpads, touch and the scrollbar.
 document.querySelectorAll('[data-project-rail]').forEach((rail, railIndex) => {

@@ -814,3 +814,38 @@ html.js-motion .reveal:not(.visible) { opacity: 0; transform: translateY(30px); 
 .project-explorer-tools button:focus-visible,.project-map button:focus-visible,.project-map-scroll:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 @media(max-width:650px){.project-explorer-tools{gap:12px}.project-skill-filters{order:3;flex-basis:100%;gap:3px}.project-filter-status{font-size:10px}.project-map-preview{grid-template-columns:1fr;gap:16px;padding:18px}.map-preview-links{justify-self:start;gap:10px}.project-map-help{padding:12px 16px;font-size:11px}}
 @media(prefers-reduced-motion:reduce){.project-map-node,.project-skill-filters button{transition:none}}
+
+/* Compact, source-linked milestones. The native range follows touch directly. */
+.project-timeline{margin-top:28px;border:1px solid var(--line);border-radius:10px;background:var(--paper);overflow:hidden}
+.project-timeline summary{display:flex;align-items:center;flex-wrap:wrap;gap:6px 18px;padding:16px 20px;cursor:pointer;list-style:none}
+.project-timeline summary::-webkit-details-marker{display:none}
+.timeline-title{font-size:17px;letter-spacing:-.025em;font-weight:500}
+.timeline-mode{font:10px/1.7 Consolas,monospace;color:var(--muted)}
+.timeline-chevron{margin-left:auto;font-size:18px;transition:rotate .25s}
+.project-timeline[open] .timeline-chevron{rotate:180deg}
+.timeline-body{padding:0 20px 18px}
+.timeline-stage-row{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:center;padding:16px 0;border-top:1px solid var(--line);min-height:175px}
+.timeline-stage h3{font-size:22px;line-height:1.3;letter-spacing:-.035em;margin:0 0 9px}
+.timeline-stage>p:not(.interaction-label){font-size:13px;line-height:1.75;color:var(--muted);max-width:70ch;margin:0 0 12px}
+.timeline-source{display:inline-flex;align-items:center;gap:9px;font-size:11px;border-bottom:1px solid var(--line);line-height:1.8}
+.timeline-source code{font:10px/1.7 Consolas,monospace;color:var(--muted)}
+.timeline-source:hover{border-color:var(--ink)}
+.timeline-diagram{margin:0;max-width:340px;width:100%;justify-self:end}
+.timeline-diagram figcaption{font:10px/1.6 Consolas,monospace;color:var(--muted);text-align:center}
+.timeline-diagram svg{width:100%;height:125px;display:block}
+.timeline-flow-path{fill:none;stroke:var(--ink);stroke-width:1;opacity:.3;stroke-dasharray:3 3}
+.timeline-diagram rect{fill:var(--paper);stroke:var(--line);stroke-width:1;transition:fill .3s,stroke .3s}
+.timeline-diagram text{fill:var(--muted);font:10px 'Segoe UI',Arial,sans-serif;transition:fill .3s}
+.timeline-diagram .is-active rect{fill:var(--ink);stroke:var(--ink)}
+.timeline-diagram .is-active text{fill:var(--paper)}
+.timeline-range-label{display:flex;align-items:center;justify-content:space-between;gap:12px;font:10px/1.7 Consolas,monospace;color:var(--muted);margin-bottom:10px}
+.timeline-range{display:block;width:100%;height:3px;margin:14px 0 18px;padding:0;border:0;border-radius:2px;appearance:none;background:linear-gradient(to right,var(--ink) var(--timeline-progress,0%),var(--line) var(--timeline-progress,0%));cursor:ew-resize;touch-action:pan-y}
+.timeline-range::-webkit-slider-thumb{appearance:none;width:14px;height:14px;background:var(--ink);border:3px solid var(--paper);border-radius:50%;box-shadow:0 0 0 1px var(--ink)}
+.timeline-range::-moz-range-thumb{width:9px;height:9px;background:var(--ink);border:3px solid var(--paper);border-radius:50%;box-shadow:0 0 0 1px var(--ink)}
+.timeline-milestones{display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;padding:2px 2px 4px}
+.timeline-milestones button{flex:1 0 auto;display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:5px;background:var(--paper);color:var(--muted);font-size:11px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.timeline-milestones button>span{font:9px/1.5 Consolas,monospace;opacity:.65}
+.timeline-milestones button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.project-timeline summary:focus-visible,.timeline-range:focus-visible,.timeline-milestones button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media(max-width:650px){.project-timeline summary{padding:14px 16px;gap:5px 10px}.timeline-mode{order:3;flex-basis:100%;font-size:9px}.timeline-body{padding:0 16px 14px}.timeline-stage-row{grid-template-columns:1fr;gap:12px;min-height:0}.timeline-stage{min-height:172px}.timeline-diagram{max-width:300px;justify-self:center}.timeline-diagram svg{height:95px}.timeline-stage h3{font-size:21px}.timeline-stage>p:not(.interaction-label){font-size:12px}}
+@media(prefers-reduced-motion:reduce){.timeline-chevron,.timeline-diagram rect,.timeline-diagram text,.timeline-milestones button{transition:none}}
