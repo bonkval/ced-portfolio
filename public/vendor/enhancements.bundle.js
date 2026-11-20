@@ -3235,55 +3235,16 @@ function Da(e) {
 	});
 }
 //#endregion
-//#region music.js
-function Oa() {
-	let e = document.querySelector(".header-actions");
-	if (!e) return;
-	let t = document.createElement("button");
-	t.type = "button", t.className = "music-toggle", t.innerHTML = "<span class=\"music-bars\" aria-hidden=\"true\"><i></i><i></i><i></i><i></i></span>", t.setAttribute("aria-pressed", "false");
-	let n = document.createElement("span");
-	n.className = "sr-only", n.setAttribute("role", "status"), e.prepend(t), e.append(n);
-	let r, i = !1, a = 0;
-	function o() {
-		t.setAttribute("aria-pressed", String(i)), t.setAttribute("aria-label", i ? "Turn background music off" : "Turn background music on"), t.title = i ? "Music off" : "Music on - original instrumental";
-	}
-	function s() {
-		a++, i = !1, r?.pause(), t.removeAttribute("aria-busy"), o();
-	}
-	o(), t.addEventListener("click", async () => {
-		if (i) {
-			s(), n.textContent = "Music off.";
-			return;
-		}
-		r || (r = new Audio("/public/audio/afterglow-v1.mp3"), r.preload = "none", r.loop = !0, r.volume = .35, r.addEventListener("error", () => {
-			s(), n.textContent = "Music could not load. Click to try again.";
-		})), i = !0;
-		let e = ++a;
-		o(), t.setAttribute("aria-busy", "true");
-		try {
-			if (await r.play(), e !== a) {
-				i || r.pause();
-				return;
-			}
-			t.removeAttribute("aria-busy"), n.textContent = "Background music on.";
-		} catch {
-			e === a && (s(), n.textContent = "Playback did not start. Click to try again.");
-		}
-	}), document.addEventListener("visibilitychange", () => {
-		document.hidden && s();
-	}), addEventListener("pagehide", s);
-}
-//#endregion
 //#region enhancements.js
-var ka = document.documentElement, Aa = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => ka.dataset.motion !== "paused";
-$() && ka.classList.add("js-motion");
-var ja = document.querySelector(".theme-toggle");
-if (ja) {
+var Oa = document.documentElement, ka = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => Oa.dataset.motion !== "paused";
+$() && Oa.classList.add("js-motion");
+var Aa = document.querySelector(".theme-toggle");
+if (Aa) {
 	let e = document.createElement("div");
-	e.className = "header-actions", ja.before(e), e.append(ja);
+	e.className = "header-actions", Aa.before(e), e.append(Aa);
 }
-Oa(), Aa.addEventListener("change", () => {
-	ka.dataset.motion = Aa.matches ? "paused" : "full", ka.classList.toggle("js-motion", !Aa.matches), document.dispatchEvent(new Event("portfolio:motion"));
+ka.addEventListener("change", () => {
+	Oa.dataset.motion = ka.matches ? "paused" : "full", Oa.classList.toggle("js-motion", !ka.matches), document.dispatchEvent(new Event("portfolio:motion"));
 }), Ta($), Ea($), Da($), document.querySelectorAll("[data-project-rail]").forEach((e, t) => {
 	let n = [...e.querySelectorAll(":scope > a")];
 	if (n.length < 2) return;
@@ -3425,9 +3386,9 @@ Oa(), Aa.addEventListener("change", () => {
 		_(), y();
 	}).observe(e), y();
 });
-var Ma = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Na = Ma.map((e) => document.querySelector(e.hash)).filter(Boolean), Pa = new IntersectionObserver((e) => {
+var ja = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Ma = ja.map((e) => document.querySelector(e.hash)).filter(Boolean), Na = new IntersectionObserver((e) => {
 	e.forEach((e) => {
-		e.isIntersecting && Ma.forEach((t) => {
+		e.isIntersecting && ja.forEach((t) => {
 			t.hash === `#${e.target.id}` ? t.setAttribute("aria-current", "location") : t.removeAttribute("aria-current");
 		});
 	});
@@ -3435,7 +3396,7 @@ var Ma = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Na = Ma.map
 	rootMargin: "-15% 0px -60% 0px",
 	threshold: 0
 });
-Na.forEach((e) => Pa.observe(e)), document.addEventListener("keydown", (e) => {
+Ma.forEach((e) => Na.observe(e)), document.addEventListener("keydown", (e) => {
 	if (e.key !== "Escape") return;
 	let t = document.querySelector(".menu-button");
 	t?.getAttribute("aria-expanded") === "true" && (t.click(), t.focus());

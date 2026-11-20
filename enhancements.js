@@ -2,7 +2,6 @@ import { animate, inView } from 'motion';
 import { initAscii } from './ascii.js';
 import { initCinematic } from './cinematic.js';
 import { initInteractions } from './interactions.js';
-import { initMusicPlayer } from './music.js';
 
 const root = document.documentElement;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -16,7 +15,6 @@ if (themeButton) {
   themeButton.before(actions);
   actions.append(themeButton);
 }
-initMusicPlayer();
 reducedMotion.addEventListener('change', () => {
   root.dataset.motion = reducedMotion.matches ? 'paused' : 'full';
   root.classList.toggle('js-motion', !reducedMotion.matches);
