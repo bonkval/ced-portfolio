@@ -2413,50 +2413,50 @@ function Fi(e, { style: t, vars: n }, r, i) {
 function Ii(e, t) {
 	return t.max === t.min ? 0 : e / (t.max - t.min) * 100;
 }
-var J = { correct: (e, t) => {
+var Li = { correct: (e, t) => {
 	if (!t.target) return e;
 	if (typeof e == "string") {
 		if (P.test(e)) e = parseFloat(e);
 		else return e;
 	}
 	return `${Ii(e, t.target.x)}% ${Ii(e, t.target.y)}%`;
-} }, Li = { correct: (e, { treeScale: t, projectionDelta: n }) => {
+} }, Ri = { correct: (e, { treeScale: t, projectionDelta: n }) => {
 	let r = e, i = R.parse(e);
 	if (i.length > 5) return r;
 	let a = R.createTransformer(e), o = typeof i[0] == "number" ? 0 : 1, s = n.x.scale * t.x, c = n.y.scale * t.y;
 	i[0 + o] /= s, i[1 + o] /= c;
 	let l = z(s, c, .5);
 	return typeof i[2 + o] == "number" && (i[2 + o] /= l), typeof i[3 + o] == "number" && (i[3 + o] /= l), a(i);
-} }, Ri = {
+} }, zi = {
 	borderRadius: {
-		...J,
+		...Li,
 		applyTo: [...Zr]
 	},
-	borderTopLeftRadius: J,
-	borderTopRightRadius: J,
-	borderBottomLeftRadius: J,
-	borderBottomRightRadius: J,
-	boxShadow: Li
+	borderTopLeftRadius: Li,
+	borderTopRightRadius: Li,
+	borderBottomLeftRadius: Li,
+	borderBottomRightRadius: Li,
+	boxShadow: Ri
 };
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/utils/is-forced-motion-value.mjs
-function zi(e, { layout: t, layoutId: n }) {
-	return U.has(e) || e.startsWith("origin") || (t || n !== void 0) && (!!Ri[e] || e === "opacity");
+function Bi(e, { layout: t, layoutId: n }) {
+	return U.has(e) || e.startsWith("origin") || (t || n !== void 0) && (!!zi[e] || e === "opacity");
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/html/utils/scrape-motion-values.mjs
-function Bi(e, t, n) {
+function Vi(e, t, n) {
 	let r = e.style, i = t?.style, a = {};
 	if (!r) return a;
-	for (let t in r) (q(r[t]) || i && q(i[t]) || zi(t, e) || n?.getValue(t)?.liveStyle !== void 0) && (a[t] = r[t]);
+	for (let t in r) (q(r[t]) || i && q(i[t]) || Bi(t, e) || n?.getValue(t)?.liveStyle !== void 0) && (a[t] = r[t]);
 	return a;
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/html/HTMLVisualElement.mjs
-function Vi(e) {
+function Hi(e) {
 	return window.getComputedStyle(e);
 }
-var Hi = class extends Di {
+var Ui = class extends Di {
 	constructor() {
 		super(...arguments), this.type = "html", this.renderInstance = Fi;
 	}
@@ -2466,7 +2466,7 @@ var Hi = class extends Di {
 	readValueFromInstance(e, t) {
 		if (U.has(t)) return this.projection?.isProjecting ? on(t) : cn(e, t);
 		{
-			let n = Vi(e), r = (xe(t) ? n.getPropertyValue(t) : n[t]) || 0;
+			let n = Hi(e), r = (xe(t) ? n.getPropertyValue(t) : n[t]) || 0;
 			return typeof r == "string" ? r.trim() : r;
 		}
 	}
@@ -2477,20 +2477,20 @@ var Hi = class extends Di {
 		Pi(e, t, n.transformTemplate);
 	}
 	scrapeMotionValuesFromProps(e, t, n) {
-		return Bi(e, t, n);
+		return Vi(e, t, n);
 	}
 };
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/object/ObjectVisualElement.mjs
-function Ui(e, t) {
+function Wi(e, t) {
 	return e in t;
 }
-var Wi = class extends Ei {
+var Gi = class extends Ei {
 	constructor() {
 		super(...arguments), this.type = "object";
 	}
 	readValueFromInstance(e, t) {
-		if (Ui(t, e)) {
+		if (Wi(t, e)) {
 			let n = e[t];
 			if (typeof n == "string" || typeof n == "number") return n;
 		}
@@ -2511,21 +2511,21 @@ var Wi = class extends Ei {
 	sortInstanceNodePosition() {
 		return 0;
 	}
-}, Gi = {
+}, Ki = {
 	offset: "stroke-dashoffset",
 	array: "stroke-dasharray"
-}, Ki = {
+}, qi = {
 	offset: "strokeDashoffset",
 	array: "strokeDasharray"
 };
-function qi(e, t, n = 1, r = 0, i = !0) {
+function Ji(e, t, n = 1, r = 0, i = !0) {
 	e.pathLength = 1;
-	let a = i ? Gi : Ki;
+	let a = i ? Ki : qi;
 	e[a.offset] = `${-r}`, e[a.array] = `${t} ${n}`;
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/svg/utils/build-attrs.mjs
-var Ji = [
+var Yi = [
 	"transform",
 	"opacity",
 	"offsetDistance",
@@ -2533,19 +2533,19 @@ var Ji = [
 	"offsetRotate",
 	"offsetAnchor"
 ];
-function Yi(e, { attrX: t, attrY: n, attrScale: r, pathLength: i, pathSpacing: a = 1, pathOffset: o = 0, ...s }, c, l, u) {
+function Xi(e, { attrX: t, attrY: n, attrScale: r, pathLength: i, pathSpacing: a = 1, pathOffset: o = 0, ...s }, c, l, u) {
 	if (Pi(e, s, l), c) {
 		e.style.viewBox && (e.attrs.viewBox = e.style.viewBox);
 		return;
 	}
 	e.attrs = e.style, e.style = {};
 	let { attrs: d, style: f } = e;
-	for (let e of Ji) d[e] !== void 0 && (f[e] = d[e], delete d[e]);
-	(f.transform || d.transformOrigin) && (f.transformOrigin = d.transformOrigin ?? "50% 50%", delete d.transformOrigin), f.transform && (f.transformBox = u?.transformBox ?? "fill-box", delete d.transformBox), t !== void 0 && (d.x = t), n !== void 0 && (d.y = n), r !== void 0 && (d.scale = r), i !== void 0 && qi(d, i, a, o, !1);
+	for (let e of Yi) d[e] !== void 0 && (f[e] = d[e], delete d[e]);
+	(f.transform || d.transformOrigin) && (f.transformOrigin = d.transformOrigin ?? "50% 50%", delete d.transformOrigin), f.transform && (f.transformBox = u?.transformBox ?? "fill-box", delete d.transformBox), t !== void 0 && (d.x = t), n !== void 0 && (d.y = n), r !== void 0 && (d.scale = r), i !== void 0 && Ji(d, i, a, o, !1);
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/svg/utils/camel-case-attrs.mjs
-var Xi = /* @__PURE__ */ new Set([
+var Zi = /* @__PURE__ */ new Set([
 	"baseFrequency",
 	"diffuseConstant",
 	"kernelMatrix",
@@ -2569,17 +2569,17 @@ var Xi = /* @__PURE__ */ new Set([
 	"startOffset",
 	"textLength",
 	"lengthAdjust"
-]), Zi = (e) => typeof e == "string" && e.toLowerCase() === "svg";
+]), Qi = (e) => typeof e == "string" && e.toLowerCase() === "svg";
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/svg/utils/render.mjs
-function Qi(e, t, n, r) {
+function $i(e, t, n, r) {
 	Fi(e, t, void 0, r);
-	for (let n in t.attrs) e.setAttribute(Xi.has(n) ? n : Dr(n), t.attrs[n]);
+	for (let n in t.attrs) e.setAttribute(Zi.has(n) ? n : Dr(n), t.attrs[n]);
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/svg/utils/scrape-motion-values.mjs
-function $i(e, t, n) {
-	let r = Bi(e, t, n);
+function ea(e, t, n) {
+	let r = Vi(e, t, n);
 	for (let n in e) if (q(e[n]) || q(t[n])) {
 		let t = H.indexOf(n) === -1 ? n : "attr" + n.charAt(0).toUpperCase() + n.substring(1);
 		r[t] = e[n];
@@ -2588,7 +2588,7 @@ function $i(e, t, n) {
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/svg/SVGVisualElement.mjs
-var ea = class extends Di {
+var ta = class extends Di {
 	constructor() {
 		super(...arguments), this.type = "svg", this.isSVGTag = !1, this.measureInstanceViewportBox = fi;
 	}
@@ -2600,61 +2600,61 @@ var ea = class extends Di {
 			let e = Gr(t);
 			return e && e.default || 0;
 		}
-		if (Ji.includes(t)) {
+		if (Yi.includes(t)) {
 			let n = getComputedStyle(e)[t];
 			if (typeof n == "string" && n) return n.trim();
 		}
-		return t = Xi.has(t) ? t : Dr(t), e.getAttribute(t);
+		return t = Zi.has(t) ? t : Dr(t), e.getAttribute(t);
 	}
 	scrapeMotionValuesFromProps(e, t, n) {
-		return $i(e, t, n);
+		return ea(e, t, n);
 	}
 	build(e, t, n) {
-		Yi(e, t, this.isSVGTag, n.transformTemplate, n.style);
+		Xi(e, t, this.isSVGTag, n.transformTemplate, n.style);
 	}
 	renderInstance(e, t, n, r) {
-		Qi(e, t, n, r);
+		$i(e, t, n, r);
 	}
 	mount(e) {
-		this.isSVGTag = Zi(e.tagName), super.mount(e);
+		this.isSVGTag = Qi(e.tagName), super.mount(e);
 	}
 };
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/animate/single-value.mjs
-function ta(e, t, n) {
+function na(e, t, n) {
 	let r = q(e) ? e : K(e);
 	return r.start(pr("", r, t, n)), r.animation;
 }
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/utils/is-dom-keyframes.mjs
-function na(e) {
+function ra(e) {
 	return typeof e == "object" && !Array.isArray(e);
 }
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/animate/resolve-subjects.mjs
-function ra(e, t, n, r) {
-	return e == null ? [] : typeof e == "string" && na(t) ? Qr(e, n, r) : e instanceof NodeList ? Array.from(e) : Array.isArray(e) ? e.filter((e) => e != null) : [e];
+function ia(e, t, n, r) {
+	return e == null ? [] : typeof e == "string" && ra(t) ? Qr(e, n, r) : e instanceof NodeList ? Array.from(e) : Array.isArray(e) ? e.filter((e) => e != null) : [e];
 }
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/sequence/utils/calc-repeat-duration.mjs
-function ia(e, t, n) {
+function aa(e, t, n) {
 	return e * (t + 1) + n * t;
 }
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/sequence/utils/calc-time.mjs
-function aa(e, t, n, r) {
+function oa(e, t, n, r) {
 	return typeof t == "number" ? t : t.startsWith("-") || t.startsWith("+") ? Math.max(0, e + parseFloat(t)) : t === "<" ? n : t.startsWith("<") ? Math.max(0, n + parseFloat(t.slice(1))) : r.get(t) ?? e;
 }
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/sequence/utils/edit.mjs
-function oa(e, n, r) {
+function sa(e, n, r) {
 	for (let i = 0; i < e.length; i++) {
 		let a = e[i];
 		a.at > n && a.at < r && (t(e, a), i--);
 	}
 }
-function sa(e, t, n, r, i, a) {
-	oa(e, i, a);
+function ca(e, t, n, r, i, a) {
+	sa(e, i, a);
 	for (let o = 0; o < t.length; o++) e.push({
 		value: t[o],
 		at: z(i, a, r[o]),
@@ -2663,19 +2663,19 @@ function sa(e, t, n, r, i, a) {
 }
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/sequence/utils/normalize-times.mjs
-function ca(e, t, n = 0) {
+function la(e, t, n = 0) {
 	let r = t + 1 + t * n;
 	for (let t = 0; t < e.length; t++) e[t] = e[t] / r;
 }
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/sequence/utils/sort.mjs
-function la(e, t) {
+function ua(e, t) {
 	return e.at === t.at ? e.value === null ? 1 : t.value === null ? -1 : 0 : e.at - t.at;
 }
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/sequence/create.mjs
-var ua = "easeInOut", da = 20;
-function fa(e, { defaultTransition: t = {}, ...n } = {}, r, i) {
+var da = "easeInOut", fa = 20;
+function pa(e, { defaultTransition: t = {}, ...n } = {}, r, i) {
 	let a = t.duration || .3, o = /* @__PURE__ */ new Map(), s = /* @__PURE__ */ new Map(), c = {}, l = /* @__PURE__ */ new Map(), d = 0, p = 0, m = 0;
 	for (let n = 0; n < e.length; n++) {
 		let o = e[n];
@@ -2684,16 +2684,16 @@ function fa(e, { defaultTransition: t = {}, ...n } = {}, r, i) {
 			continue;
 		}
 		if (!Array.isArray(o)) {
-			l.set(o.name, aa(p, o.at, d, l));
+			l.set(o.name, oa(p, o.at, d, l));
 			continue;
 		}
 		let [u, h, g = {}] = o;
-		g.at !== void 0 && (p = aa(p, g.at, d, l));
+		g.at !== void 0 && (p = oa(p, g.at, d, l));
 		let _ = 0, v = (e, n, r, o = 0, s = 0) => {
-			let c = ha(e), { delay: l = 0, times: u = Bt(c), type: d = t.type || "keyframes", repeat: h, repeatType: g, repeatDelay: v = 0, ...y } = n, { ease: b = t.ease || "easeOut", duration: x } = n, C = typeof l == "function" ? l(o, s) : l, w = c.length, T = jn(d) ? d : i?.[d || "keyframes"];
+			let c = ga(e), { delay: l = 0, times: u = Bt(c), type: d = t.type || "keyframes", repeat: h, repeatType: g, repeatDelay: v = 0, ...y } = n, { ease: b = t.ease || "easeOut", duration: x } = n, C = typeof l == "function" ? l(o, s) : l, w = c.length, T = jn(d) ? d : i?.[d || "keyframes"];
 			if (w <= 2 && T) {
 				let e = 100;
-				if (w === 2 && va(c)) {
+				if (w === 2 && ya(c)) {
 					let t = c[1] - c[0];
 					e = Math.abs(t);
 				}
@@ -2709,9 +2709,9 @@ function fa(e, { defaultTransition: t = {}, ...n } = {}, r, i) {
 			let E = p + C;
 			u.length === 1 && u[0] === 0 && (u[1] = 1);
 			let D = u.length - c.length;
-			if (D > 0 && zt(u, D), c.length === 1 && c.unshift(null), h && `${h}${da}`, h && h < da) {
+			if (D > 0 && zt(u, D), c.length === 1 && c.unshift(null), h && `${h}${fa}`, h && h < fa) {
 				let e = x > 0 ? v / x : 0;
-				x = ia(x, h, v);
+				x = aa(x, h, v);
 				let t = [...c], n = [...u];
 				b = Array.isArray(b) ? [...b] : [b];
 				let r = [...b], i = g === "reverse" || g === "mirror", a = t, o = r;
@@ -2721,20 +2721,20 @@ function fa(e, { defaultTransition: t = {}, ...n } = {}, r, i) {
 					e > 0 && (c.push(c[c.length - 1]), u.push(p), b.push("linear")), c.push(...d);
 					for (let e = 0; e < d.length; e++) u.push(n[e] + p), b.push(e === 0 ? "linear" : /* @__PURE__ */ oe(f, e - 1));
 				}
-				ca(u, h, e);
+				la(u, h, e);
 			}
 			let ee = E + x;
-			sa(r, c, b, u, E, ee), _ = Math.max(C + x, _), m = Math.max(ee, m);
+			ca(r, c, b, u, E, ee), _ = Math.max(C + x, _), m = Math.max(ee, m);
 		};
 		if (q(u)) {
-			let e = pa(u, s);
-			v(h, g, ma("default", e));
+			let e = ma(u, s);
+			v(h, g, ha("default", e));
 		} else {
-			let e = ra(u, h, r, c), t = e.length;
+			let e = ia(u, h, r, c), t = e.length;
 			for (let n = 0; n < t; n++) {
 				h = h, g = g;
-				let r = e[n], i = pa(r, s);
-				for (let e in h) v(h[e], ga(g, e), ma(e, i), n, t);
+				let r = e[n], i = ma(r, s);
+				for (let e in h) v(h[e], _a(g, e), ha(e, i), n, t);
 			}
 		}
 		d = p, p += _;
@@ -2742,13 +2742,13 @@ function fa(e, { defaultTransition: t = {}, ...n } = {}, r, i) {
 	return s.forEach((e, r) => {
 		for (let i in e) {
 			let a = e[i];
-			a.sort(la);
+			a.sort(ua);
 			let s = [], c = [], l = [];
 			for (let e = 0; e < a.length; e++) {
 				let { at: t, value: n, easing: r } = a[e];
 				s.push(n), c.push(/* @__PURE__ */ u(0, m, t)), l.push(r || "easeOut");
 			}
-			c[0] !== 0 && (c.unshift(0), s.unshift(s[0]), l.unshift(ua)), c[c.length - 1] !== 1 && (c.push(1), s.push(null)), o.has(r) || o.set(r, {
+			c[0] !== 0 && (c.unshift(0), s.unshift(s[0]), l.unshift(da)), c[c.length - 1] !== 1 && (c.push(1), s.push(null)), o.has(r) || o.set(r, {
 				keyframes: {},
 				transition: {}
 			});
@@ -2765,25 +2765,25 @@ function fa(e, { defaultTransition: t = {}, ...n } = {}, r, i) {
 		}
 	}), o;
 }
-function pa(e, t) {
+function ma(e, t) {
 	return !t.has(e) && t.set(e, {}), t.get(e);
 }
-function ma(e, t) {
+function ha(e, t) {
 	return t[e] || (t[e] = []), t[e];
 }
-function ha(e) {
+function ga(e) {
 	return Array.isArray(e) ? e : [e];
 }
-function ga(e, t) {
+function _a(e, t) {
 	return e && e[t] ? {
 		...e,
 		...e[t]
 	} : { ...e };
 }
-var _a = (e) => typeof e == "number", va = (e) => e.every(_a);
+var va = (e) => typeof e == "number", ya = (e) => e.every(va);
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/utils/create-visual-element.mjs
-function ya(e) {
+function ba(e) {
 	let t = {
 		presenceContext: null,
 		props: {},
@@ -2797,11 +2797,11 @@ function ya(e) {
 			},
 			latestValues: {}
 		}
-	}, n = ni(e) && !ri(e) ? new ea(t) : new Hi(t);
+	}, n = ni(e) && !ri(e) ? new ta(t) : new Ui(t);
 	n.mount(e), pi.set(e, n);
 }
-function ba(e) {
-	let t = new Wi({
+function xa(e) {
+	let t = new Gi({
 		presenceContext: null,
 		props: {},
 		visualState: {
@@ -2813,17 +2813,17 @@ function ba(e) {
 }
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/animate/subject.mjs
-function xa(e, t) {
-	return q(e) || typeof e == "number" || typeof e == "string" && !na(t);
+function Sa(e, t) {
+	return q(e) || typeof e == "number" || typeof e == "string" && !ra(t);
 }
-function Sa(e, t, n, r) {
+function Ca(e, t, n, r) {
 	let i = [];
-	if (xa(e, t)) i.push(ta(e, na(t) && t.default || t, n && (n.default || n)));
+	if (Sa(e, t)) i.push(na(e, ra(t) && t.default || t, n && (n.default || n)));
 	else {
 		if (e == null) return i;
-		let a = ra(e, t, r), o = a.length;
+		let a = ia(e, t, r), o = a.length;
 		for (let e = 0; e < o; e++) {
-			let r = a[e], s = r instanceof Element ? ya : ba;
+			let r = a[e], s = r instanceof Element ? ba : xa;
 			pi.has(r) || s(r);
 			let c = pi.get(r), l = { ...n };
 			"delay" in l && typeof l.delay == "function" && (l.delay = l.delay(e, o)), i.push(...jr(c, {
@@ -2836,9 +2836,9 @@ function Sa(e, t, n, r) {
 }
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/animate/sequence.mjs
-function Ca(e, t, n) {
+function wa(e, t, n) {
 	let r = [];
-	return fa(e.map((e) => {
+	return pa(e.map((e) => {
 		if (Array.isArray(e) && typeof e[0] == "function") {
 			let t = e[0], n = K(0);
 			return n.on("change", t), e.length === 1 ? [n, [0, 1]] : e.length === 2 ? [
@@ -2853,27 +2853,27 @@ function Ca(e, t, n) {
 		}
 		return e;
 	}), t, n, { spring: Nt }).forEach(({ keyframes: e, transition: t }, n) => {
-		r.push(...Sa(n, e, t));
+		r.push(...Ca(n, e, t));
 	}), r;
 }
 //#endregion
 //#region node_modules/framer-motion/dist/es/animation/animate/index.mjs
-function wa(e) {
+function Ta(e) {
 	return Array.isArray(e) && e.some(Array.isArray);
 }
-function Ta(e = {}) {
+function Ea(e = {}) {
 	let { scope: n, reduceMotion: r, skipAnimations: i } = e;
 	function a(e, a, o) {
 		let s = [], c, l = {};
-		if (r !== void 0 && (l.reduceMotion = r), i !== void 0 && (l.skipAnimations = i), wa(e)) {
+		if (r !== void 0 && (l.reduceMotion = r), i !== void 0 && (l.skipAnimations = i), Ta(e)) {
 			let { onComplete: t, ...r } = a || {};
-			typeof t == "function" && (c = t), s = Ca(e, {
+			typeof t == "function" && (c = t), s = wa(e, {
 				...l,
 				...r
 			}, n);
 		} else {
 			let { onComplete: t, ...r } = o || {};
-			typeof t == "function" && (c = t), s = Sa(e, a, {
+			typeof t == "function" && (c = t), s = Ca(e, a, {
 				...l,
 				...r
 			}, n);
@@ -2885,11 +2885,11 @@ function Ta(e = {}) {
 	}
 	return a;
 }
-var Y = Ta(), Ea = {
+var J = Ea(), Da = {
 	some: 0,
 	all: 1
 };
-function X(e, t, { root: n, margin: r, amount: i = "some" } = {}) {
+function Y(e, t, { root: n, margin: r, amount: i = "some" } = {}) {
 	let a = Qr(e), o = /* @__PURE__ */ new WeakMap(), s = new IntersectionObserver((e) => {
 		e.forEach((e) => {
 			let n = o.get(e.target);
@@ -2903,13 +2903,13 @@ function X(e, t, { root: n, margin: r, amount: i = "some" } = {}) {
 	}, {
 		root: n,
 		rootMargin: r,
-		threshold: typeof i == "number" ? i : Ea[i]
+		threshold: typeof i == "number" ? i : Da[i]
 	});
 	return a.forEach((e) => s.observe(e)), () => s.disconnect();
 }
 //#endregion
 //#region ascii.js
-function Da(e) {
+function Oa(e) {
 	let t = document.documentElement, n = document.createElement("div");
 	n.className = "ascii-backdrop", n.setAttribute("aria-hidden", "true");
 	let r = document.createElement("pre");
@@ -2981,15 +2981,15 @@ function Da(e) {
 }
 //#endregion
 //#region cinematic.js
-function Oa(e) {
+function ka(e) {
 	let t = matchMedia("(pointer:fine)").matches;
 	if (document.querySelectorAll(".section-header h2,.resume-heading h1,.compact-case-heading h1").forEach((t) => {
 		let n = t.textContent;
 		t.setAttribute("aria-label", n), t.replaceChildren(...[...n].map((e, t) => {
 			let n = document.createElement("span");
 			return n.className = "kinetic-letter", n.textContent = e === " " ? "\xA0" : e, n.setAttribute("aria-hidden", "true"), n.style.setProperty("--letter", t), n;
-		})), X(t, () => {
-			e() && Y(t.children, {
+		})), Y(t, () => {
+			e() && J(t.children, {
 				opacity: [0, 1],
 				y: [28, 0],
 				rotateX: [-65, 0]
@@ -3005,9 +3005,9 @@ function Oa(e) {
 			});
 		}, { amount: .6 });
 	}), document.querySelectorAll(".skill-group").forEach((t, n) => {
-		X(t, () => {
+		Y(t, () => {
 			if (!e()) return;
-			Y(t, {
+			J(t, {
 				opacity: [0, 1],
 				y: [35, 0],
 				rotateX: [7, 0]
@@ -3022,7 +3022,7 @@ function Oa(e) {
 				]
 			});
 			let r = t.querySelectorAll("li");
-			r.length && Y(r, {
+			r.length && J(r, {
 				opacity: [0, 1],
 				y: [12, 0]
 			}, {
@@ -3105,7 +3105,7 @@ function Oa(e) {
 }
 //#endregion
 //#region interactions.js
-function ka(e) {
+function Aa(e) {
 	let t = [
 		.16,
 		1,
@@ -3136,7 +3136,7 @@ function ka(e) {
 		i.className = "nav-echo", i.setAttribute("aria-hidden", "true"), n.append(r, i), e.replaceChildren(n);
 	}), e()) {
 		let e = document.querySelector(".hero");
-		e && Y(e.querySelectorAll(".hero-status,.hero-lower>p,.hero-actions>a,.hero-portrait .profile-wrap,.hero-email,.profile-links>a,.profile-links>button"), {
+		e && J(e.querySelectorAll(".hero-status,.hero-lower>p,.hero-actions>a,.hero-portrait .profile-wrap,.hero-email,.profile-links>a,.profile-links>button"), {
 			opacity: [0, 1],
 			y: [22, 0]
 		}, {
@@ -3146,8 +3146,8 @@ function ka(e) {
 		});
 	}
 	document.querySelectorAll(".compact-facts article,.compact-preview,.resume-pages figure,.screenshot-card").forEach((n, r) => {
-		X(n, () => {
-			e() && Y(n, n.matches(".compact-preview,.resume-pages figure") ? { opacity: [0, 1] } : {
+		Y(n, () => {
+			e() && J(n, n.matches(".compact-preview,.resume-pages figure") ? { opacity: [0, 1] } : {
 				opacity: [0, 1],
 				y: [30, 0],
 				scale: [.98, 1]
@@ -3162,7 +3162,7 @@ function ka(e) {
 	function a(e, n, r = 0) {
 		i.get(e)?.forEach((e) => e.stop());
 		let a = e.querySelector(".cert-image"), o = e.querySelector(":scope > div"), s = e.querySelector(":scope > span:last-child"), c = [];
-		a && c.push(Y(a, n ? {
+		a && c.push(J(a, n ? {
 			opacity: [.1, 1],
 			scale: [.55, 1],
 			rotate: [-14, 0]
@@ -3170,14 +3170,14 @@ function ka(e) {
 			duration: n ? 1 : .65,
 			delay: r,
 			ease: t
-		})), o && c.push(Y(o, n ? {
+		})), o && c.push(J(o, n ? {
 			opacity: [0, 1],
 			x: [24, 0]
 		} : { opacity: [.15, 1] }, {
 			duration: .75,
 			delay: r + .12,
 			ease: t
-		})), s && c.push(Y(s, n ? {
+		})), s && c.push(J(s, n ? {
 			opacity: [0, 1],
 			y: [10, 0]
 		} : { opacity: [.15, 1] }, {
@@ -3187,13 +3187,13 @@ function ka(e) {
 		})), i.set(e, c);
 	}
 	r.forEach((t, n) => {
-		X(t, () => {
+		Y(t, () => {
 			a(t, e(), n % 2 * .12);
 		}, { amount: .4 });
 	});
 	let o = document.querySelector(".footer");
-	o && X(o, () => {
-		e() && Y(o.children, {
+	o && Y(o, () => {
+		e() && J(o.children, {
 			opacity: [0, 1],
 			y: [12, 0]
 		}, {
@@ -3236,13 +3236,13 @@ function ka(e) {
 }
 //#endregion
 //#region cat-investigation.js
-var Aa = "<svg viewBox=\"0 0 32 32\" fill=\"currentColor\" aria-hidden=\"true\"><ellipse cx=\"16\" cy=\"22\" rx=\"8\" ry=\"6\"/><ellipse cx=\"7\" cy=\"13\" rx=\"3\" ry=\"4\" transform=\"rotate(-25 7 13)\"/><ellipse cx=\"14\" cy=\"8\" rx=\"3\" ry=\"4\"/><ellipse cx=\"22\" cy=\"9\" rx=\"3\" ry=\"4\"/><ellipse cx=\"27\" cy=\"15\" rx=\"3\" ry=\"4\" transform=\"rotate(25 27 15)\"/></svg>";
-function ja(e) {
+var ja = "<svg viewBox=\"0 0 32 32\" fill=\"currentColor\" aria-hidden=\"true\"><ellipse cx=\"16\" cy=\"22\" rx=\"8\" ry=\"6\"/><ellipse cx=\"7\" cy=\"13\" rx=\"3\" ry=\"4\" transform=\"rotate(-25 7 13)\"/><ellipse cx=\"14\" cy=\"8\" rx=\"3\" ry=\"4\"/><ellipse cx=\"22\" cy=\"9\" rx=\"3\" ry=\"4\"/><ellipse cx=\"27\" cy=\"15\" rx=\"3\" ry=\"4\" transform=\"rotate(25 27 15)\"/></svg>";
+function Ma(e) {
 	let t = document.querySelector(".hero .profile-wrap"), n = document.querySelector(".hero .about-copy");
 	if (!t || !n) return;
 	t.tabIndex = 0, t.setAttribute("role", "button"), t.setAttribute("aria-label", "Reveal the hidden cat. Activate again to follow it.");
 	let r = document.createElement("button");
-	r.className = "cat-hint", r.type = "button", r.innerHTML = `${Aa}<span>Find the cat</span>`, t.after(r);
+	r.className = "cat-hint", r.type = "button", r.innerHTML = `${ja}<span>Find the cat</span>`, t.after(r);
 	let i = document.createElement("button");
 	i.type = "button", i.className = "cat-folder", i.hidden = !0, i.innerHTML = "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path d=\"M3 7V5h7l2 2h9v13H3Z\"/><path d=\"M3 10h18\"/></svg><span>Sealed note</span>", i.setAttribute("aria-expanded", "false"), i.setAttribute("aria-controls", "cat-case"), n.append(i);
 	let a = document.createElement("section");
@@ -3285,7 +3285,7 @@ function ja(e) {
 		};
 		for (let e = 0; e < 10; e++) {
 			let t = e / 9, n = document.createElement("span");
-			n.innerHTML = Aa;
+			n.innerHTML = ja;
 			let r = o.x + (d.x - o.x) * t + Math.sin(t * Math.PI) * -55, i = o.y + (d.y - o.y) * t + (e % 2 ? 6 : -6);
 			n.style.left = `${r}px`, n.style.top = `${i}px`, n.style.rotate = `${-25 + t * 70}deg`, l.append(n), n.animate([
 				{
@@ -3346,7 +3346,7 @@ function ja(e) {
 }
 //#endregion
 //#region security-lab.js
-var Z = {
+var X = {
 	dns: {
 		name: "DNS resolver",
 		destination: "10.10.0.53",
@@ -3371,7 +3371,7 @@ var Z = {
 		x: 390,
 		y: 250
 	}
-}, Q = [
+}, Na = [
 	[
 		0,
 		"dns",
@@ -3445,15 +3445,15 @@ var Z = {
 	size: n,
 	detail: r
 }));
-function Ma(e) {
+function Pa(e) {
 	let t = document.querySelector("#skills");
 	if (!t) return;
 	let n = document.createElement("section");
 	n.className = "security-lab page-width", n.id = "security-lab", n.setAttribute("aria-labelledby", "security-lab-title"), n.innerHTML = `<header class="lab-heading"><div><p class="interaction-label">Simulated investigation · about one minute</p><h2 id="security-lab-title">Inspect a suspicious connection.</h2><p>A fictional 75-second capture. Follow the traffic, inspect a packet, then flag the connection worth investigating.</p></div><button type="button" class="lab-start lab-button">Start investigation <span aria-hidden="true">↗</span></button></header>
     <div class="lab-console"><div class="lab-network" aria-label="Simulated network connections">
-    <svg class="lab-wires" viewBox="0 0 520 300" preserveAspectRatio="none" aria-hidden="true">${Object.entries(Z).map(([e, t]) => `<path data-flow-path="${e}" d="${t.path}"/>`).join("")}</svg>
+    <svg class="lab-wires" viewBox="0 0 520 300" preserveAspectRatio="none" aria-hidden="true">${Object.entries(X).map(([e, t]) => `<path data-flow-path="${e}" d="${t.path}"/>`).join("")}</svg>
     <div class="lab-workstation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8m-4-5v5"/></svg><strong>Workstation</strong><small>10.10.0.12</small></div>
-    ${Object.entries(Z).map(([e, t]) => `<button type="button" class="lab-host lab-host-${e}" data-flow="${e}" aria-pressed="false"><span class="lab-node-dot" aria-hidden="true"></span><strong>${t.name}</strong><small>${t.destination}</small></button>`).join("")}
+    ${Object.entries(X).map(([e, t]) => `<button type="button" class="lab-host lab-host-${e}" data-flow="${e}" aria-pressed="false"><span class="lab-node-dot" aria-hidden="true"></span><strong>${t.name}</strong><small>${t.destination}</small></button>`).join("")}
     <span class="lab-network-caption">Select a destination to isolate its traffic.</span></div>
     <div class="lab-intro"><span class="lab-intro-symbol" aria-hidden="true">⌁</span><p>No tools to install.<br>No real traffic is collected.</p><small>Everything runs locally in your browser.</small></div>
     <div class="lab-evidence" hidden><div class="lab-playback"><button type="button" class="lab-play lab-button" aria-label="Pause simulated traffic">Pause</button><label for="lab-time">Capture time <output id="lab-time-value">00s / 75s</output></label><input id="lab-time" type="range" min="0" max="75" step="1" value="0" aria-label="Capture time in seconds"><button type="button" class="lab-show-all">All connections</button></div>
@@ -3479,15 +3479,15 @@ function Ma(e) {
 	}
 	function g() {
 		i.value = String(u), n.querySelector("#lab-time-value").textContent = `${m(u)}s / 75s`, a.textContent = c ? "Pause" : u === 75 ? "Replay" : "Play", a.setAttribute("aria-label", c ? "Pause simulated traffic" : "Play simulated traffic"), n.querySelectorAll("[data-flow]").forEach((e) => e.setAttribute("aria-pressed", String(e.dataset.flow === d))), n.querySelectorAll("[data-flow-path]").forEach((e) => e.classList.toggle("is-selected", e.dataset.flowPath === d));
-		let e = Q.filter((e) => e.time <= u && (!d || e.flow === d));
-		n.querySelector("tbody").innerHTML = e.length ? e.map((e) => `<tr class="${e.id === f ? "is-selected" : ""}"><td>${m(e.time)}s</td><td><span>10.10.0.12 →</span> ${Z[e.flow].destination}</td><td>${Z[e.flow].protocol}</td><td>${e.size}</td><td><button type="button" data-packet="${e.id}" aria-label="Inspect packet at ${e.time} seconds to ${Z[e.flow].destination}" aria-pressed="${e.id === f}">Inspect</button></td></tr>`).join("") : "<tr><td colspan=\"5\">No packets for this connection at this time. Move the slider forward.</td></tr>", n.querySelector(".lab-selection").textContent = d ? `Selected: ${Z[d].name}` : "No connection selected", n.querySelector(".lab-flag").disabled = !d;
-		let t = Q.find((e) => e.id === f);
-		t ? o.innerHTML = `<strong>${Z[t.flow].protocol} · ${t.size} bytes · ${m(t.time)}s</strong><p>${t.detail}</p>` : o.innerHTML = "<strong>Choose a packet</strong><p>Inspect its timing, destination and size. Move the capture slider forward to reveal more traffic.</p>";
+		let e = Na.filter((e) => e.time <= u && (!d || e.flow === d));
+		n.querySelector("tbody").innerHTML = e.length ? e.map((e) => `<tr class="${e.id === f ? "is-selected" : ""}"><td>${m(e.time)}s</td><td><span>10.10.0.12 →</span> ${X[e.flow].destination}</td><td>${X[e.flow].protocol}</td><td>${e.size}</td><td><button type="button" data-packet="${e.id}" aria-label="Inspect packet at ${e.time} seconds to ${X[e.flow].destination}" aria-pressed="${e.id === f}">Inspect</button></td></tr>`).join("") : "<tr><td colspan=\"5\">No packets for this connection at this time. Move the slider forward.</td></tr>", n.querySelector(".lab-selection").textContent = d ? `Selected: ${X[d].name}` : "No connection selected", n.querySelector(".lab-flag").disabled = !d;
+		let t = Na.find((e) => e.id === f);
+		t ? o.innerHTML = `<strong>${X[t.flow].protocol} · ${t.size} bytes · ${m(t.time)}s</strong><p>${t.detail}</p>` : o.innerHTML = "<strong>Choose a packet</strong><p>Inspect its timing, destination and size. Move the capture slider forward to reveal more traffic.</p>";
 	}
 	function _() {
 		clearInterval(p), p = void 0, !(!c || !l || document.hidden) && (p = setInterval(() => {
 			let e = u;
-			u = Math.min(75, u + 5), Q.filter((t) => t.time > e && t.time <= u).forEach((e) => h(e.flow)), u === 75 && (c = !1), g(), c || _();
+			u = Math.min(75, u + 5), Na.filter((t) => t.time > e && t.time <= u).forEach((e) => h(e.flow)), u === 75 && (c = !1), g(), c || _();
 		}, 1e3));
 	}
 	function v() {
@@ -3497,9 +3497,9 @@ function Ma(e) {
 		v(), d = e.dataset.flow, f = null, n.querySelector(".lab-feedback").textContent = "", g(), h(d);
 	})), n.querySelector("tbody").addEventListener("click", (e) => {
 		let t = e.target.closest("[data-packet]");
-		t && (f = Number(t.dataset.packet), d = Q[f].flow, c = !1, _(), g(), h(d), n.querySelector(`[data-packet="${f}"]`)?.focus({ preventScroll: !0 }));
+		t && (f = Number(t.dataset.packet), d = Na[f].flow, c = !1, _(), g(), h(d), n.querySelector(`[data-packet="${f}"]`)?.focus({ preventScroll: !0 }));
 	}), i.addEventListener("input", () => {
-		u = Number(i.value), c = !1, n.querySelector(".lab-feedback").textContent = "", f !== null && Q[f].time > u && (f = null), _(), g();
+		u = Number(i.value), c = !1, n.querySelector(".lab-feedback").textContent = "", f !== null && Na[f].time > u && (f = null), _(), g();
 	}), a.addEventListener("click", () => {
 		n.querySelector(".lab-feedback").textContent = "", u === 75 && (u = 0, f = null), c = !c, g(), _();
 	}), n.querySelector(".lab-show-all").addEventListener("click", () => {
@@ -3507,23 +3507,321 @@ function Ma(e) {
 	}), n.querySelector(".lab-flag").addEventListener("click", () => {
 		c = !1, _(), g();
 		let e = n.querySelector(".lab-feedback");
-		e.textContent = d === "external" ? Q.filter((e) => e.flow === "external" && e.time <= u).length < 4 ? "A plausible lead, but not enough evidence yet. Move the slider to at least 65s and compare the repeated connections." : "Good lead. Four 96-byte TLS connections occur at 05s, 25s, 45s and 65s: a regular 20-second pattern. This can resemble beaconing, but legitimate software can behave similarly. Check process ownership, destination reputation and host logs before deciding." : d === "dns" ? "These short, ordinary hostname lookups provide no strong anomaly in this capture. Try comparing the timing and sizes of the other connections." : "These HTTPS fragments vary in size and timing. That alone is not strong evidence of an incident. Inspect another destination for a repeatable pattern.";
+		e.textContent = d === "external" ? Na.filter((e) => e.flow === "external" && e.time <= u).length < 4 ? "A plausible lead, but not enough evidence yet. Move the slider to at least 65s and compare the repeated connections." : "Good lead. Four 96-byte TLS connections occur at 05s, 25s, 45s and 65s: a regular 20-second pattern. This can resemble beaconing, but legitimate software can behave similarly. Check process ownership, destination reputation and host logs before deciding." : d === "dns" ? "These short, ordinary hostname lookups provide no strong anomaly in this capture. Try comparing the timing and sizes of the other connections." : "These HTTPS fragments vary in size and timing. That alone is not strong evidence of an incident. Inspect another destination for a repeatable pattern.";
 	}), new IntersectionObserver((e) => {
 		l = e[0].isIntersecting, _();
 	}, { threshold: .05 }).observe(n), document.addEventListener("visibilitychange", _);
 }
 //#endregion
-//#region enhancements.js
-var Na = document.documentElement, Pa = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => Na.dataset.motion !== "paused";
-$() && Na.classList.add("js-motion");
-var Fa = document.querySelector(".theme-toggle");
-if (Fa) {
-	let e = document.createElement("div");
-	e.className = "header-actions", Fa.before(e), e.append(Fa);
+//#region project-metadata.js
+var Z = [
+	{
+		id: "codex-pulse",
+		name: "Codex Pulse",
+		summary: "Tracks five-hour and weekly usage alongside local session activity, token history, and optional reset alerts.",
+		url: "/projects/codex-pulse/",
+		repo: "https://github.com/bonkval/Codex-Pulse",
+		skills: [
+			"Electron",
+			"JavaScript",
+			"Windows",
+			"VS Code",
+			"Local sessions",
+			"CSS",
+			"HTML",
+			"PowerShell",
+			"NSIS"
+		]
+	},
+	{
+		id: "secure-me-pls",
+		name: "Secure me, pls?",
+		summary: "Checks eight documented weak-password patterns entirely in the browser, with lessons and a locally saved security checklist.",
+		url: "/projects/secure-me-pls/",
+		repo: "https://github.com/bonkval/secure-me-pls",
+		skills: [
+			"Next.js",
+			"TypeScript",
+			"React 19",
+			"Tailwind CSS",
+			"Local storage",
+			"CSS",
+			"JavaScript"
+		]
+	},
+	{
+		id: "canvas-copy-pasta",
+		name: "CanvasCopyPasta",
+		summary: "Uses Manifest V3 and Shadow DOM to copy question text, selected answers, and images without mixing with Canvas styles.",
+		url: "/projects/canvas-copy-pasta/",
+		repo: "https://github.com/bonkval/CanvasCopyPasta",
+		skills: [
+			"JavaScript",
+			"Browser extension",
+			"Shadow DOM",
+			"Clipboard API",
+			"AutoHotkey",
+			"CSS",
+			"PowerShell",
+			"HTML"
+		]
+	},
+	{
+		id: "sentiflow-network-lab",
+		name: "SentiFlow Network Lab",
+		summary: "Runs eight labeled traffic scenarios through seven detection families, with local SQLite storage and a validation script.",
+		url: "/projects/sentiflow-network-lab/",
+		repo: "https://github.com/bonkval/SentiFlow-Network-Lab",
+		skills: [
+			"Python",
+			"SQLite",
+			"PCAP",
+			"TShark",
+			"HTML",
+			"Batchfile"
+		]
+	},
+	{
+		id: "project-chameleon",
+		name: "Project Chameleon",
+		summary: "Records input only inside project-owned training windows. Includes visible consent, buffered local logs, and no global hooks.",
+		url: "/projects/project-chameleon/",
+		repo: "https://github.com/bonkval/Project-Chameleon",
+		skills: [
+			"Python 3.10+",
+			"CustomTkinter",
+			"Threading",
+			"JSON",
+			"SHA-256",
+			"Python"
+		]
+	},
+	{
+		id: "phishhook",
+		name: "PhishHook",
+		summary: "Limits authorized campaigns to 25 recipients, requires final review, and separates scanner activity from anonymous interaction signals.",
+		url: "/projects/phishhook/",
+		repo: "https://github.com/bonkval/phishhook",
+		skills: [
+			"Python 3.12+",
+			"CustomTkinter",
+			"Cloudflare Workers",
+			"D1",
+			"SQLite",
+			"SMTP",
+			"Python",
+			"TypeScript",
+			"PowerShell"
+		]
+	},
+	{
+		id: "huli-na-honeypot",
+		name: "Huli na!",
+		summary: "Scores SSH and HTTP activity into five severity levels without storing submitted passwords or request bodies.",
+		url: "/projects/huli-na-honeypot/",
+		repo: "https://github.com/bonkval/huli-na-honeypot",
+		skills: [
+			"Python",
+			"AsyncSSH",
+			"SQLite",
+			"Windows",
+			"Analytics",
+			"Batchfile",
+			"Inno Setup"
+		]
+	},
+	{
+		id: "trustwho",
+		name: "TrustWho",
+		summary: "Analyzes 34 lexical URL features across three detection layers without opening or resolving the submitted address.",
+		url: "/projects/trustwho/",
+		repo: "https://github.com/bonkval/TrustWho",
+		skills: [
+			"Python",
+			"FastAPI",
+			"scikit-learn",
+			"Pandas",
+			"Uvicorn",
+			"CSS",
+			"JavaScript",
+			"HTML",
+			"Dockerfile"
+		]
+	},
+	{
+		id: "network-security-lab",
+		name: "NetworkSecLab",
+		summary: "Combines three guided labs, five credential-attack detection patterns, and inventory-bound SSH configuration previews.",
+		url: "/projects/network-security-lab/",
+		repo: "https://github.com/bonkval/NetworkSecLab",
+		skills: [
+			"Python",
+			"Flask",
+			"SQLite",
+			"SNMP",
+			"Docker",
+			"HTML",
+			"JavaScript",
+			"Dockerfile"
+		]
+	},
+	{
+		id: "live-screen-view",
+		name: "LiveScreenView",
+		summary: "Shares on-demand desktop captures over a local network with mobile zoom, OCR extraction, and copy-all text.",
+		url: "/projects/live-screen-view/",
+		repo: "https://github.com/bonkval/LiveScreenView",
+		skills: [
+			"Python",
+			"MSS",
+			"Pillow",
+			"Tesseract OCR",
+			"LAN HTTP"
+		]
+	},
+	{
+		id: "starlium",
+		name: "Starlium",
+		summary: "Connects PHP account, cart, and checkout flows to inventory, user administration, and reporting.",
+		url: "/projects/starlium/",
+		repo: "https://github.com/bonkval/Starlium",
+		skills: [
+			"PHP",
+			"MySQL",
+			"JavaScript",
+			"HTML",
+			"CSS"
+		]
+	}
+], Fa = [
+	[17, 15],
+	[50, 11],
+	[83, 15],
+	[17, 38],
+	[50, 36],
+	[83, 38],
+	[17, 61],
+	[50, 63],
+	[83, 61],
+	[32, 86],
+	[70, 86]
+], Ia = [
+	"Python",
+	"JavaScript",
+	"TypeScript",
+	"SQL",
+	"Electron"
+], Q = (e, t) => t === "All" || e.skills.some((e) => e.toLowerCase() === t.toLowerCase() || t === "SQL" && /^(sqlite|sql)$/i.test(e));
+function La(e) {
+	let t = document.querySelector("#work [data-project-rail]");
+	if (!t) return;
+	let n = t.closest("section"), r = document.createElement("div");
+	r.className = "project-explorer-tools", r.innerHTML = `<div class="project-view-switch" role="group" aria-label="Project view"><button type="button" data-view="cards" aria-pressed="true">Cards</button><button type="button" data-view="map" aria-pressed="false">Map <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 5 11-2-5 12L4 5l12 7"/><circle cx="4" cy="5" r="2"/><circle cx="15" cy="3" r="2"/><circle cx="10" cy="15" r="2"/></svg></button></div><div class="project-skill-filters" role="group" aria-label="Highlight projects by skill">${["All", ...Ia].map((e) => `<button type="button" data-skill="${e}" aria-pressed="${e === "All"}">${e}</button>`).join("")}</div><span class="project-filter-status" role="status"></span>`, t.before(r);
+	let i = document.createElement("div");
+	i.className = "project-map", i.hidden = !0, i.innerHTML = "<p class=\"project-map-help\">Shared skills connect the projects. Select a node to inspect it; use arrow keys to move between nodes.</p><div class=\"project-map-scroll\" tabindex=\"0\" role=\"region\" aria-label=\"Project constellation. On small screens, scroll horizontally to explore the map.\"><div class=\"project-map-stage\"><svg class=\"project-map-wires\" viewBox=\"0 0 1000 440\" preserveAspectRatio=\"none\" aria-hidden=\"true\"></svg></div></div><div class=\"project-map-preview\" aria-live=\"polite\"></div>", t.after(i);
+	let a = i.querySelector(".project-map-stage"), o = i.querySelector("svg"), s = i.querySelector(".project-map-preview"), c = "All", l = "cards", u = Z[0].id, d = /* @__PURE__ */ new Map(), f = [...t.querySelectorAll(".project-card")], p = [];
+	Z.forEach((e, t) => {
+		let n = 0;
+		for (let r = t + 1; r < Z.length && n < 2; r++) {
+			let t = Ia.filter((t) => Q(e, t) && Q(Z[r], t));
+			t.length && (p.push({
+				from: e.id,
+				to: Z[r].id,
+				shared: t
+			}), n++);
+		}
+		let r = document.createElement("button");
+		r.type = "button", r.className = "project-map-node", r.dataset.mapProject = e.id, r.innerHTML = `<span class="map-node-pin" aria-hidden="true"></span><strong>${e.name}</strong><small>${e.skills.slice(0, 2).join(" / ")}</small>`, r.setAttribute("aria-pressed", String(u === e.id)), a.append(r), d.set(e.id, r), r.addEventListener("click", () => {
+			u = e.id, m(e), h(!1, !0);
+		}), r.addEventListener("focus", () => m(e)), r.addEventListener("pointerenter", () => m(e)), r.addEventListener("keydown", (e) => {
+			let n = {
+				ArrowRight: 1,
+				ArrowLeft: -1,
+				ArrowDown: 3,
+				ArrowUp: -3,
+				Home: -t,
+				End: Z.length - 1 - t
+			};
+			if (!(e.key in n)) return;
+			e.preventDefault();
+			let r = Math.max(0, Math.min(Z.length - 1, t + n[e.key]));
+			d.get(Z[r].id).focus();
+		});
+	});
+	function m(e) {
+		s.innerHTML = `<div><p class="interaction-label">Project details</p><h3>${e.name}</h3><p>${e.summary}</p></div><div class="map-preview-links"><span>${e.skills.slice(0, 5).join(" · ")}</span><a href="${e.url}" class="text-link">Read documentation <span aria-hidden="true">↗</span></a></div>`;
+	}
+	function h(t = !1, n = !1) {
+		let r = /* @__PURE__ */ new Map();
+		t && e() && !i.hidden && d.forEach((e, t) => {
+			e.getAnimations().forEach((e) => e.finish()), r.set(t, e.getBoundingClientRect());
+		});
+		let a = [...Z].sort((e, t) => Number(Q(t, c)) - Number(Q(e, c))), s = /* @__PURE__ */ new Map();
+		a.forEach((e, t) => {
+			let [n, r] = Fa[t], i = d.get(e.id);
+			s.set(e.id, [n * 10, r * 4.4]), i.style.left = `calc(${n}% - 90px)`, i.style.top = `calc(${r}% - 31px)`, i.classList.toggle("is-skill-muted", !Q(e, c)), i.setAttribute("aria-pressed", String(u === e.id));
+		});
+		let l = [];
+		r.forEach((e, t) => {
+			let n = d.get(t), r = n.getBoundingClientRect();
+			l.push([
+				n,
+				e.left - r.left,
+				e.top - r.top
+			]);
+		}), l.forEach(([e, t, n]) => {
+			(t || n) && e.animate([{ transform: `translate(${t}px,${n}px)` }, { transform: "translate(0,0)" }], {
+				duration: 550,
+				easing: "cubic-bezier(.16,1,.3,1)"
+			});
+		}), o.innerHTML = p.map((e) => {
+			let t = s.get(e.from), n = s.get(e.to), r = e.from === u || e.to === u, i = c !== "All" && !e.shared.includes(c);
+			return `<path d="M${t[0]} ${t[1]} Q${(t[0] + n[0]) / 2 + 30} ${(t[1] + n[1]) / 2 - 25} ${n[0]} ${n[1]}" class="${r ? "is-related " : ""}${i ? "is-muted" : ""}"/>`;
+		}).join(""), n && e() && o.querySelectorAll(".is-related").forEach((e) => e.animate([{
+			strokeDasharray: "4 8",
+			strokeDashoffset: 100,
+			opacity: 1
+		}, {
+			strokeDasharray: "4 8",
+			strokeDashoffset: 0,
+			opacity: .7
+		}], {
+			duration: 800,
+			easing: "ease-out"
+		}));
+	}
+	function g(n) {
+		c = n, r.querySelectorAll("[data-skill]").forEach((e) => e.setAttribute("aria-pressed", String(e.dataset.skill === c))), f.forEach((e) => {
+			let t = Z.find((t) => e.getAttribute("href") === t.url);
+			e.classList.toggle("is-skill-muted", t && !Q(t, c));
+		});
+		let i = Z.filter((e) => Q(e, c));
+		if (r.querySelector(".project-filter-status").textContent = c === "All" ? "" : `${i.length} projects use ${c}`, i.some((e) => e.id === u) || (u = i[0].id), m(Z.find((e) => e.id === u)), h(!0), l === "cards" && c !== "All") {
+			let n = f.find((e) => !e.classList.contains("is-skill-muted"));
+			n && t.scrollTo({
+				left: n.offsetLeft - t.offsetLeft,
+				behavior: e() ? "smooth" : "instant"
+			});
+		}
+	}
+	r.querySelectorAll("[data-skill]").forEach((e) => e.addEventListener("click", () => g(e.dataset.skill))), r.querySelectorAll("[data-view]").forEach((e) => e.addEventListener("click", () => {
+		l = e.dataset.view, r.querySelectorAll("[data-view]").forEach((t) => t.setAttribute("aria-pressed", String(t === e))), t.hidden = l !== "cards", i.hidden = l !== "map";
+		let a = n.querySelector(".gallery-scrubber");
+		a && (a.hidden = l !== "cards"), l === "map" && h();
+	})), m(Z[0]), h();
 }
-Pa.addEventListener("change", () => {
-	Na.dataset.motion = Pa.matches ? "paused" : "full", Na.classList.toggle("js-motion", !Pa.matches), document.dispatchEvent(new Event("portfolio:motion"));
-}), Da($), Oa($), ka($), ja($), Ma($), document.querySelectorAll("[data-project-rail]").forEach((e, t) => {
+//#endregion
+//#region enhancements.js
+var Ra = document.documentElement, za = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => Ra.dataset.motion !== "paused";
+$() && Ra.classList.add("js-motion");
+var Ba = document.querySelector(".theme-toggle");
+if (Ba) {
+	let e = document.createElement("div");
+	e.className = "header-actions", Ba.before(e), e.append(Ba);
+}
+za.addEventListener("change", () => {
+	Ra.dataset.motion = za.matches ? "paused" : "full", Ra.classList.toggle("js-motion", !za.matches), document.dispatchEvent(new Event("portfolio:motion"));
+}), Oa($), ka($), Aa($), Ma($), Pa($), La($), document.querySelectorAll("[data-project-rail]").forEach((e, t) => {
 	let n = [...e.querySelectorAll(":scope > a")];
 	if (n.length < 2) return;
 	e.id ||= `project-rail-${t + 1}`, e.tabIndex = 0, e.setAttribute("role", "region"), e.setAttribute("aria-roledescription", "carousel");
@@ -3560,7 +3858,7 @@ Pa.addEventListener("change", () => {
 			e.scrollLeft = i, e.classList.remove("is-dragging"), y();
 			return;
 		}
-		e.classList.add("is-dragging"), d = Y(e.scrollLeft, i, {
+		e.classList.add("is-dragging"), d = J(e.scrollLeft, i, {
 			type: "spring",
 			stiffness: 155,
 			damping: 26,
@@ -3595,7 +3893,7 @@ Pa.addEventListener("change", () => {
 				e.scrollLeft = Math.max(0, Math.min(h(), e.scrollLeft + n));
 				return;
 			}
-			e.classList.add("is-dragging"), C = Math.max(0, Math.min(h(), C + n * (t.deltaMode === 1 ? 30 : 1))), d = Y(e.scrollLeft, C, {
+			e.classList.add("is-dragging"), C = Math.max(0, Math.min(h(), C + n * (t.deltaMode === 1 ? 30 : 1))), d = J(e.scrollLeft, C, {
 				type: "spring",
 				stiffness: 110,
 				damping: 28,
@@ -3635,7 +3933,7 @@ Pa.addEventListener("change", () => {
 		if (p = void 0, !r.moved) return;
 		e.hasPointerCapture(t.pointerId) && e.releasePointerCapture(t.pointerId), m = !0;
 		let i = performance.now() - r.lastTime < 100 ? Math.max(-2500, Math.min(2500, r.velocity)) : 0, a = Math.max(0, Math.min(h(), e.scrollLeft + i * .18));
-		n.reduce((e, t, n) => Math.abs(v(n) - a) < Math.abs(v(e) - a) ? n : e, 0), b(), $() ? d = Y(e.scrollLeft, a, {
+		n.reduce((e, t, n) => Math.abs(v(n) - a) < Math.abs(v(e) - a) ? n : e, 0), b(), $() ? d = J(e.scrollLeft, a, {
 			type: "spring",
 			stiffness: 80,
 			damping: 22,
@@ -3664,9 +3962,9 @@ Pa.addEventListener("change", () => {
 		_(), y();
 	}).observe(e), y();
 });
-var Ia = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], La = Ia.map((e) => document.querySelector(e.hash)).filter(Boolean), Ra = new IntersectionObserver((e) => {
+var Va = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Ha = Va.map((e) => document.querySelector(e.hash)).filter(Boolean), Ua = new IntersectionObserver((e) => {
 	e.forEach((e) => {
-		e.isIntersecting && Ia.forEach((t) => {
+		e.isIntersecting && Va.forEach((t) => {
 			t.hash === `#${e.target.id}` ? t.setAttribute("aria-current", "location") : t.removeAttribute("aria-current");
 		});
 	});
@@ -3674,13 +3972,13 @@ var Ia = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], La = Ia.map
 	rootMargin: "-15% 0px -60% 0px",
 	threshold: 0
 });
-La.forEach((e) => Ra.observe(e)), document.addEventListener("keydown", (e) => {
+Ha.forEach((e) => Ua.observe(e)), document.addEventListener("keydown", (e) => {
 	if (e.key !== "Escape") return;
 	let t = document.querySelector(".menu-button");
 	t?.getAttribute("aria-expanded") === "true" && (t.click(), t.focus());
-}), $() && X(".project-card", (e) => {
+}), $() && Y(".project-card", (e) => {
 	let t = e.querySelector(".project-image img");
-	t && $() && Y(t, {
+	t && $() && J(t, {
 		opacity: [0, 1],
 		scale: [1.06, 1]
 	}, {
