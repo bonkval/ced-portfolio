@@ -12,9 +12,9 @@ const scriptVersions = {};
 for (const file of ['script.js', 'theme-init.js', 'public/content/certifications.js']) {
   scriptVersions[file] = createHash('sha256').update(await readFile(join(root,file))).digest('hex').slice(0,12);
 }
-const [base, overrides, redesign] = await Promise.all(['styles.css','custom-overrides.css','redesign.css'].map(name => readFile(join(root,name),'utf8')));
+const [base, overrides, redesign, lab] = await Promise.all(['styles.css','custom-overrides.css','redesign.css','lab.css'].map(name => readFile(join(root,name),'utf8')));
 const sheets = {};
-for (const [name, source] of Object.entries({ site: base + overrides + redesign, case: base + redesign })) {
+for (const [name, source] of Object.entries({ site: base + overrides + redesign + lab, case: base + redesign })) {
   const { code } = transform({ filename: `${name}.css`, code: Buffer.from(source), minify: true });
   const hash = createHash('sha256').update(code).digest('hex').slice(0,12);
   sheets[name] = `/public/vendor/${name}.css?v=${hash}`;

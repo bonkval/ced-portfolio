@@ -63,35 +63,35 @@ function b(e, t, n, r) {
 }
 //#endregion
 //#region node_modules/motion-utils/dist/es/easing/modifiers/mirror.mjs
-var x = /* @__NO_SIDE_EFFECTS__ */ (e) => (t) => t <= .5 ? e(2 * t) / 2 : (2 - e(2 * (1 - t))) / 2, S = /* @__NO_SIDE_EFFECTS__ */ (e) => (t) => 1 - e(1 - t), C = /*@__PURE__*/ b(.33, 1.53, .69, .99), w = /*@__PURE__*/ S(C), T = /*@__PURE__*/ x(w), E = (e) => e >= 1 ? 1 : (e *= 2) < 1 ? .5 * w(e) : .5 * (2 - 2 ** (-10 * (e - 1))), D = (e) => 1 - Math.sin(Math.acos(e)), ee = /* @__PURE__ */ S(D), te = /* @__PURE__ */ x(D), ne = /*@__PURE__*/ b(.42, 0, 1, 1), re = /*@__PURE__*/ b(0, 0, .58, 1), ie = /*@__PURE__*/ b(.42, 0, .58, 1), ae = /* @__NO_SIDE_EFFECTS__ */ (e) => Array.isArray(e) && typeof e[0] != "number";
+var x = /* @__NO_SIDE_EFFECTS__ */ (e) => (t) => t <= .5 ? e(2 * t) / 2 : (2 - e(2 * (1 - t))) / 2, S = /* @__NO_SIDE_EFFECTS__ */ (e) => (t) => 1 - e(1 - t), C = /*@__PURE__*/ b(.33, 1.53, .69, .99), w = /*@__PURE__*/ S(C), T = /*@__PURE__*/ x(w), E = (e) => e >= 1 ? 1 : (e *= 2) < 1 ? .5 * w(e) : .5 * (2 - 2 ** (-10 * (e - 1))), D = (e) => 1 - Math.sin(Math.acos(e)), O = /* @__PURE__ */ S(D), ee = /* @__PURE__ */ x(D), te = /*@__PURE__*/ b(.42, 0, 1, 1), k = /*@__PURE__*/ b(0, 0, .58, 1), ne = /*@__PURE__*/ b(.42, 0, .58, 1), re = /* @__NO_SIDE_EFFECTS__ */ (e) => Array.isArray(e) && typeof e[0] != "number";
 //#endregion
 //#region node_modules/motion-utils/dist/es/easing/utils/get-easing-for-segment.mjs
 /*#__NO_SIDE_EFFECTS__*/
-function oe(e, t) {
-	return /* @__PURE__ */ ae(e) ? e[h(0, e.length, t)] : e;
+function ie(e, t) {
+	return /* @__PURE__ */ re(e) ? e[h(0, e.length, t)] : e;
 }
 //#endregion
 //#region node_modules/motion-utils/dist/es/easing/utils/is-bezier-definition.mjs
-var se = /* @__NO_SIDE_EFFECTS__ */ (e) => Array.isArray(e) && typeof e[0] == "number", ce = {
+var A = /* @__NO_SIDE_EFFECTS__ */ (e) => Array.isArray(e) && typeof e[0] == "number", j = {
 	linear: c,
-	easeIn: ne,
-	easeInOut: ie,
-	easeOut: re,
+	easeIn: te,
+	easeInOut: ne,
+	easeOut: k,
 	circIn: D,
-	circInOut: te,
-	circOut: ee,
+	circInOut: ee,
+	circOut: O,
 	backIn: w,
 	backInOut: T,
 	backOut: C,
 	anticipate: E
-}, le = (e) => typeof e == "string", ue = (e) => {
-	if (/* @__PURE__ */ se(e)) {
+}, M = (e) => typeof e == "string", ae = (e) => {
+	if (/* @__PURE__ */ A(e)) {
 		e.length;
 		let [t, n, r, i] = e;
 		return /* @__PURE__ */ b(t, n, r, i);
 	}
-	return le(e) ? (ce[e], `${e}`, ce[e]) : e;
-}, de = [
+	return M(e) ? (j[e], `${e}`, j[e]) : e;
+}, N = [
 	"setup",
 	"read",
 	"resolveKeyframes",
@@ -103,7 +103,7 @@ var se = /* @__NO_SIDE_EFFECTS__ */ (e) => Array.isArray(e) && typeof e[0] == "n
 ];
 //#endregion
 //#region node_modules/motion-dom/dist/es/frameloop/render-step.mjs
-function fe(e) {
+function oe(e) {
 	let t = /* @__PURE__ */ new Set(), n = /* @__PURE__ */ new Set(), r = !1, i = !1, a = /* @__PURE__ */ new WeakSet(), o = {
 		delta: 0,
 		timestamp: 0,
@@ -134,25 +134,25 @@ function fe(e) {
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/frameloop/batcher.mjs
-var pe = 40;
-function me(e, t) {
+var se = 40;
+function ce(e, t) {
 	let n = !1, i = !0, a = {
 		delta: 0,
 		timestamp: 0,
 		isProcessing: !1
-	}, o = () => n = !0, s = de.reduce((e, t) => (e[t] = fe(o), e), {}), { setup: c, read: l, resolveKeyframes: u, preUpdate: d, update: f, preRender: p, render: m, postRender: h } = s, g = () => {
+	}, o = () => n = !0, s = N.reduce((e, t) => (e[t] = oe(o), e), {}), { setup: c, read: l, resolveKeyframes: u, preUpdate: d, update: f, preRender: p, render: m, postRender: h } = s, g = () => {
 		let o = r.useManualTiming, s = o ? a.timestamp : performance.now();
-		n = !1, o || (a.delta = i ? 1e3 / 60 : Math.max(Math.min(s - a.timestamp, pe), 1)), a.timestamp = s, a.isProcessing = !0, c.process(a), l.process(a), u.process(a), d.process(a), f.process(a), p.process(a), m.process(a), h.process(a), a.isProcessing = !1, n && t && (i = !1, e(g));
+		n = !1, o || (a.delta = i ? 1e3 / 60 : Math.max(Math.min(s - a.timestamp, se), 1)), a.timestamp = s, a.isProcessing = !0, c.process(a), l.process(a), u.process(a), d.process(a), f.process(a), p.process(a), m.process(a), h.process(a), a.isProcessing = !1, n && t && (i = !1, e(g));
 	}, _ = () => {
 		n = !0, i = !0, a.isProcessing || e(g);
 	};
 	return {
-		schedule: de.reduce((e, t) => {
+		schedule: N.reduce((e, t) => {
 			let r = s[t];
 			return e[t] = (e, t = !1, i = !1) => (n || _(), r.schedule(e, t, i)), e;
 		}, {}),
 		cancel: (e) => {
-			for (let t = 0; t < de.length; t++) s[de[t]].cancel(e);
+			for (let t = 0; t < N.length; t++) s[N[t]].cancel(e);
 		},
 		state: a,
 		steps: s
@@ -160,59 +160,59 @@ function me(e, t) {
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/frameloop/frame.mjs
-var { schedule: O, cancel: he, state: ge, steps: _e } = /* @__PURE__ */ me(typeof requestAnimationFrame < "u" ? requestAnimationFrame : c, !0), ve;
-function ye() {
-	ve = void 0;
+var { schedule: P, cancel: le, state: ue, steps: de } = /* @__PURE__ */ ce(typeof requestAnimationFrame < "u" ? requestAnimationFrame : c, !0), fe;
+function pe() {
+	fe = void 0;
 }
-var k = {
-	now: () => (ve === void 0 && k.set(ge.isProcessing || r.useManualTiming ? ge.timestamp : performance.now()), ve),
+var F = {
+	now: () => (fe === void 0 && F.set(ue.isProcessing || r.useManualTiming ? ue.timestamp : performance.now()), fe),
 	set: (e) => {
-		ve = e, queueMicrotask(ye);
+		fe = e, queueMicrotask(pe);
 	}
-}, be = (e) => (t) => typeof t == "string" && t.startsWith(e), xe = /*@__PURE__*/ be("--"), Se = /*@__PURE__*/ be("var(--"), Ce = (e) => Se(e) ? we.test(e.split("/*")[0].trim()) : !1, we = /var\(--(?:[\w-]+\s*|[\w-]+\s*,(?:\s*[^)(\s]|\s*\((?:[^)(]|\([^)(]*\))*\))+\s*)\)$/iu;
-function Te(e) {
+}, me = (e) => (t) => typeof t == "string" && t.startsWith(e), he = /*@__PURE__*/ me("--"), ge = /*@__PURE__*/ me("var(--"), _e = (e) => ge(e) ? ve.test(e.split("/*")[0].trim()) : !1, ve = /var\(--(?:[\w-]+\s*|[\w-]+\s*,(?:\s*[^)(\s]|\s*\((?:[^)(]|\([^)(]*\))*\))+\s*)\)$/iu;
+function ye(e) {
 	return typeof e == "string" && e.split("/*")[0].includes("var(--");
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/value/types/numbers/index.mjs
-var A = {
+var I = {
 	test: (e) => typeof e == "number",
 	parse: parseFloat,
 	transform: (e) => e
-}, Ee = {
-	...A,
+}, be = {
+	...I,
 	transform: (e) => n(0, 1, e)
-}, De = {
-	...A,
+}, xe = {
+	...I,
 	default: 1
-}, Oe = (e) => Math.round(e * 1e5) / 1e5, ke = /-?(?:\d+(?:\.\d+)?|\.\d+)/gu;
+}, Se = (e) => Math.round(e * 1e5) / 1e5, Ce = /-?(?:\d+(?:\.\d+)?|\.\d+)/gu;
 //#endregion
 //#region node_modules/motion-dom/dist/es/value/types/utils/is-nullish.mjs
-function Ae(e) {
+function we(e) {
 	return e == null;
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/value/types/utils/single-color-regex.mjs
-var je = /^(?:#[\da-f]{3,8}|(?:rgb|hsl)a?\((?:-?[\d.]+%?[,\s]+){2}-?[\d.]+%?\s*(?:[,/]\s*)?(?:\b\d+(?:\.\d+)?|\.\d+)?%?\))$/iu, Me = (e, t) => (n) => !!(typeof n == "string" && je.test(n) && n.startsWith(e) || t && !Ae(n) && Object.prototype.hasOwnProperty.call(n, t)), Ne = (e, t, n) => (r) => {
+var Te = /^(?:#[\da-f]{3,8}|(?:rgb|hsl)a?\((?:-?[\d.]+%?[,\s]+){2}-?[\d.]+%?\s*(?:[,/]\s*)?(?:\b\d+(?:\.\d+)?|\.\d+)?%?\))$/iu, Ee = (e, t) => (n) => !!(typeof n == "string" && Te.test(n) && n.startsWith(e) || t && !we(n) && Object.prototype.hasOwnProperty.call(n, t)), De = (e, t, n) => (r) => {
 	if (typeof r != "string") return r;
-	let [i, a, o, s] = r.match(ke);
+	let [i, a, o, s] = r.match(Ce);
 	return {
 		[e]: parseFloat(i),
 		[t]: parseFloat(a),
 		[n]: parseFloat(o),
 		alpha: s === void 0 ? 1 : parseFloat(s)
 	};
-}, Pe = (e) => n(0, 255, e), Fe = {
-	...A,
-	transform: (e) => Math.round(Pe(e))
-}, j = {
-	test: /*@__PURE__*/ Me("rgb", "red"),
-	parse: /*@__PURE__*/ Ne("red", "green", "blue"),
-	transform: ({ red: e, green: t, blue: n, alpha: r = 1 }) => "rgba(" + Fe.transform(e) + ", " + Fe.transform(t) + ", " + Fe.transform(n) + ", " + Oe(Ee.transform(r)) + ")"
+}, Oe = (e) => n(0, 255, e), ke = {
+	...I,
+	transform: (e) => Math.round(Oe(e))
+}, L = {
+	test: /*@__PURE__*/ Ee("rgb", "red"),
+	parse: /*@__PURE__*/ De("red", "green", "blue"),
+	transform: ({ red: e, green: t, blue: n, alpha: r = 1 }) => "rgba(" + ke.transform(e) + ", " + ke.transform(t) + ", " + ke.transform(n) + ", " + Se(be.transform(r)) + ")"
 };
 //#endregion
 //#region node_modules/motion-dom/dist/es/value/types/color/hex.mjs
-function Ie(e) {
+function Ae(e) {
 	let t = "", n = "", r = "", i = "";
 	return e.length > 5 ? (t = e.substring(1, 3), n = e.substring(3, 5), r = e.substring(5, 7), i = e.substring(7, 9)) : (t = e.substring(1, 2), n = e.substring(2, 3), r = e.substring(3, 4), i = e.substring(4, 5), t += t, n += n, r += r, i += i), {
 		red: parseInt(t, 16),
@@ -221,38 +221,38 @@ function Ie(e) {
 		alpha: i ? parseInt(i, 16) / 255 : 1
 	};
 }
-var Le = {
-	test: /*@__PURE__*/ Me("#"),
-	parse: Ie,
-	transform: j.transform
-}, Re = /* @__NO_SIDE_EFFECTS__ */ (e) => ({
+var je = {
+	test: /*@__PURE__*/ Ee("#"),
+	parse: Ae,
+	transform: L.transform
+}, Me = /* @__NO_SIDE_EFFECTS__ */ (e) => ({
 	test: (t) => typeof t == "string" && t.endsWith(e) && t.split(" ").length === 1,
 	parse: parseFloat,
 	transform: (t) => `${t}${e}`
-}), M = /*@__PURE__*/ Re("deg"), N = /*@__PURE__*/ Re("%"), P = /*@__PURE__*/ Re("px"), ze = /*@__PURE__*/ Re("vh"), Be = /*@__PURE__*/ Re("vw"), Ve = {
-	...N,
-	parse: (e) => N.parse(e) / 100,
-	transform: (e) => N.transform(e * 100)
-}, F = {
-	test: /*@__PURE__*/ Me("hsl", "hue"),
-	parse: /*@__PURE__*/ Ne("hue", "saturation", "lightness"),
-	transform: ({ hue: e, saturation: t, lightness: n, alpha: r = 1 }) => "hsla(" + Math.round(e) + ", " + N.transform(Oe(t)) + ", " + N.transform(Oe(n)) + ", " + Oe(Ee.transform(r)) + ")"
-}, I = {
-	test: (e) => j.test(e) || Le.test(e) || F.test(e),
-	parse: (e) => j.test(e) ? j.parse(e) : F.test(e) ? F.parse(e) : Le.parse(e),
-	transform: (e) => typeof e == "string" ? e : e.hasOwnProperty("red") ? j.transform(e) : F.transform(e),
+}), R = /*@__PURE__*/ Me("deg"), Ne = /*@__PURE__*/ Me("%"), z = /*@__PURE__*/ Me("px"), Pe = /*@__PURE__*/ Me("vh"), Fe = /*@__PURE__*/ Me("vw"), Ie = {
+	...Ne,
+	parse: (e) => Ne.parse(e) / 100,
+	transform: (e) => Ne.transform(e * 100)
+}, Le = {
+	test: /*@__PURE__*/ Ee("hsl", "hue"),
+	parse: /*@__PURE__*/ De("hue", "saturation", "lightness"),
+	transform: ({ hue: e, saturation: t, lightness: n, alpha: r = 1 }) => "hsla(" + Math.round(e) + ", " + Ne.transform(Se(t)) + ", " + Ne.transform(Se(n)) + ", " + Se(be.transform(r)) + ")"
+}, B = {
+	test: (e) => L.test(e) || je.test(e) || Le.test(e),
+	parse: (e) => L.test(e) ? L.parse(e) : Le.test(e) ? Le.parse(e) : je.parse(e),
+	transform: (e) => typeof e == "string" ? e : e.hasOwnProperty("red") ? L.transform(e) : Le.transform(e),
 	getAnimatableNone: (e) => {
-		let t = I.parse(e);
-		return t.alpha = 0, I.transform(t);
+		let t = B.parse(e);
+		return t.alpha = 0, B.transform(t);
 	}
-}, He = /(?:#[\da-f]{3,8}|(?:rgb|hsl)a?\((?:-?[\d.]+%?[,\s]+){2}-?[\d.]+%?\s*(?:[,/]\s*)?(?:\b\d+(?:\.\d+)?|\.\d+)?%?\))/giu;
+}, Re = /(?:#[\da-f]{3,8}|(?:rgb|hsl)a?\((?:-?[\d.]+%?[,\s]+){2}-?[\d.]+%?\s*(?:[,/]\s*)?(?:\b\d+(?:\.\d+)?|\.\d+)?%?\))/giu;
 //#endregion
 //#region node_modules/motion-dom/dist/es/value/types/complex/index.mjs
-function Ue(e) {
-	return isNaN(e) && typeof e == "string" && (e.match(ke)?.length || 0) + (e.match(He)?.length || 0) > 0;
+function ze(e) {
+	return isNaN(e) && typeof e == "string" && (e.match(Ce)?.length || 0) + (e.match(Re)?.length || 0) > 0;
 }
-var We = "number", Ge = "color", Ke = "var", qe = "var(", Je = "${}", Ye = /var\s*\(\s*--(?:[\w-]+\s*|[\w-]+\s*,(?:\s*[^)(\s]|\s*\((?:[^)(]|\([^)(]*\))*\))+\s*)\)|#[\da-f]{3,8}|(?:rgb|hsl)a?\((?:-?[\d.]+%?[,\s]+){2}-?[\d.]+%?\s*(?:[,/]\s*)?(?:\b\d+(?:\.\d+)?|\.\d+)?%?\)|-?(?:\d+(?:\.\d+)?|\.\d+)/giu;
-function L(e) {
+var Be = "number", Ve = "color", He = "var", Ue = "var(", We = "${}", Ge = /var\s*\(\s*--(?:[\w-]+\s*|[\w-]+\s*,(?:\s*[^)(\s]|\s*\((?:[^)(]|\([^)(]*\))*\))+\s*)\)|#[\da-f]{3,8}|(?:rgb|hsl)a?\((?:-?[\d.]+%?[,\s]+){2}-?[\d.]+%?\s*(?:[,/]\s*)?(?:\b\d+(?:\.\d+)?|\.\d+)?%?\)|-?(?:\d+(?:\.\d+)?|\.\d+)/giu;
+function Ke(e) {
 	let t = e.toString(), n = [], r = {
 		color: [],
 		number: [],
@@ -260,51 +260,51 @@ function L(e) {
 	}, i = [], a = 0;
 	return {
 		values: n,
-		split: t.replace(Ye, (e) => (I.test(e) ? (r.color.push(a), i.push(Ge), n.push(I.parse(e))) : e.startsWith(qe) ? (r.var.push(a), i.push(Ke), n.push(e)) : (r.number.push(a), i.push(We), n.push(parseFloat(e))), ++a, Je)).split(Je),
+		split: t.replace(Ge, (e) => (B.test(e) ? (r.color.push(a), i.push(Ve), n.push(B.parse(e))) : e.startsWith(Ue) ? (r.var.push(a), i.push(He), n.push(e)) : (r.number.push(a), i.push(Be), n.push(parseFloat(e))), ++a, We)).split(We),
 		indexes: r,
 		types: i
 	};
 }
-function Xe(e) {
-	return L(e).values;
+function qe(e) {
+	return Ke(e).values;
 }
-function Ze({ split: e, types: t }) {
+function Je({ split: e, types: t }) {
 	let n = e.length;
 	return (r) => {
 		let i = "";
 		for (let a = 0; a < n; a++) if (i += e[a], r[a] !== void 0) {
 			let e = t[a];
-			i += e === We ? Oe(r[a]) : e === Ge ? I.transform(r[a]) : r[a];
+			i += e === Be ? Se(r[a]) : e === Ve ? B.transform(r[a]) : r[a];
 		}
 		return i;
 	};
 }
+function Ye(e) {
+	return Je(Ke(e));
+}
+var Xe = (e) => typeof e == "number" ? 0 : B.test(e) ? B.getAnimatableNone(e) : e, Ze = (e, t) => typeof e == "number" ? t?.trim().endsWith("/") ? e : 0 : Xe(e);
 function Qe(e) {
-	return Ze(L(e));
+	let t = Ke(e);
+	return Je(t)(t.values.map((e, n) => Ze(e, t.split[n])));
 }
-var $e = (e) => typeof e == "number" ? 0 : I.test(e) ? I.getAnimatableNone(e) : e, et = (e, t) => typeof e == "number" ? t?.trim().endsWith("/") ? e : 0 : $e(e);
-function tt(e) {
-	let t = L(e);
-	return Ze(t)(t.values.map((e, n) => et(e, t.split[n])));
-}
-var R = {
-	test: Ue,
-	parse: Xe,
-	createTransformer: Qe,
-	getAnimatableNone: tt
+var V = {
+	test: ze,
+	parse: qe,
+	createTransformer: Ye,
+	getAnimatableNone: Qe
 };
 //#endregion
 //#region node_modules/motion-dom/dist/es/value/types/color/hsla-to-rgba.mjs
-function nt(e, t, n) {
+function $e(e, t, n) {
 	return n < 0 && (n += 1), n > 1 && --n, n < 1 / 6 ? e + (t - e) * 6 * n : n < 1 / 2 ? t : n < 2 / 3 ? e + (t - e) * (2 / 3 - n) * 6 : e;
 }
-function rt({ hue: e, saturation: t, lightness: n, alpha: r }) {
+function et({ hue: e, saturation: t, lightness: n, alpha: r }) {
 	e /= 360, t /= 100, n /= 100;
 	let i = 0, a = 0, o = 0;
 	if (!t) i = a = o = n;
 	else {
 		let r = n < .5 ? n * (1 + t) : n + t - n * t, s = 2 * n - r;
-		i = nt(s, r, e + 1 / 3), a = nt(s, r, e), o = nt(s, r, e - 1 / 3);
+		i = $e(s, r, e + 1 / 3), a = $e(s, r, e), o = $e(s, r, e - 1 / 3);
 	}
 	return {
 		red: Math.round(i * 255),
@@ -315,61 +315,61 @@ function rt({ hue: e, saturation: t, lightness: n, alpha: r }) {
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/utils/mix/immediate.mjs
-function it(e, t) {
+function tt(e, t) {
 	return (n) => n > 0 ? t : e;
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/utils/mix/number.mjs
-var z = (e, t, n) => e + (t - e) * n, at = (e, t, n) => {
+var nt = (e, t, n) => e + (t - e) * n, rt = (e, t, n) => {
 	let r = e * e, i = n * (t * t - r) + r;
 	return i < 0 ? 0 : Math.sqrt(i);
-}, ot = [
-	Le,
-	j,
-	F
-], st = (e) => ot.find((t) => t.test(e));
-function ct(e) {
-	let t = st(e);
+}, it = [
+	je,
+	L,
+	Le
+], at = (e) => it.find((t) => t.test(e));
+function ot(e) {
+	let t = at(e);
 	if (`${e}`, !t) return !1;
 	let n = t.parse(e);
-	return t === F && (n = rt(n)), n;
+	return t === Le && (n = et(n)), n;
 }
-var lt = (e, t) => {
-	let n = ct(e), r = ct(t);
-	if (!n || !r) return it(e, t);
+var st = (e, t) => {
+	let n = ot(e), r = ot(t);
+	if (!n || !r) return tt(e, t);
 	let i = { ...n };
-	return (e) => (i.red = at(n.red, r.red, e), i.green = at(n.green, r.green, e), i.blue = at(n.blue, r.blue, e), i.alpha = z(n.alpha, r.alpha, e), j.transform(i));
-}, ut = /* @__PURE__ */ new Set(["none", "hidden"]);
-function dt(e, t) {
-	return ut.has(e) ? (n) => n <= 0 ? e : t : (n) => n >= 1 ? t : e;
+	return (e) => (i.red = rt(n.red, r.red, e), i.green = rt(n.green, r.green, e), i.blue = rt(n.blue, r.blue, e), i.alpha = nt(n.alpha, r.alpha, e), L.transform(i));
+}, ct = /* @__PURE__ */ new Set(["none", "hidden"]);
+function lt(e, t) {
+	return ct.has(e) ? (n) => n <= 0 ? e : t : (n) => n >= 1 ? t : e;
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/utils/mix/complex.mjs
+function ut(e, t) {
+	return (n) => nt(e, t, n);
+}
+function dt(e) {
+	return typeof e == "number" ? ut : typeof e == "string" ? _e(e) ? tt : B.test(e) ? st : ht : Array.isArray(e) ? ft : typeof e == "object" ? B.test(e) ? st : pt : tt;
+}
 function ft(e, t) {
-	return (n) => z(e, t, n);
-}
-function pt(e) {
-	return typeof e == "number" ? ft : typeof e == "string" ? Ce(e) ? it : I.test(e) ? lt : _t : Array.isArray(e) ? mt : typeof e == "object" ? I.test(e) ? lt : ht : it;
-}
-function mt(e, t) {
-	let n = [...e], r = n.length, i = e.map((e, n) => pt(e)(e, t[n]));
+	let n = [...e], r = n.length, i = e.map((e, n) => dt(e)(e, t[n]));
 	return (e) => {
 		for (let t = 0; t < r; t++) n[t] = i[t](e);
 		return n;
 	};
 }
-function ht(e, t) {
+function pt(e, t) {
 	let n = {
 		...e,
 		...t
 	}, r = {};
-	for (let i in n) e[i] !== void 0 && t[i] !== void 0 && (r[i] = pt(e[i])(e[i], t[i]));
+	for (let i in n) e[i] !== void 0 && t[i] !== void 0 && (r[i] = dt(e[i])(e[i], t[i]));
 	return (e) => {
 		for (let t in r) n[t] = r[t](e);
 		return n;
 	};
 }
-function gt(e, t) {
+function mt(e, t) {
 	let n = [], r = {
 		color: 0,
 		var: 0,
@@ -381,41 +381,41 @@ function gt(e, t) {
 	}
 	return n;
 }
-var _t = (e, t) => {
-	let n = R.createTransformer(t), r = L(e), i = L(t);
-	return r.indexes.var.length === i.indexes.var.length && r.indexes.color.length === i.indexes.color.length && r.indexes.number.length >= i.indexes.number.length ? ut.has(e) && !i.values.length || ut.has(t) && !r.values.length ? dt(e, t) : l(mt(gt(r, i), i.values), n) : (`${e}${t}`, it(e, t));
+var ht = (e, t) => {
+	let n = V.createTransformer(t), r = Ke(e), i = Ke(t);
+	return r.indexes.var.length === i.indexes.var.length && r.indexes.color.length === i.indexes.color.length && r.indexes.number.length >= i.indexes.number.length ? ct.has(e) && !i.values.length || ct.has(t) && !r.values.length ? lt(e, t) : l(ft(mt(r, i), i.values), n) : (`${e}${t}`, tt(e, t));
 };
 //#endregion
 //#region node_modules/motion-dom/dist/es/utils/mix/index.mjs
-function vt(e, t, n) {
-	return typeof e == "number" && typeof t == "number" && typeof n == "number" ? z(e, t, n) : pt(e)(e, t);
+function gt(e, t, n) {
+	return typeof e == "number" && typeof t == "number" && typeof n == "number" ? nt(e, t, n) : dt(e)(e, t);
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/drivers/frame.mjs
-var yt = (e) => {
+var _t = (e) => {
 	let t = ({ timestamp: t }) => e(t);
 	return {
-		start: (e = !0) => O.update(t, e),
-		stop: () => he(t),
-		now: () => ge.isProcessing ? ge.timestamp : k.now()
+		start: (e = !0) => P.update(t, e),
+		stop: () => le(t),
+		now: () => ue.isProcessing ? ue.timestamp : F.now()
 	};
-}, bt = (e, t, n = 10) => {
+}, vt = (e, t, n = 10) => {
 	let r = "", i = Math.max(Math.round(t / n), 2);
 	for (let t = 0; t < i; t++) r += Math.round(e(t / (i - 1)) * 1e4) / 1e4 + ", ";
 	return `linear(${r.substring(0, r.length - 2)})`;
-}, xt = 2e4;
-function St(e) {
+}, yt = 2e4;
+function bt(e) {
 	let t = 0, n = e.next(t);
 	for (; !n.done && t < 2e4;) t += 50, n = e.next(t);
 	return t >= 2e4 ? Infinity : t;
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/generators/utils/create-generator-easing.mjs
-function Ct(e, t = 100, n) {
+function xt(e, t = 100, n) {
 	let r = n({
 		...e,
 		keyframes: [0, t]
-	}), i = Math.min(St(r), xt);
+	}), i = Math.min(bt(r), yt);
 	return {
 		type: "keyframes",
 		ease: (e) => r.next(i * e).value / t,
@@ -424,7 +424,7 @@ function Ct(e, t = 100, n) {
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/generators/spring.mjs
-var B = {
+var H = {
 	stiffness: 100,
 	damping: 10,
 	mass: 1,
@@ -445,31 +445,31 @@ var B = {
 	minDamping: .05,
 	maxDamping: 1
 };
-function wt(e, t) {
+function St(e, t) {
 	return e * Math.sqrt(1 - t * t);
 }
-var Tt = 12;
-function Et(e, t, n) {
+var Ct = 12;
+function wt(e, t, n) {
 	let r = n;
-	for (let n = 1; n < Tt; n++) r -= e(r) / t(r);
+	for (let n = 1; n < Ct; n++) r -= e(r) / t(r);
 	return r;
 }
-var Dt = .001;
-function Ot({ duration: e = B.duration, bounce: t = B.bounce, velocity: r = B.velocity, mass: i = B.mass }) {
+var Tt = .001;
+function Et({ duration: e = H.duration, bounce: t = H.bounce, velocity: r = H.velocity, mass: i = H.mass }) {
 	let a, o;
-	B.maxDuration;
+	H.maxDuration;
 	let s = 1 - t;
-	s = n(B.minDamping, B.maxDamping, s), e = n(B.minDuration, B.maxDuration, /* @__PURE__ */ p(e)), s < 1 ? (a = (t) => {
-		let n = t * s, i = n * e, a = n - r, o = wt(t, s), c = Math.exp(-i);
-		return Dt - a / o * c;
+	s = n(H.minDamping, H.maxDamping, s), e = n(H.minDuration, H.maxDuration, /* @__PURE__ */ p(e)), s < 1 ? (a = (t) => {
+		let n = t * s, i = n * e, a = n - r, o = St(t, s), c = Math.exp(-i);
+		return Tt - a / o * c;
 	}, o = (t) => {
-		let n = t * s * e, i = n * r + r, o = s ** 2 * t ** 2 * e, c = Math.exp(-n), l = wt(t ** 2, s);
-		return (-a(t) + Dt > 0 ? -1 : 1) * ((i - o) * c) / l;
+		let n = t * s * e, i = n * r + r, o = s ** 2 * t ** 2 * e, c = Math.exp(-n), l = St(t ** 2, s);
+		return (-a(t) + Tt > 0 ? -1 : 1) * ((i - o) * c) / l;
 	}) : (a = (t) => -.001 + Math.exp(-t * e) * ((t - r) * e + 1), o = (t) => Math.exp(-t * e) * ((r - t) * (e * e)));
-	let c = 5 / e, l = Et(a, o, c);
+	let c = 5 / e, l = wt(a, o, c);
 	if (e = /* @__PURE__ */ f(e), isNaN(l)) return {
-		stiffness: B.stiffness,
-		damping: B.damping,
+		stiffness: H.stiffness,
+		damping: H.damping,
 		duration: e
 	};
 	{
@@ -481,47 +481,47 @@ function Ot({ duration: e = B.duration, bounce: t = B.bounce, velocity: r = B.ve
 		};
 	}
 }
-var kt = ["duration", "bounce"], At = [
+var Dt = ["duration", "bounce"], Ot = [
 	"stiffness",
 	"damping",
 	"mass"
 ];
-function jt(e, t) {
+function kt(e, t) {
 	return t.some((t) => e[t] !== void 0);
 }
-function Mt(e) {
+function At(e) {
 	let t = {
-		velocity: B.velocity,
-		stiffness: B.stiffness,
-		damping: B.damping,
-		mass: B.mass,
+		velocity: H.velocity,
+		stiffness: H.stiffness,
+		damping: H.damping,
+		mass: H.mass,
 		isResolvedFromDuration: !1,
 		...e
 	};
-	if (!jt(e, At) && jt(e, kt)) {
+	if (!kt(e, Ot) && kt(e, Dt)) {
 		if (t.velocity = 0, e.visualDuration) {
 			let r = e.visualDuration, i = 2 * Math.PI / (r * 1.2), a = i * i, o = 2 * n(.05, 1, 1 - (e.bounce || 0)) * Math.sqrt(a);
 			t = {
 				...t,
-				mass: B.mass,
+				mass: H.mass,
 				stiffness: a,
 				damping: o
 			};
 		} else {
-			let n = Ot({
+			let n = Et({
 				...e,
 				velocity: 0
 			});
 			t = {
 				...t,
 				...n,
-				mass: B.mass
+				mass: H.mass
 			}, t.isResolvedFromDuration = !0;
 		}
 	}
 	return t;
 }
-function Nt(e = B.visualDuration, t = B.bounce) {
+function jt(e = H.visualDuration, t = H.bounce) {
 	let n = typeof e == "object" ? e : {
 		visualDuration: e,
 		keyframes: [0, 1],
@@ -529,13 +529,13 @@ function Nt(e = B.visualDuration, t = B.bounce) {
 	}, { restSpeed: r, restDelta: i } = n, a = n.keyframes[0], o = n.keyframes[n.keyframes.length - 1], s = {
 		done: !1,
 		value: a
-	}, { stiffness: c, damping: l, mass: u, duration: d, velocity: m, isResolvedFromDuration: h } = Mt({
+	}, { stiffness: c, damping: l, mass: u, duration: d, velocity: m, isResolvedFromDuration: h } = At({
 		...n,
 		velocity: -/* @__PURE__ */ p(n.velocity || 0)
 	}), g = m || 0, _ = l / (2 * Math.sqrt(c * u)), v = o - a, y = /* @__PURE__ */ p(Math.sqrt(c / u)), b = Math.abs(v) < 5;
-	r ||= b ? B.restSpeed.granular : B.restSpeed.default, i ||= b ? B.restDelta.granular : B.restDelta.default;
+	r ||= b ? H.restSpeed.granular : H.restSpeed.default, i ||= b ? H.restDelta.granular : H.restDelta.default;
 	let x, S, C, w, T, E;
-	if (_ < 1) C = wt(y, _), w = (g + _ * y * v) / C, x = (e) => {
+	if (_ < 1) C = St(y, _), w = (g + _ * y * v) / C, x = (e) => {
 		let t = Math.exp(-_ * y * e);
 		return o - t * (w * Math.sin(C * e) + v * Math.cos(C * e));
 	}, T = _ * y * w + v * C, E = _ * y * v - w * C, S = (e) => Math.exp(-_ * y * e) * (T * Math.sin(C * e) + E * Math.cos(C * e));
@@ -572,27 +572,27 @@ function Nt(e = B.visualDuration, t = B.bounce) {
 			return s.value = s.done ? o : t, s;
 		},
 		toString: () => {
-			let e = Math.min(St(D), xt), t = bt((t) => D.next(e * t).value, e, 30);
+			let e = Math.min(bt(D), yt), t = vt((t) => D.next(e * t).value, e, 30);
 			return e + "ms " + t;
 		},
 		toTransition: () => {}
 	};
 	return D;
 }
-Nt.applyToOptions = (e) => {
-	let t = Ct(e, 100, Nt);
+jt.applyToOptions = (e) => {
+	let t = xt(e, 100, jt);
 	return e.ease = t.ease, e.duration = /* @__PURE__ */ f(t.duration), e.type = "keyframes", e;
 };
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/generators/utils/velocity.mjs
-var Pt = 5;
-function Ft(e, t, n) {
-	let r = Math.max(t - Pt, 0);
+var Mt = 5;
+function Nt(e, t, n) {
+	let r = Math.max(t - Mt, 0);
 	return /* @__PURE__ */ m(n - e(r), t - r);
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/generators/inertia.mjs
-function It({ keyframes: e, velocity: t = 0, power: n = .8, timeConstant: r = 325, bounceDamping: i = 10, bounceStiffness: a = 500, modifyTarget: o, min: s, max: c, restDelta: l = .5, restSpeed: u }) {
+function Pt({ keyframes: e, velocity: t = 0, power: n = .8, timeConstant: r = 325, bounceDamping: i = 10, bounceStiffness: a = 500, modifyTarget: o, min: s, max: c, restDelta: l = .5, restSpeed: u }) {
 	let d = e[0], f = {
 		done: !1,
 		value: d
@@ -602,9 +602,9 @@ function It({ keyframes: e, velocity: t = 0, power: n = .8, timeConstant: r = 32
 		let t = v(e), n = y(e);
 		f.done = Math.abs(t) <= l, f.value = f.done ? _ : n;
 	}, x, S, C = (e) => {
-		p(f.value) && (x = e, S = Nt({
+		p(f.value) && (x = e, S = jt({
 			keyframes: [f.value, m(f.value)],
-			velocity: Ft(y, e, f.value),
+			velocity: Nt(y, e, f.value),
 			damping: i,
 			stiffness: a,
 			restDelta: l,
@@ -621,21 +621,21 @@ function It({ keyframes: e, velocity: t = 0, power: n = .8, timeConstant: r = 32
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/utils/interpolate.mjs
-function Lt(e, t, n) {
-	let i = [], a = n || r.mix || vt, o = e.length - 1;
+function Ft(e, t, n) {
+	let i = [], a = n || r.mix || gt, o = e.length - 1;
 	for (let n = 0; n < o; n++) {
 		let r = a(e[n], e[n + 1]);
 		t && (r = l(Array.isArray(t) ? t[n] || c : t, r)), i.push(r);
 	}
 	return i;
 }
-function Rt(e, t, { clamp: r = !0, ease: i, mixer: a } = {}) {
+function It(e, t, { clamp: r = !0, ease: i, mixer: a } = {}) {
 	let o = e.length;
 	if (t.length, o === 1) return () => t[0];
 	if (o === 2 && t[0] === t[1]) return () => t[1];
 	let s = e[0] === e[1];
 	e[0] > e[o - 1] && (e = [...e].reverse(), t = [...t].reverse());
-	let c = Lt(t, i, a), l = c.length, d = (n) => {
+	let c = Ft(t, i, a), l = c.length, d = (n) => {
 		if (s && n < e[0]) return t[0];
 		let r = 0;
 		if (l > 1) for (; r < e.length - 2 && !(n < e[r + 1]); r++);
@@ -646,34 +646,34 @@ function Rt(e, t, { clamp: r = !0, ease: i, mixer: a } = {}) {
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/keyframes/offsets/fill.mjs
-function zt(e, t) {
+function Lt(e, t) {
 	let n = e[e.length - 1];
 	for (let r = 1; r <= t; r++) {
 		let i = /* @__PURE__ */ u(0, t, r);
-		e.push(z(n, 1, i));
+		e.push(nt(n, 1, i));
 	}
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/keyframes/offsets/default.mjs
-function Bt(e) {
+function Rt(e) {
 	let t = [0];
-	return zt(t, e.length - 1), t;
+	return Lt(t, e.length - 1), t;
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/keyframes/offsets/time.mjs
-function Vt(e, t) {
+function zt(e, t) {
 	return e.map((e) => e * t);
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/generators/keyframes.mjs
-function Ht(e, t) {
-	return e.map(() => t || ie).splice(0, e.length - 1);
+function Bt(e, t) {
+	return e.map(() => t || ne).splice(0, e.length - 1);
 }
-function Ut({ duration: e = 300, keyframes: t, times: n, ease: r = "easeInOut" }) {
-	let i = /* @__PURE__ */ ae(r) ? r.map(ue) : ue(r), a = {
+function Vt({ duration: e = 300, keyframes: t, times: n, ease: r = "easeInOut" }) {
+	let i = /* @__PURE__ */ re(r) ? r.map(ae) : ae(r), a = {
 		done: !1,
 		value: t[0]
-	}, o = Rt(Vt(n && n.length === t.length ? n : Bt(t), e), t, { ease: Array.isArray(i) ? i : Ht(t, i) });
+	}, o = It(zt(n && n.length === t.length ? n : Rt(t), e), t, { ease: Array.isArray(i) ? i : Bt(t, i) });
 	return {
 		calculatedDuration: e,
 		next: (t) => (a.value = o(t), a.done = t >= e, a)
@@ -681,26 +681,26 @@ function Ut({ duration: e = 300, keyframes: t, times: n, ease: r = "easeInOut" }
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/keyframes/get-final.mjs
-var Wt = (e) => e !== null;
-function Gt(e, { repeat: t, repeatType: n = "loop" }, r, i = 1) {
-	let a = e.filter(Wt), o = i < 0 || t && n !== "loop" && t % 2 == 1 ? 0 : a.length - 1;
+var Ht = (e) => e !== null;
+function Ut(e, { repeat: t, repeatType: n = "loop" }, r, i = 1) {
+	let a = e.filter(Ht), o = i < 0 || t && n !== "loop" && t % 2 == 1 ? 0 : a.length - 1;
 	return !o || r === void 0 ? a[o] : r;
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/utils/replace-transition-type.mjs
-var Kt = {
-	decay: It,
-	inertia: It,
-	tween: Ut,
-	keyframes: Ut,
-	spring: Nt
+var Wt = {
+	decay: Pt,
+	inertia: Pt,
+	tween: Vt,
+	keyframes: Vt,
+	spring: jt
 };
-function qt(e) {
-	typeof e.type == "string" && (e.type = Kt[e.type]);
+function Gt(e) {
+	typeof e.type == "string" && (e.type = Wt[e.type]);
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/utils/WithPromise.mjs
-var Jt = class {
+var Kt = class {
 	constructor() {
 		this.updateFinished();
 	}
@@ -718,21 +718,21 @@ var Jt = class {
 	then(e, t) {
 		return this.finished.then(e, t);
 	}
-}, Yt = (e) => e / 100, Xt = class extends Jt {
+}, qt = (e) => e / 100, Jt = class extends Kt {
 	constructor(e) {
 		super(), this.state = "idle", this.startTime = null, this.isStopped = !1, this.currentTime = 0, this.holdTime = null, this.playbackSpeed = 1, this.delayState = {
 			done: !1,
 			value: void 0
 		}, this.stop = () => {
 			let { motionValue: e } = this.options;
-			e && e.updatedAt !== k.now() && this.tick(k.now()), this.isStopped = !0, this.state !== "idle" && (this.teardown(), this.options.onStop?.());
+			e && e.updatedAt !== F.now() && this.tick(F.now()), this.isStopped = !0, this.state !== "idle" && (this.teardown(), this.options.onStop?.());
 		}, this.options = e, this.initAnimation(), this.play(), e.autoplay === !1 && this.pause();
 	}
 	initAnimation() {
 		let { options: e } = this;
-		qt(e);
-		let { type: t = Ut, repeat: n = 0, repeatDelay: r = 0, repeatType: i, velocity: a = 0 } = e, { keyframes: o } = e, s = t || Ut;
-		s !== Ut && typeof o[0] != "number" && (this.mixKeyframes = l(Yt, vt(o[0], o[1])), o = [0, 100]);
+		Gt(e);
+		let { type: t = Vt, repeat: n = 0, repeatDelay: r = 0, repeatType: i, velocity: a = 0 } = e, { keyframes: o } = e, s = t || Vt;
+		s !== Vt && typeof o[0] != "number" && (this.mixKeyframes = l(qt, gt(o[0], o[1])), o = [0, 100]);
 		let c = s({
 			...e,
 			keyframes: o
@@ -741,7 +741,7 @@ var Jt = class {
 			...e,
 			keyframes: [...o].reverse(),
 			velocity: -a
-		})), c.calculatedDuration === null && (c.calculatedDuration = St(c));
+		})), c.calculatedDuration === null && (c.calculatedDuration = bt(c));
 		let { calculatedDuration: u } = c;
 		this.calculatedDuration = u, this.resolvedDuration = u + r, this.totalDuration = this.resolvedDuration * (n + 1) - r, this.generator = c;
 	}
@@ -766,7 +766,7 @@ var Jt = class {
 		let { done: S } = x;
 		!v && c !== null && (S = this.playbackSpeed >= 0 ? this.currentTime >= i : this.currentTime <= 0);
 		let C = this.holdTime === null && (this.state === "finished" || this.state === "running" && S);
-		return C && m !== It && (x.value = Gt(u, this.options, g, this.speed)), h && h(x.value), C && this.finish(), x;
+		return C && m !== Pt && (x.value = Ut(u, this.options, g, this.speed)), h && h(x.value), C && this.finish(), x;
 	}
 	then(e, t) {
 		return this.finished.then(e, t);
@@ -789,24 +789,24 @@ var Jt = class {
 		if (e <= 0) return this.options.velocity || 0;
 		if (this.generator.velocity) return this.generator.velocity(e);
 		let t = this.generator.next(e).value;
-		return Ft((e) => this.generator.next(e).value, e, t);
+		return Nt((e) => this.generator.next(e).value, e, t);
 	}
 	get speed() {
 		return this.playbackSpeed;
 	}
 	set speed(e) {
 		let t = this.playbackSpeed !== e;
-		t && this.driver && this.updateTime(k.now()), this.playbackSpeed = e, t && this.driver && (this.time = /* @__PURE__ */ p(this.currentTime));
+		t && this.driver && this.updateTime(F.now()), this.playbackSpeed = e, t && this.driver && (this.time = /* @__PURE__ */ p(this.currentTime));
 	}
 	play() {
 		if (this.isStopped) return;
-		let { driver: e = yt, startTime: t } = this.options;
+		let { driver: e = _t, startTime: t } = this.options;
 		this.driver ||= e((e) => this.tick(e)), this.options.onPlay?.();
 		let n = this.driver.now();
 		this.state === "finished" ? (this.updateFinished(), this.startTime = n) : this.holdTime === null ? this.startTime ||= t ?? n : this.startTime = n - this.holdTime, this.state === "finished" && this.speed < 0 && (this.startTime += this.calculatedDuration), this.holdTime = null, this.state = "running", this.driver.start();
 	}
 	pause() {
-		this.state = "paused", this.updateTime(k.now()), this.holdTime = this.currentTime;
+		this.state = "paused", this.updateTime(F.now()), this.holdTime = this.currentTime;
 	}
 	complete() {
 		this.state !== "running" && this.play(), this.state = "finished", this.holdTime = null;
@@ -832,12 +832,12 @@ var Jt = class {
 };
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/keyframes/utils/fill-wildcards.mjs
-function Zt(e) {
+function Yt(e) {
 	for (let t = 1; t < e.length; t++) e[t] ?? (e[t] = e[t - 1]);
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/dom/parse-transform.mjs
-var V = (e) => e * 180 / Math.PI, Qt = (e) => en(V(Math.atan2(e[1], e[0]))), $t = {
+var U = (e) => e * 180 / Math.PI, Xt = (e) => Qt(U(Math.atan2(e[1], e[0]))), Zt = {
 	x: 4,
 	y: 5,
 	translateX: 4,
@@ -845,54 +845,54 @@ var V = (e) => e * 180 / Math.PI, Qt = (e) => en(V(Math.atan2(e[1], e[0]))), $t 
 	scaleX: 0,
 	scaleY: 3,
 	scale: (e) => (Math.abs(e[0]) + Math.abs(e[3])) / 2,
-	rotate: Qt,
-	rotateZ: Qt,
-	skewX: (e) => V(Math.atan(e[1])),
-	skewY: (e) => V(Math.atan(e[2])),
+	rotate: Xt,
+	rotateZ: Xt,
+	skewX: (e) => U(Math.atan(e[1])),
+	skewY: (e) => U(Math.atan(e[2])),
 	skew: (e) => (Math.abs(e[1]) + Math.abs(e[2])) / 2
-}, en = (e) => (e %= 360, e < 0 && (e += 360), e), tn = Qt, nn = (e) => Math.sqrt(e[0] * e[0] + e[1] * e[1]), rn = (e) => Math.sqrt(e[4] * e[4] + e[5] * e[5]), an = {
+}, Qt = (e) => (e %= 360, e < 0 && (e += 360), e), $t = Xt, en = (e) => Math.sqrt(e[0] * e[0] + e[1] * e[1]), tn = (e) => Math.sqrt(e[4] * e[4] + e[5] * e[5]), nn = {
 	x: 12,
 	y: 13,
 	z: 14,
 	translateX: 12,
 	translateY: 13,
 	translateZ: 14,
-	scaleX: nn,
-	scaleY: rn,
-	scale: (e) => (nn(e) + rn(e)) / 2,
-	rotateX: (e) => en(V(Math.atan2(e[6], e[5]))),
-	rotateY: (e) => en(V(Math.atan2(-e[2], e[0]))),
-	rotateZ: tn,
-	rotate: tn,
-	skewX: (e) => V(Math.atan(e[4])),
-	skewY: (e) => V(Math.atan(e[1])),
+	scaleX: en,
+	scaleY: tn,
+	scale: (e) => (en(e) + tn(e)) / 2,
+	rotateX: (e) => Qt(U(Math.atan2(e[6], e[5]))),
+	rotateY: (e) => Qt(U(Math.atan2(-e[2], e[0]))),
+	rotateZ: $t,
+	rotate: $t,
+	skewX: (e) => U(Math.atan(e[4])),
+	skewY: (e) => U(Math.atan(e[1])),
 	skew: (e) => (Math.abs(e[1]) + Math.abs(e[4])) / 2
 };
-function on(e) {
+function rn(e) {
 	return +!!e.includes("scale");
 }
-function sn(e, t) {
-	if (!e || e === "none") return on(t);
+function an(e, t) {
+	if (!e || e === "none") return rn(t);
 	let n = e.match(/^matrix3d\(([-\d.e\s,]+)\)$/u), r, i;
-	if (n) r = an, i = n;
+	if (n) r = nn, i = n;
 	else {
 		let t = e.match(/^matrix\(([-\d.e\s,]+)\)$/u);
-		r = $t, i = t;
+		r = Zt, i = t;
 	}
-	if (!i) return on(t);
-	let a = r[t], o = i[1].split(",").map(ln);
+	if (!i) return rn(t);
+	let a = r[t], o = i[1].split(",").map(sn);
 	return typeof a == "function" ? a(o) : o[a];
 }
-var cn = (e, t) => {
+var on = (e, t) => {
 	let { transform: n = "none" } = getComputedStyle(e);
-	return sn(n, t);
+	return an(n, t);
 };
-function ln(e) {
+function sn(e) {
 	return parseFloat(e.trim());
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/utils/keys-transform.mjs
-var H = [
+var cn = [
 	"transformPerspective",
 	"x",
 	"y",
@@ -910,11 +910,11 @@ var H = [
 	"skew",
 	"skewX",
 	"skewY"
-], U = /* @__PURE__ */ new Set([...H, "pathRotation"]), un = (e) => e === A || e === P, dn = /* @__PURE__ */ new Set([
+], ln = /* @__PURE__ */ new Set([...cn, "pathRotation"]), un = (e) => e === I || e === z, dn = /* @__PURE__ */ new Set([
 	"x",
 	"y",
 	"z"
-]), fn = H.filter((e) => !dn.has(e));
+]), fn = cn.filter((e) => !dn.has(e));
 function pn(e) {
 	let t = [];
 	return fn.forEach((n) => {
@@ -935,8 +935,8 @@ var W = {
 	left: (e, { left: t }) => parseFloat(t),
 	bottom: ({ y: e }, { top: t }) => parseFloat(t) + (e.max - e.min),
 	right: ({ x: e }, { left: t }) => parseFloat(t) + (e.max - e.min),
-	x: (e, { transform: t }) => sn(t, "x"),
-	y: (e, { transform: t }) => sn(t, "y")
+	x: (e, { transform: t }) => an(t, "x"),
+	y: (e, { transform: t }) => an(t, "y")
 };
 W.translateX = W.x, W.translateY = W.y;
 //#endregion
@@ -973,7 +973,7 @@ var bn = class {
 		this.state = "pending", this.isAsync = !1, this.needsMeasurement = !1, this.unresolvedKeyframes = [...e], this.onComplete = t, this.name = n, this.motionValue = r, this.element = i, this.isAsync = a;
 	}
 	scheduleResolve() {
-		this.state = "scheduled", this.isAsync ? (G.add(this), mn || (mn = !0, O.read(vn), O.resolveKeyframes(_n))) : (this.readKeyframes(), this.complete());
+		this.state = "scheduled", this.isAsync ? (G.add(this), mn || (mn = !0, P.read(vn), P.resolveKeyframes(_n))) : (this.readKeyframes(), this.complete());
 	}
 	readKeyframes() {
 		let { unresolvedKeyframes: e, name: t, element: n, motionValue: r } = this;
@@ -986,7 +986,7 @@ var bn = class {
 			}
 			e[0] === void 0 && (e[0] = a), r && i === void 0 && r.set(e[0]);
 		}
-		Zt(e);
+		Yt(e);
 	}
 	setFinalKeyframe() {}
 	measureInitialState() {}
@@ -1059,7 +1059,7 @@ var Tn = /* @__PURE__ */ wn(() => window.ScrollTimeline !== void 0, "scrollTimel
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/waapi/easing/map-easing.mjs
 function kn(e, t) {
-	if (e) return typeof e == "function" ? En() ? bt(e, t) : "ease-out" : /* @__PURE__ */ se(e) ? Dn(e) : Array.isArray(e) ? e.map((e) => kn(e, t) || On.easeOut) : On[e];
+	if (e) return typeof e == "function" ? En() ? vt(e, t) : "ease-out" : /* @__PURE__ */ A(e) ? Dn(e) : Array.isArray(e) ? e.map((e) => kn(e, t) || On.easeOut) : On[e];
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/waapi/start-waapi-animation.mjs
@@ -1090,7 +1090,7 @@ function Mn({ type: e, ...t }) {
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/NativeAnimation.mjs
-var Nn = class extends Jt {
+var Nn = class extends Kt {
 	constructor(e) {
 		if (super(), this.finishedTime = null, this.isStopped = !1, this.manualStartTime = null, !e) return;
 		let { element: t, name: n, keyframes: r, pseudoElement: i, allowFlatten: a = !1, finalKeyframe: o, onComplete: s } = e;
@@ -1098,7 +1098,7 @@ var Nn = class extends Jt {
 		let c = Mn(e);
 		this.animation = An(t, n, r, c, i), c.autoplay === !1 && this.animation.pause(), this.animation.onfinish = () => {
 			if (this.finishedTime = this.time, !i) {
-				let e = Gt(r, this.options, o, this.speed);
+				let e = Ut(r, this.options, o, this.speed);
 				this.updateMotionValue && this.updateMotionValue(e), Sn(t, n, e), this.animation.cancel();
 			}
 			s?.(), this.notifyFinished();
@@ -1164,7 +1164,7 @@ var Nn = class extends Jt {
 }, Pn = {
 	anticipate: E,
 	backInOut: T,
-	circInOut: te
+	circInOut: ee
 };
 function Fn(e) {
 	return e in Pn;
@@ -1176,7 +1176,7 @@ function In(e) {
 //#region node_modules/motion-dom/dist/es/animation/NativeAnimationExtended.mjs
 var Ln = 10, Rn = class extends Nn {
 	constructor(e) {
-		In(e), qt(e), super(e), e.startTime !== void 0 && e.autoplay !== !1 && (this.startTime = e.startTime), this.options = e;
+		In(e), Gt(e), super(e), e.startTime !== void 0 && e.autoplay !== !1 && (this.startTime = e.startTime), this.options = e;
 	}
 	updateMotionValue(e) {
 		let { motionValue: t, onUpdate: r, onComplete: i, element: a, ...o } = this.options;
@@ -1185,13 +1185,13 @@ var Ln = 10, Rn = class extends Nn {
 			t.set(e);
 			return;
 		}
-		let s = new Xt({
+		let s = new Jt({
 			...o,
 			autoplay: !1
-		}), c = Math.max(Ln, k.now() - this.startTime), l = n(0, Ln, c - Ln), u = s.sample(c).value, { name: d } = this.options;
+		}), c = Math.max(Ln, F.now() - this.startTime), l = n(0, Ln, c - Ln), u = s.sample(c).value, { name: d } = this.options;
 		a && d && Sn(a, d, u), t.setWithVelocity(s.sample(Math.max(0, c - l)).value, u, l), s.stop();
 	}
-}, zn = (e, t) => t !== "zIndex" && !!(typeof e == "number" || Array.isArray(e) || typeof e == "string" && (R.test(e) || e === "0") && !e.startsWith("url("));
+}, zn = (e, t) => t !== "zIndex" && !!(typeof e == "number" || Array.isArray(e) || typeof e == "string" && (V.test(e) || e === "0") && !e.startsWith("url("));
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/utils/can-animate.mjs
 function Bn(e) {
@@ -1246,11 +1246,11 @@ function Jn(e) {
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/AsyncMotionValueAnimation.mjs
-var Yn = 40, Xn = class extends Jt {
+var Yn = 40, Xn = class extends Kt {
 	constructor({ autoplay: e = !0, delay: t = 0, type: n = "keyframes", repeat: r = 0, repeatDelay: i = 0, repeatType: a = "loop", keyframes: o, name: s, motionValue: c, element: l, ...u }) {
 		super(), this.stop = () => {
 			this._animation && (this._animation.stop(), this.stopTimeline?.()), this.keyframeResolver?.cancel();
-		}, this.createdAt = k.now();
+		}, this.createdAt = F.now();
 		let d = {
 			autoplay: e,
 			delay: t,
@@ -1268,9 +1268,9 @@ var Yn = 40, Xn = class extends Jt {
 	onKeyframesResolved(e, t, n, i) {
 		this.keyframeResolver = void 0;
 		let { name: a, type: o, velocity: s, delay: l, isHandoff: u, onUpdate: d } = n;
-		this.resolvedAt = k.now();
+		this.resolvedAt = F.now();
 		let f = !0;
-		Vn(e, a, o, s) || (f = !1, (r.instantAnimations || !l) && d?.(Gt(e, n, t)), e[0] = e[e.length - 1], Hn(n), n.repeat = 0);
+		Vn(e, a, o, s) || (f = !1, (r.instantAnimations || !l) && d?.(Ut(e, n, t)), e[0] = e[e.length - 1], Hn(n), n.repeat = 0);
 		let p = {
 			startTime: i ? this.resolvedAt && this.resolvedAt - this.createdAt > Yn ? this.resolvedAt : this.createdAt : void 0,
 			finalKeyframe: t,
@@ -1283,9 +1283,9 @@ var Yn = 40, Xn = class extends Jt {
 				element: h
 			});
 		} catch {
-			g = new Xt(p);
+			g = new Jt(p);
 		}
-		else g = new Xt(p);
+		else g = new Jt(p);
 		g.finished.then(() => {
 			this.notifyFinished();
 		}).catch(c), this.pendingTimeline &&= (this.stopTimeline = g.attachTimeline(this.pendingTimeline), void 0), this._animation = g;
@@ -1416,12 +1416,12 @@ var $n = class extends Zn {
 }, er = 30, tr = (e) => !isNaN(parseFloat(e)), nr = { current: void 0 }, rr = class {
 	constructor(e, t = {}) {
 		this.canTrackVelocity = null, this.events = {}, this.updateAndNotify = (e) => {
-			let t = k.now();
+			let t = F.now();
 			if (this.updatedAt !== t && this.setPrevFrameValue(), this.prev = this.current, this.setCurrent(e), this.current !== this.prev && (this.events.change?.notify(this.current), this.dependents)) for (let e of this.dependents) e.dirty();
 		}, this.hasAnimated = !1, this.setCurrent(e), this.owner = t.owner;
 	}
 	setCurrent(e) {
-		this.current = e, this.updatedAt = k.now(), this.canTrackVelocity === null && e !== void 0 && (this.canTrackVelocity = tr(this.current));
+		this.current = e, this.updatedAt = F.now(), this.canTrackVelocity === null && e !== void 0 && (this.canTrackVelocity = tr(this.current));
 	}
 	setPrevFrameValue(e = this.current) {
 		this.prevFrameValue = e, this.prevUpdatedAt = this.updatedAt;
@@ -1433,7 +1433,7 @@ var $n = class extends Zn {
 		this.events[e] || (this.events[e] = new d());
 		let n = this.events[e].add(t);
 		return e === "change" ? () => {
-			n(), O.read(() => {
+			n(), P.read(() => {
 				this.events.change.getSize() || this.stop();
 			});
 		} : n;
@@ -1469,7 +1469,7 @@ var $n = class extends Zn {
 		return this.prev;
 	}
 	getVelocity() {
-		let e = k.now();
+		let e = F.now();
 		if (!this.canTrackVelocity || this.prevFrameValue === void 0 || e - this.updatedAt > er) return 0;
 		let t = Math.min(this.updatedAt - this.prevUpdatedAt, er);
 		return /* @__PURE__ */ m(parseFloat(this.current) - parseFloat(this.prevFrameValue), t);
@@ -1539,7 +1539,7 @@ var or = {
 		1
 	],
 	duration: .3
-}, ur = (e, { keyframes: t }) => t.length > 2 ? cr : U.has(e) ? e.startsWith("scale") ? sr(t[1]) : or : lr, dr = /* @__PURE__ */ new Set([
+}, ur = (e, { keyframes: t }) => t.length > 2 ? cr : ln.has(e) ? e.startsWith("scale") ? sr(t[1]) : or : lr, dr = /* @__PURE__ */ new Set([
 	"when",
 	"delay",
 	"delayChildren",
@@ -1579,15 +1579,15 @@ var pr = (e, t, n, i = {}, a, o) => (s) => {
 	fr(c) || Object.assign(d, ur(e, d)), d.duration &&= /* @__PURE__ */ f(d.duration), d.repeatDelay &&= /* @__PURE__ */ f(d.repeatDelay), d.from !== void 0 && (d.keyframes[0] = d.from);
 	let p = !1;
 	if ((d.type === !1 || d.duration === 0 && !d.repeatDelay) && (Hn(d), d.delay === 0 && (p = !0)), (r.instantAnimations || r.skipAnimations || a?.shouldSkipAnimations || c.skipAnimations) && (p = !0, Hn(d), d.delay = 0), d.allowFlatten = !c.type && !c.ease, p && !o && t.get() !== void 0) {
-		let e = Gt(d.keyframes, c);
+		let e = Ut(d.keyframes, c);
 		if (e !== void 0) {
-			O.update(() => {
+			P.update(() => {
 				d.onUpdate(e), d.onComplete();
 			});
 			return;
 		}
 	}
-	return c.isSync ? new Xt(d) : new Xn(d);
+	return c.isSync ? new Jt(d) : new Xn(d);
 }, mr = /^var\(--(?:([\w-]+)|([\w-]+), ?([a-zA-Z\d ()%#.,-]+))\)/u;
 function hr(e) {
 	let t = mr.exec(e);
@@ -1604,7 +1604,7 @@ function gr(e, t, n = 1) {
 		let e = o.trim();
 		return i(e) ? parseFloat(e) : e;
 	}
-	return Ce(a) ? gr(a, t, n + 1) : a;
+	return _e(a) ? gr(a, t, n + 1) : a;
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/utils/resolve-variants.mjs
@@ -1640,7 +1640,7 @@ var br = /* @__PURE__ */ new Set([
 	"left",
 	"right",
 	"bottom",
-	...H
+	...cn
 ]), xr = (e) => Array.isArray(e);
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/utils/setters.mjs
@@ -1710,14 +1710,14 @@ function jr(e, t, { delay: n = 0, transitionOverride: r, type: i } = {}) {
 		u && (o.skipAnimations = !0);
 		let c = r.get();
 		if (c !== void 0 && !r.isAnimating() && !Array.isArray(i) && i === c && !o.velocity) {
-			O.update(() => r.set(i));
+			P.update(() => r.set(i));
 			continue;
 		}
 		let p = !1;
 		if (window.MotionHandoffAnimation) {
 			let n = kr(e);
 			if (n) {
-				let e = window.MotionHandoffAnimation(n, t, O);
+				let e = window.MotionHandoffAnimation(n, t, P);
 				e !== null && (o.startTime = e, p = !0);
 			}
 		}
@@ -1728,7 +1728,7 @@ function jr(e, t, { delay: n = 0, transitionOverride: r, type: i } = {}) {
 		h && d.push(h);
 	}
 	if (o) {
-		let t = () => O.update(() => {
+		let t = () => P.update(() => {
 			o && wr(e, o);
 		});
 		d.length ? Promise.all(d).then(t) : t();
@@ -1741,12 +1741,12 @@ var Mr = {
 	test: (e) => e === "auto",
 	parse: (e) => e
 }, Nr = (e) => (t) => t.test(e), Pr = [
-	A,
-	P,
-	N,
-	M,
-	Be,
-	ze,
+	I,
+	z,
+	Ne,
+	R,
+	Fe,
+	Pe,
 	Mr
 ], Fr = (e) => Pr.find(Nr(e));
 //#endregion
@@ -1765,121 +1765,121 @@ var Lr = /* @__PURE__ */ new Set([
 function Rr(e) {
 	let [t, n] = e.slice(0, -1).split("(");
 	if (t === "drop-shadow") return e;
-	let [r] = n.match(ke) || [];
+	let [r] = n.match(Ce) || [];
 	if (!r) return e;
 	let i = n.replace(r, ""), a = +!!Lr.has(t);
 	return r !== n && (a *= 100), t + "(" + a + i + ")";
 }
 var zr = /\b([a-z-]*)\(.*?\)/gu, Br = {
-	...R,
+	...V,
 	getAnimatableNone: (e) => {
 		let t = e.match(zr);
 		return t ? t.map(Rr).join(" ") : e;
 	}
 }, Vr = {
-	...R,
+	...V,
 	getAnimatableNone: (e) => {
-		let t = R.parse(e);
-		return R.createTransformer(e)(t.map((e) => typeof e == "number" ? 0 : typeof e == "object" ? {
+		let t = V.parse(e);
+		return V.createTransformer(e)(t.map((e) => typeof e == "number" ? 0 : typeof e == "object" ? {
 			...e,
 			alpha: 1
 		} : e));
 	}
 }, Hr = {
-	...A,
+	...I,
 	transform: Math.round
 }, Ur = {
-	borderWidth: P,
-	borderTopWidth: P,
-	borderRightWidth: P,
-	borderBottomWidth: P,
-	borderLeftWidth: P,
-	borderRadius: P,
-	borderTopLeftRadius: P,
-	borderTopRightRadius: P,
-	borderBottomRightRadius: P,
-	borderBottomLeftRadius: P,
-	width: P,
-	maxWidth: P,
-	height: P,
-	maxHeight: P,
-	top: P,
-	right: P,
-	bottom: P,
-	left: P,
-	inset: P,
-	insetBlock: P,
-	insetBlockStart: P,
-	insetBlockEnd: P,
-	insetInline: P,
-	insetInlineStart: P,
-	insetInlineEnd: P,
-	padding: P,
-	paddingTop: P,
-	paddingRight: P,
-	paddingBottom: P,
-	paddingLeft: P,
-	paddingBlock: P,
-	paddingBlockStart: P,
-	paddingBlockEnd: P,
-	paddingInline: P,
-	paddingInlineStart: P,
-	paddingInlineEnd: P,
-	margin: P,
-	marginTop: P,
-	marginRight: P,
-	marginBottom: P,
-	marginLeft: P,
-	marginBlock: P,
-	marginBlockStart: P,
-	marginBlockEnd: P,
-	marginInline: P,
-	marginInlineStart: P,
-	marginInlineEnd: P,
-	fontSize: P,
-	backgroundPositionX: P,
-	backgroundPositionY: P,
-	rotate: M,
-	pathRotation: M,
-	rotateX: M,
-	rotateY: M,
-	rotateZ: M,
-	scale: De,
-	scaleX: De,
-	scaleY: De,
-	scaleZ: De,
-	skew: M,
-	skewX: M,
-	skewY: M,
-	distance: P,
-	translateX: P,
-	translateY: P,
-	translateZ: P,
-	x: P,
-	y: P,
-	z: P,
-	perspective: P,
-	transformPerspective: P,
-	opacity: Ee,
-	originX: Ve,
-	originY: Ve,
-	originZ: P,
+	borderWidth: z,
+	borderTopWidth: z,
+	borderRightWidth: z,
+	borderBottomWidth: z,
+	borderLeftWidth: z,
+	borderRadius: z,
+	borderTopLeftRadius: z,
+	borderTopRightRadius: z,
+	borderBottomRightRadius: z,
+	borderBottomLeftRadius: z,
+	width: z,
+	maxWidth: z,
+	height: z,
+	maxHeight: z,
+	top: z,
+	right: z,
+	bottom: z,
+	left: z,
+	inset: z,
+	insetBlock: z,
+	insetBlockStart: z,
+	insetBlockEnd: z,
+	insetInline: z,
+	insetInlineStart: z,
+	insetInlineEnd: z,
+	padding: z,
+	paddingTop: z,
+	paddingRight: z,
+	paddingBottom: z,
+	paddingLeft: z,
+	paddingBlock: z,
+	paddingBlockStart: z,
+	paddingBlockEnd: z,
+	paddingInline: z,
+	paddingInlineStart: z,
+	paddingInlineEnd: z,
+	margin: z,
+	marginTop: z,
+	marginRight: z,
+	marginBottom: z,
+	marginLeft: z,
+	marginBlock: z,
+	marginBlockStart: z,
+	marginBlockEnd: z,
+	marginInline: z,
+	marginInlineStart: z,
+	marginInlineEnd: z,
+	fontSize: z,
+	backgroundPositionX: z,
+	backgroundPositionY: z,
+	rotate: R,
+	pathRotation: R,
+	rotateX: R,
+	rotateY: R,
+	rotateZ: R,
+	scale: xe,
+	scaleX: xe,
+	scaleY: xe,
+	scaleZ: xe,
+	skew: R,
+	skewX: R,
+	skewY: R,
+	distance: z,
+	translateX: z,
+	translateY: z,
+	translateZ: z,
+	x: z,
+	y: z,
+	z,
+	perspective: z,
+	transformPerspective: z,
+	opacity: be,
+	originX: Ie,
+	originY: Ie,
+	originZ: z,
 	zIndex: Hr,
-	fillOpacity: Ee,
-	strokeOpacity: Ee,
+	fillOpacity: be,
+	strokeOpacity: be,
 	numOctaves: Hr
 }, Wr = {
 	...Ur,
-	color: I,
-	backgroundColor: I,
-	outlineColor: I,
-	fill: I,
-	stroke: I,
-	borderColor: I,
-	borderTopColor: I,
-	borderRightColor: I,
-	borderBottomColor: I,
-	borderLeftColor: I,
+	color: B,
+	backgroundColor: B,
+	outlineColor: B,
+	fill: B,
+	stroke: B,
+	borderColor: B,
+	borderTopColor: B,
+	borderRightColor: B,
+	borderBottomColor: B,
+	borderLeftColor: B,
 	filter: Br,
 	WebkitFilter: Br,
 	mask: Vr,
@@ -1887,7 +1887,7 @@ var zr = /\b([a-z-]*)\(.*?\)/gu, Br = {
 }, Gr = (e) => Wr[e], Kr = /*@__PURE__*/ new Set([Br, Vr]);
 function qr(e, t) {
 	let n = Gr(e);
-	return Kr.has(n) || (n = R), n.getAnimatableNone ? n.getAnimatableNone(t) : void 0;
+	return Kr.has(n) || (n = V), n.getAnimatableNone ? n.getAnimatableNone(t) : void 0;
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/animation/keyframes/utils/make-none-animatable.mjs
@@ -1900,7 +1900,7 @@ function Yr(e, t, n) {
 	let r = 0, i;
 	for (; r < e.length && !i;) {
 		let t = e[r];
-		typeof t == "string" && !Jr.has(t) && L(t).values.length && (i = e[r]), r++;
+		typeof t == "string" && !Jr.has(t) && Ke(t).values.length && (i = e[r]), r++;
 	}
 	if (i && n) for (let r of t) e[r] = qr(n, i);
 }
@@ -1916,14 +1916,14 @@ var Xr = class extends bn {
 		super.readKeyframes();
 		for (let n = 0; n < e.length; n++) {
 			let r = e[n];
-			if (typeof r == "string" && (r = r.trim(), Ce(r))) {
+			if (typeof r == "string" && (r = r.trim(), _e(r))) {
 				let i = gr(r, t.current);
 				i !== void 0 && (e[n] = i), n === e.length - 1 && (this.finalKeyframe = r);
 			}
 		}
 		if (this.resolveNoneKeyframes(), !br.has(n) || e.length !== 2) return;
 		let [r, i] = e, a = Fr(r), o = Fr(i);
-		if (Te(r) !== Te(i) && W[n]) {
+		if (ye(r) !== ye(i) && W[n]) {
 			this.needsMeasurement = !0;
 			return;
 		}
@@ -1978,7 +1978,7 @@ function Qr(e, t, n) {
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/value/types/utils/get-as-type.mjs
-var $r = (e, t) => t && typeof e == "number" ? t.transform(e) : e, { schedule: ei, cancel: ti } = /* @__PURE__ */ me(queueMicrotask, !1);
+var $r = (e, t) => t && typeof e == "number" ? t.transform(e) : e, { schedule: ei, cancel: ti } = /* @__PURE__ */ ce(queueMicrotask, !1);
 //#endregion
 //#region node_modules/motion-dom/dist/es/utils/is-svg-element.mjs
 function ni(e) {
@@ -2005,7 +2005,7 @@ function ai(e, t, n = {}) {
 			return;
 		}
 		let s = i ? i.getGeneratorVelocity() : e.getVelocity();
-		c(), i = new Xt({
+		c(), i = new Jt({
 			keyframes: [t, r],
 			velocity: s,
 			type: "spring",
@@ -2020,7 +2020,7 @@ function ai(e, t, n = {}) {
 		});
 	};
 	if (e.attach((e, t) => {
-		a = e, o = (e) => t(oi(e, s)), O.postRender(u);
+		a = e, o = (e) => t(oi(e, s)), P.postRender(u);
 	}, c), q(t)) {
 		let r = n.skipInitialAnimation === !0, i = t.on("change", (t) => {
 			r ? (r = !1, e.jump(oi(t, s), !1)) : e.set(oi(t, s));
@@ -2049,8 +2049,8 @@ function ci(e, t) {
 //#region node_modules/motion-dom/dist/es/value/types/utils/find.mjs
 var li = [
 	...Pr,
-	I,
-	R
+	B,
+	V
 ], ui = (e) => li.find(Nr(e)), di = () => ({
 	min: 0,
 	max: 0
@@ -2135,8 +2135,8 @@ var wi = [
 		this.current = null, this.children = /* @__PURE__ */ new Set(), this.isVariantNode = !1, this.isControllingVariants = !1, this.shouldReduceMotion = null, this.shouldSkipAnimations = !1, this.values = /* @__PURE__ */ new Map(), this.KeyframeResolver = bn, this.features = {}, this.valueSubscriptions = /* @__PURE__ */ new Map(), this.prevMotionValues = {}, this.hasBeenMounted = !1, this.events = {}, this.propEventSubscriptions = {}, this.notifyUpdate = () => this.notify("Update", this.latestValues), this.render = () => {
 			this.current && (this.triggerBuild(), this.renderInstance(this.current, this.renderState, this.props.style, this.projection));
 		}, this.renderScheduledAt = 0, this.scheduleRender = () => {
-			let e = k.now();
-			this.renderScheduledAt < e && (this.renderScheduledAt = e, O.render(this.render, !1, !0));
+			let e = F.now();
+			this.renderScheduledAt < e && (this.renderScheduledAt = e, P.render(this.render, !1, !0));
 		};
 		let { latestValues: c, renderState: l } = o;
 		this.latestValues = c, this.baseTarget = { ...c }, this.initialValues = t.initial ? { ...c } : {}, this.renderState = l, this.parent = e, this.props = t, this.presenceContext = n, this.depth = e ? e.depth + 1 : 0, this.reducedMotionConfig = r, this.skipAnimationsConfig = i, this.options = s, this.blockInitialAnimation = !!a, this.isControllingVariants = _i(t), this.isVariantNode = vi(t), this.isVariantNode && (this.variantChildren = /* @__PURE__ */ new Set()), this.manuallyAnimateOnMount = !!(e && e.current);
@@ -2151,7 +2151,7 @@ var wi = [
 		this.current = e, pi.set(e, this), this.projection && !this.projection.instance && this.projection.mount(e), this.parent && this.isVariantNode && !this.isControllingVariants && (this.removeFromVariantTree = this.parent.addVariantChild(this)), this.values.forEach((e, t) => this.bindToMotionValue(t, e)), this.reducedMotionConfig === "never" ? this.shouldReduceMotion = !1 : this.reducedMotionConfig === "always" ? this.shouldReduceMotion = !0 : (xi.current || Ci(), this.shouldReduceMotion = bi.current), this.shouldSkipAnimations = this.skipAnimationsConfig ?? !1, this.parent?.addChild(this), this.update(this.props, this.presenceContext), this.hasBeenMounted = !0;
 	}
 	unmount() {
-		this.projection && this.projection.unmount(), he(this.notifyUpdate), he(this.render), this.valueSubscriptions.forEach((e) => e()), this.valueSubscriptions.clear(), this.removeFromVariantTree && this.removeFromVariantTree(), this.parent?.removeChild(this);
+		this.projection && this.projection.unmount(), le(this.notifyUpdate), le(this.render), this.valueSubscriptions.forEach((e) => e()), this.valueSubscriptions.clear(), this.removeFromVariantTree && this.removeFromVariantTree(), this.parent?.removeChild(this);
 		for (let e in this.events) this.events[e].clear();
 		for (let e in this.features) {
 			let t = this.features[e];
@@ -2180,10 +2180,10 @@ var wi = [
 			});
 			return;
 		}
-		let n = U.has(e);
+		let n = ln.has(e);
 		n && this.onBindTransform && this.onBindTransform();
 		let r = t.on("change", (t) => {
-			this.latestValues[e] = t, this.props.onUpdate && O.preRender(this.notifyUpdate), n && this.projection && (this.projection.isTransformDirty = !0), this.scheduleRender();
+			this.latestValues[e] = t, this.props.onUpdate && P.preRender(this.notifyUpdate), n && this.projection && (this.projection.isTransformDirty = !0), this.scheduleRender();
 		}), i;
 		typeof window < "u" && window.MotionCheckAppearSync && (i = window.MotionCheckAppearSync(this, e, t)), this.valueSubscriptions.set(e, () => {
 			r(), i && i();
@@ -2264,7 +2264,7 @@ var wi = [
 	}
 	readValue(e, t) {
 		let n = this.latestValues[e] !== void 0 || !this.current ? this.latestValues[e] : this.getBaseTargetFromProps(this.props, e) ?? this.readValueFromInstance(this.current, e, this.options);
-		return n != null && (typeof n == "string" && (i(n) || o(n)) ? n = parseFloat(n) : !ui(n) && R.test(t) && (n = qr(e, t)), this.setBaseTarget(e, q(n) ? n.get() : n)), q(n) ? n.get() : n;
+		return n != null && (typeof n == "string" && (i(n) || o(n)) ? n = parseFloat(n) : !ui(n) && V.test(t) && (n = qr(e, t)), this.setBaseTarget(e, q(n) ? n.get() : n)), q(n) ? n.get() : n;
 	}
 	setBaseTarget(e, t) {
 		this.baseTarget[e] = t;
@@ -2352,11 +2352,11 @@ var ji = {
 	y: "translateY",
 	z: "translateZ",
 	transformPerspective: "perspective"
-}, Mi = H.length;
+}, Mi = cn.length;
 function Ni(e, t, n) {
 	let r = "", i = !0;
 	for (let a = 0; a < Mi; a++) {
-		let o = H[a], s = e[o];
+		let o = cn[a], s = e[o];
 		if (s === void 0) continue;
 		let c = !0;
 		if (typeof s == "number") c = s === +!!o.startsWith("scale");
@@ -2383,11 +2383,11 @@ function Pi(e, t, n) {
 	let { style: r, vars: i, transformOrigin: a } = e, o = !1, s = !1;
 	for (let e in t) {
 		let n = t[e];
-		if (U.has(e)) {
+		if (ln.has(e)) {
 			o = !0;
 			continue;
 		}
-		if (xe(e)) {
+		if (he(e)) {
 			i[e] = n;
 			continue;
 		}
@@ -2416,16 +2416,16 @@ function Ii(e, t) {
 var Li = { correct: (e, t) => {
 	if (!t.target) return e;
 	if (typeof e == "string") {
-		if (P.test(e)) e = parseFloat(e);
+		if (z.test(e)) e = parseFloat(e);
 		else return e;
 	}
 	return `${Ii(e, t.target.x)}% ${Ii(e, t.target.y)}%`;
 } }, Ri = { correct: (e, { treeScale: t, projectionDelta: n }) => {
-	let r = e, i = R.parse(e);
+	let r = e, i = V.parse(e);
 	if (i.length > 5) return r;
-	let a = R.createTransformer(e), o = typeof i[0] == "number" ? 0 : 1, s = n.x.scale * t.x, c = n.y.scale * t.y;
+	let a = V.createTransformer(e), o = typeof i[0] == "number" ? 0 : 1, s = n.x.scale * t.x, c = n.y.scale * t.y;
 	i[0 + o] /= s, i[1 + o] /= c;
-	let l = z(s, c, .5);
+	let l = nt(s, c, .5);
 	return typeof i[2 + o] == "number" && (i[2 + o] /= l), typeof i[3 + o] == "number" && (i[3 + o] /= l), a(i);
 } }, zi = {
 	borderRadius: {
@@ -2441,7 +2441,7 @@ var Li = { correct: (e, t) => {
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/utils/is-forced-motion-value.mjs
 function Bi(e, { layout: t, layoutId: n }) {
-	return U.has(e) || e.startsWith("origin") || (t || n !== void 0) && (!!zi[e] || e === "opacity");
+	return ln.has(e) || e.startsWith("origin") || (t || n !== void 0) && (!!zi[e] || e === "opacity");
 }
 //#endregion
 //#region node_modules/motion-dom/dist/es/render/html/utils/scrape-motion-values.mjs
@@ -2464,9 +2464,9 @@ var Ui = class extends Di {
 		e.style, super.mount(e);
 	}
 	readValueFromInstance(e, t) {
-		if (U.has(t)) return this.projection?.isProjecting ? on(t) : cn(e, t);
+		if (ln.has(t)) return this.projection?.isProjecting ? rn(t) : on(e, t);
 		{
-			let n = Hi(e), r = (xe(t) ? n.getPropertyValue(t) : n[t]) || 0;
+			let n = Hi(e), r = (he(t) ? n.getPropertyValue(t) : n[t]) || 0;
 			return typeof r == "string" ? r.trim() : r;
 		}
 	}
@@ -2581,7 +2581,7 @@ function $i(e, t, n, r) {
 function ea(e, t, n) {
 	let r = Vi(e, t, n);
 	for (let n in e) if (q(e[n]) || q(t[n])) {
-		let t = H.indexOf(n) === -1 ? n : "attr" + n.charAt(0).toUpperCase() + n.substring(1);
+		let t = cn.indexOf(n) === -1 ? n : "attr" + n.charAt(0).toUpperCase() + n.substring(1);
 		r[t] = e[n];
 	}
 	return r;
@@ -2596,7 +2596,7 @@ var ta = class extends Di {
 		return e[t];
 	}
 	readValueFromInstance(e, t) {
-		if (U.has(t)) {
+		if (ln.has(t)) {
 			let e = Gr(t);
 			return e && e.default || 0;
 		}
@@ -2657,8 +2657,8 @@ function ca(e, t, n, r, i, a) {
 	sa(e, i, a);
 	for (let o = 0; o < t.length; o++) e.push({
 		value: t[o],
-		at: z(i, a, r[o]),
-		easing: /* @__PURE__ */ oe(n, o)
+		at: nt(i, a, r[o]),
+		easing: /* @__PURE__ */ ie(n, o)
 	});
 }
 //#endregion
@@ -2690,7 +2690,7 @@ function pa(e, { defaultTransition: t = {}, ...n } = {}, r, i) {
 		let [u, h, g = {}] = o;
 		g.at !== void 0 && (p = oa(p, g.at, d, l));
 		let _ = 0, v = (e, n, r, o = 0, s = 0) => {
-			let c = ga(e), { delay: l = 0, times: u = Bt(c), type: d = t.type || "keyframes", repeat: h, repeatType: g, repeatDelay: v = 0, ...y } = n, { ease: b = t.ease || "easeOut", duration: x } = n, C = typeof l == "function" ? l(o, s) : l, w = c.length, T = jn(d) ? d : i?.[d || "keyframes"];
+			let c = ga(e), { delay: l = 0, times: u = Rt(c), type: d = t.type || "keyframes", repeat: h, repeatType: g, repeatDelay: v = 0, ...y } = n, { ease: b = t.ease || "easeOut", duration: x } = n, C = typeof l == "function" ? l(o, s) : l, w = c.length, T = jn(d) ? d : i?.[d || "keyframes"];
 			if (w <= 2 && T) {
 				let e = 100;
 				if (w === 2 && ya(c)) {
@@ -2702,14 +2702,14 @@ function pa(e, { defaultTransition: t = {}, ...n } = {}, r, i) {
 					...y
 				};
 				x !== void 0 && (n.duration = /* @__PURE__ */ f(x));
-				let r = Ct(n, e, T);
+				let r = xt(n, e, T);
 				b = r.ease, x = r.duration;
 			}
 			x ??= a;
 			let E = p + C;
 			u.length === 1 && u[0] === 0 && (u[1] = 1);
 			let D = u.length - c.length;
-			if (D > 0 && zt(u, D), c.length === 1 && c.unshift(null), h && `${h}${fa}`, h && h < fa) {
+			if (D > 0 && Lt(u, D), c.length === 1 && c.unshift(null), h && `${h}${fa}`, h && h < fa) {
 				let e = x > 0 ? v / x : 0;
 				x = aa(x, h, v);
 				let t = [...c], n = [...u];
@@ -2719,12 +2719,12 @@ function pa(e, { defaultTransition: t = {}, ...n } = {}, r, i) {
 				for (let s = 0; s < h; s++) {
 					let l = i && s % 2 == 0, d = l ? a : t, f = l ? o : r, p = (s + 1) * (1 + e);
 					e > 0 && (c.push(c[c.length - 1]), u.push(p), b.push("linear")), c.push(...d);
-					for (let e = 0; e < d.length; e++) u.push(n[e] + p), b.push(e === 0 ? "linear" : /* @__PURE__ */ oe(f, e - 1));
+					for (let e = 0; e < d.length; e++) u.push(n[e] + p), b.push(e === 0 ? "linear" : /* @__PURE__ */ ie(f, e - 1));
 				}
 				la(u, h, e);
 			}
-			let ee = E + x;
-			ca(r, c, b, u, E, ee), _ = Math.max(C + x, _), m = Math.max(ee, m);
+			let O = E + x;
+			ca(r, c, b, u, E, O), _ = Math.max(C + x, _), m = Math.max(O, m);
 		};
 		if (q(u)) {
 			let e = ma(u, s);
@@ -2852,7 +2852,7 @@ function wa(e, t, n) {
 			];
 		}
 		return e;
-	}), t, n, { spring: Nt }).forEach(({ keyframes: e, transition: t }, n) => {
+	}), t, n, { spring: jt }).forEach(({ keyframes: e, transition: t }, n) => {
 		r.push(...Ca(n, e, t));
 	}), r;
 }
@@ -2889,7 +2889,7 @@ var J = Ea(), Da = {
 	some: 0,
 	all: 1
 };
-function Y(e, t, { root: n, margin: r, amount: i = "some" } = {}) {
+function Oa(e, t, { root: n, margin: r, amount: i = "some" } = {}) {
 	let a = Qr(e), o = /* @__PURE__ */ new WeakMap(), s = new IntersectionObserver((e) => {
 		e.forEach((e) => {
 			let n = o.get(e.target);
@@ -2909,7 +2909,7 @@ function Y(e, t, { root: n, margin: r, amount: i = "some" } = {}) {
 }
 //#endregion
 //#region ascii.js
-function Oa(e) {
+function ka(e) {
 	let t = document.documentElement, n = document.createElement("div");
 	n.className = "ascii-backdrop", n.setAttribute("aria-hidden", "true");
 	let r = document.createElement("pre");
@@ -2981,14 +2981,14 @@ function Oa(e) {
 }
 //#endregion
 //#region cinematic.js
-function ka(e) {
+function Aa(e) {
 	let t = matchMedia("(pointer:fine)").matches;
 	if (document.querySelectorAll(".section-header h2,.resume-heading h1,.compact-case-heading h1").forEach((t) => {
 		let n = t.textContent;
 		t.setAttribute("aria-label", n), t.replaceChildren(...[...n].map((e, t) => {
 			let n = document.createElement("span");
 			return n.className = "kinetic-letter", n.textContent = e === " " ? "\xA0" : e, n.setAttribute("aria-hidden", "true"), n.style.setProperty("--letter", t), n;
-		})), Y(t, () => {
+		})), Oa(t, () => {
 			e() && J(t.children, {
 				opacity: [0, 1],
 				y: [28, 0],
@@ -3005,7 +3005,7 @@ function ka(e) {
 			});
 		}, { amount: .6 });
 	}), document.querySelectorAll(".skill-group").forEach((t, n) => {
-		Y(t, () => {
+		Oa(t, () => {
 			if (!e()) return;
 			J(t, {
 				opacity: [0, 1],
@@ -3105,7 +3105,7 @@ function ka(e) {
 }
 //#endregion
 //#region interactions.js
-function Aa(e) {
+function ja(e) {
 	let t = [
 		.16,
 		1,
@@ -3146,7 +3146,7 @@ function Aa(e) {
 		});
 	}
 	document.querySelectorAll(".compact-facts article,.compact-preview,.resume-pages figure,.screenshot-card").forEach((n, r) => {
-		Y(n, () => {
+		Oa(n, () => {
 			e() && J(n, n.matches(".compact-preview,.resume-pages figure") ? { opacity: [0, 1] } : {
 				opacity: [0, 1],
 				y: [30, 0],
@@ -3187,12 +3187,12 @@ function Aa(e) {
 		})), i.set(e, c);
 	}
 	r.forEach((t, n) => {
-		Y(t, () => {
+		Oa(t, () => {
 			a(t, e(), n % 2 * .12);
 		}, { amount: .4 });
 	});
 	let o = document.querySelector(".footer");
-	o && Y(o, () => {
+	o && Oa(o, () => {
 		e() && J(o.children, {
 			opacity: [0, 1],
 			y: [12, 0]
@@ -3236,23 +3236,23 @@ function Aa(e) {
 }
 //#endregion
 //#region cat-game.js
-var ja = "<svg viewBox=\"0 0 32 32\" fill=\"currentColor\" aria-hidden=\"true\"><ellipse cx=\"16\" cy=\"22\" rx=\"8\" ry=\"6\"/><ellipse cx=\"7\" cy=\"13\" rx=\"3\" ry=\"4\" transform=\"rotate(-25 7 13)\"/><ellipse cx=\"14\" cy=\"8\" rx=\"3\" ry=\"4\"/><ellipse cx=\"22\" cy=\"9\" rx=\"3\" ry=\"4\"/><ellipse cx=\"27\" cy=\"15\" rx=\"3\" ry=\"4\" transform=\"rotate(25 27 15)\"/></svg>", Ma = "<svg class=\"cat-box-art\" viewBox=\"0 0 200 160\" fill=\"none\" aria-hidden=\"true\"><path class=\"cat-box-shadow\" d=\"M25 143q75-14 150 0-75 20-150 0\"/><g class=\"cat-box-body\"><path d=\"m30 70 70-22 70 22v61l-70 23-70-23Z\"/><path d=\"m30 70 70 23 70-23M100 93v61\"/><path class=\"cat-box-tape\" d=\"m82 55 35 11v24l-17 5-18-6V55Z\"/><path d=\"m44 108 18 6m-18 5 12 4\"/></g><g class=\"cat-box-lid\"><path d=\"m30 70 70-23 70 23-70 24Z\"/><path d=\"m30 70-15-21 69-21 16 19m0 0 17-19 68 21-15 21\"/><path d=\"m84 28 33 0\"/></g></svg>";
-function Na(e) {
+var Ma = "<svg viewBox=\"0 0 32 32\" fill=\"currentColor\" aria-hidden=\"true\"><ellipse cx=\"16\" cy=\"22\" rx=\"8\" ry=\"6\"/><ellipse cx=\"7\" cy=\"13\" rx=\"3\" ry=\"4\" transform=\"rotate(-25 7 13)\"/><ellipse cx=\"14\" cy=\"8\" rx=\"3\" ry=\"4\"/><ellipse cx=\"22\" cy=\"9\" rx=\"3\" ry=\"4\"/><ellipse cx=\"27\" cy=\"15\" rx=\"3\" ry=\"4\" transform=\"rotate(25 27 15)\"/></svg>", Na = "<svg class=\"cat-box-art\" viewBox=\"0 0 200 160\" fill=\"none\" aria-hidden=\"true\"><path class=\"cat-box-shadow\" d=\"M25 143q75-14 150 0-75 20-150 0\"/><g class=\"cat-box-body\"><path d=\"m30 70 70-22 70 22v61l-70 23-70-23Z\"/><path d=\"m30 70 70 23 70-23M100 93v61\"/><path class=\"cat-box-tape\" d=\"m82 55 35 11v24l-17 5-18-6V55Z\"/><path d=\"m44 108 18 6m-18 5 12 4\"/></g><g class=\"cat-box-lid\"><path d=\"m30 70 70-23 70 23-70 24Z\"/><path d=\"m30 70-15-21 69-21 16 19m0 0 17-19 68 21-15 21\"/><path d=\"m84 28 33 0\"/></g></svg>";
+function Pa(e) {
 	let t = document.querySelector(".hero .profile-wrap"), n = document.querySelector(".hero .about-copy");
 	if (!t || !n) return;
 	t.tabIndex = 0, t.setAttribute("role", "button"), t.setAttribute("aria-label", "Play hide and seek with the hidden cat");
 	let r = document.createElement("button");
-	r.type = "button", r.className = "cat-hint", r.innerHTML = `${ja}<span>Hide N Seek</span>`, t.after(r);
+	r.type = "button", r.className = "cat-hint", r.innerHTML = `${Ma}<span>Hide N Seek</span>`, t.after(r);
 	let i = document.createElement("section");
 	i.className = "cat-game", i.id = "cat-game", i.hidden = !0, i.setAttribute("aria-labelledby", "cat-game-title"), r.setAttribute("aria-controls", i.id), r.setAttribute("aria-expanded", "false"), i.innerHTML = `<header class="cat-game-header"><div><h2 id="cat-game-title">Hide N Seek</h2><p>Kitty's hiding. Think you can keep up?</p></div><div class="cat-game-score" role="img" aria-label="0 of 3 rounds complete">${[
 		0,
 		1,
 		2
-	].map((e) => `<span data-cat-score="${e}">${ja}</span>`).join("")}</div><button type="button" class="cat-game-close" aria-label="Close cat game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button></header><div class="cat-game-board" role="group" aria-label="Three hiding boxes">${[
+	].map((e) => `<span data-cat-score="${e}">${Ma}</span>`).join("")}</div><button type="button" class="cat-game-close" aria-label="Close cat game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button></header><div class="cat-game-board" role="group" aria-label="Three hiding boxes">${[
 		0,
 		1,
 		2
-	].map((e) => `<button type="button" class="cat-box" data-cat-box="${e}"><span class="cat-box-head" aria-hidden="true"><img src="/public/assets/profile/profile2.webp" alt="" draggable="false"></span>${Ma}<span class="cat-box-empty" aria-hidden="true">${ja}</span></button>`).join("")}</div><footer class="cat-game-footer"><p class="cat-game-status" role="status"></p><button type="button" class="cat-game-action">Let's hide! <span aria-hidden="true">↝</span></button></footer>`, n.after(i);
+	].map((e) => `<button type="button" class="cat-box" data-cat-box="${e}"><span class="cat-box-head" aria-hidden="true"><img src="/public/assets/profile/profile2.webp" alt="" draggable="false"></span>${Na}<span class="cat-box-empty" aria-hidden="true">${Ma}</span></button>`).join("")}</div><footer class="cat-game-footer"><p class="cat-game-status" role="status"></p><button type="button" class="cat-game-action">Let's hide! <span aria-hidden="true">↝</span></button></footer>`, n.after(i);
 	let a = [...i.querySelectorAll(".cat-box")], o = i.querySelector(".cat-game-action"), s = i.querySelector(".cat-game-status"), c = "closed", l = 0, u = 0, d = [
 		0,
 		1,
@@ -3333,7 +3333,7 @@ function Na(e) {
 		let t = i.querySelector(".cat-game-board");
 		for (let e = 0; e < 9; e++) {
 			let n = document.createElement("span");
-			n.className = "cat-win-paw", n.innerHTML = ja, t.append(n), n.animate([
+			n.className = "cat-win-paw", n.innerHTML = Ma, t.append(n), n.animate([
 				{
 					opacity: 0,
 					transform: "translate(0,0) scale(.5)"
@@ -3400,8 +3400,8 @@ function Na(e) {
 	}, { threshold: .05 }).observe(i);
 }
 //#endregion
-//#region security-lab.js
-var X = {
+//#region lab-captures.js
+var Y = {
 	dns: {
 		name: "DNS resolver",
 		destination: "10.10.0.53",
@@ -3426,7 +3426,7 @@ var X = {
 		x: 390,
 		y: 250
 	}
-}, Pa = [
+}, Fa = [
 	[
 		0,
 		"dns",
@@ -3499,7 +3499,7 @@ var X = {
 	flow: t,
 	size: n,
 	detail: r
-})), Fa = [
+})), Ia = [
 	[
 		0,
 		"dns",
@@ -3572,122 +3572,291 @@ var X = {
 	flow: t,
 	size: n,
 	detail: r
-}));
-function Ia(e) {
+})), La = "<svg viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" aria-hidden=\"true\"><path d=\"m4 10 4 4 8-8\"/></svg>", Ra = "<svg viewBox=\"0 0 64 64\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"25\"/><path d=\"m32 15 5 11 12 2-9 9 2 12-10-6-10 6 2-12-9-9 12-2Z\"/><path d=\"M32 2v4m0 52v4M2 32h4m52 0h4M10 10l3 3m38 38 3 3M10 54l3-3m38-38 3-3\"/></svg>", X = {
+	timing: {
+		name: "Connection timing",
+		badge: "Pattern spotter",
+		packets: Fa,
+		target: "external",
+		clue: 6,
+		lead: "One connection sends the same-sized packets at regular intervals. Select a destination on the map to compare its traffic.",
+		inspect: "Nice find. Open the outlined packet to see what keeps repeating.",
+		question: "What makes this connection stand out?",
+		options: [
+			{
+				id: "encrypted",
+				text: "The traffic is encrypted",
+				feedback: "Encryption is common. Look for something unusual in the packet sizes and timing."
+			},
+			{
+				id: "rhythm",
+				text: "Same size. Exactly 20 seconds apart.",
+				correct: !0
+			},
+			{
+				id: "outside",
+				text: "It reaches an external address",
+				feedback: "External connections are common too. Compare the spacing between these four packets."
+			}
+		],
+		takeaway: "Four 96-byte packets arrive 20 seconds apart. That repeating rhythm is a useful lead for checking the process behind the traffic.",
+		wrong: {
+			dns: "These short hostname lookups arrive at different intervals. Try another destination.",
+			web: "This web traffic varies in size and timing. Try a connection with a steadier rhythm."
+		},
+		hints: [
+			["Compare the gaps between the packet dots. Which row has an even rhythm?", "Try the External host. Its four dots are evenly spaced."],
+			["Open the outlined dot in the TLS row, or use Inspect clue.", "The packet is 96 bytes. Compare it with the other three in that row."],
+			["Look at the size and the time stamps together.", "All four packets are 96 bytes, with a 20-second gap each time."]
+		]
+	},
+	dns: {
+		name: "DNS queries",
+		badge: "DNS detective",
+		packets: Ia,
+		target: "dns",
+		clue: 3,
+		lead: "This capture includes repeated, unusually long hostname lookups. Select a destination and compare its packet sizes.",
+		inspect: "You found the DNS traffic. Open the outlined larger packet to read its query.",
+		question: "Which clue deserves a closer look?",
+		options: [
+			{
+				id: "uses-dns",
+				text: "The computer uses DNS",
+				feedback: "DNS normally translates names into addresses. Look at the actual names being requested."
+			},
+			{
+				id: "web-response",
+				text: "The web server sends a reply",
+				feedback: "A web reply is expected. Your saved clue is a DNS query—check its name."
+			},
+			{
+				id: "encoded",
+				text: "Long, encoded-looking names keep repeating",
+				correct: !0
+			}
+		],
+		takeaway: "Five long queries use encoded-looking labels under telemetry.example.test. The next useful checks are the originating process and resolver logs.",
+		wrong: {
+			web: "These are ordinary web responses. Look for a destination receiving hostname queries.",
+			external: "These two TLS responses differ in size and arrive 50 seconds apart. Compare the DNS traffic."
+		},
+		hints: [
+			["DNS turns names into addresses. Look for the resolver on the map.", "Try the DNS resolver. Several of its packets are larger than the first one."],
+			["Select the outlined larger dot in the DNS row.", "The first short query is routine. Inspect the longer query at 12 seconds."],
+			["Compare the query name with a short name such as assets.example.test.", "The same parent domain is receiving repeated long, encoded-looking subdomains."]
+		]
+	}
+};
+function za(e) {
 	let t = document.querySelector("#skills");
 	if (!t) return;
-	let n = "timing", r = Pa, i = document.createElement("section");
-	i.className = "security-lab page-width", i.id = "security-lab", i.setAttribute("aria-labelledby", "security-lab-title"), i.innerHTML = `<header class="lab-heading"><div><h2 id="security-lab-title">Network traffic lab</h2><p>Explore packet routes, compare connection timing, and inspect network activity.</p></div><button type="button" class="lab-start lab-button">Open capture <span aria-hidden="true">↗</span></button></header>
-    <div class="lab-scenarios" role="group" aria-label="Sample captures"><span>Sample capture</span><button type="button" data-scenario="timing" aria-pressed="true">01 <span>Connection timing</span></button><button type="button" data-scenario="dns" aria-pressed="false">02 <span>DNS queries</span></button></div>
-    <div class="lab-console"><div class="lab-visuals"><div class="lab-network" aria-label="Sample network connections">
-    <svg class="lab-wires" viewBox="0 0 520 300" preserveAspectRatio="none" aria-hidden="true">${Object.entries(X).map(([e, t]) => `<path data-flow-path="${e}" d="${t.path}"/>`).join("")}</svg>
-    <div class="lab-workstation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8m-4-5v5"/></svg><strong>Workstation</strong><small>10.10.0.12</small></div>
-    ${Object.entries(X).map(([e, t]) => `<button type="button" class="lab-host lab-host-${e}" data-flow="${e}" aria-pressed="false"><span class="lab-node-dot" aria-hidden="true"></span><strong>${t.name}</strong><small>${t.destination}</small></button>`).join("")}
-    <span class="lab-network-caption">Select a destination to isolate its traffic.</span></div><div class="lab-traffic" hidden><div class="lab-traffic-title"><strong>Packet timing</strong><span>0s <i aria-hidden="true">—</i> 75s</span></div><div class="lab-traffic-lanes"></div><p>Larger dots carry more bytes. Select one to inspect.</p></div></div>
-    <div class="lab-intro"><svg class="lab-capture-preview" viewBox="0 0 360 150" aria-hidden="true"><path d="M10 30h340M10 75h340M10 120h340"/><g class="lab-preview-dots"></g></svg><div class="lab-preview-specs"><span><strong>11</strong> packets</span><span><strong>3</strong> connections</span><span><strong>75s</strong> capture</span></div></div>
-    <div class="lab-evidence" hidden><div class="lab-playback"><button type="button" class="lab-play lab-button" aria-label="Pause simulated traffic">Pause</button><label for="lab-time">Capture time <output id="lab-time-value">00s / 75s</output></label><input id="lab-time" type="range" min="0" max="75" step="1" value="0" aria-label="Capture time in seconds"><button type="button" class="lab-show-all">All connections</button></div>
-    <div class="lab-metrics" aria-label="Selected connection statistics"></div><div class="lab-packet-scroll"><table class="lab-packets"><caption class="sr-only">Sample packets available at the selected capture time</caption><thead><tr><th scope="col">Time</th><th scope="col">Source → destination</th><th scope="col">Protocol</th><th scope="col">Bytes</th><th scope="col"><span class="sr-only">Inspect</span></th></tr></thead><tbody></tbody></table></div>
-    <div class="lab-inspector" aria-live="polite"><strong>Choose a packet</strong><p>Inspect its timing, destination and size. Move the capture slider forward to reveal more traffic.</p></div>
-    <div class="lab-verdict"><span class="lab-selection">No connection selected</span><button type="button" class="lab-flag lab-button" disabled>Flag connection <span aria-hidden="true">↗</span></button></div><div class="lab-result" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path class="lab-result-check" d="m7 12 3 3 7-7"/><path class="lab-result-retry" d="M12 7v6m0 3v1"/></svg><p class="lab-feedback" role="status"></p></div></div></div>`, t.before(i);
-	let a = i.querySelector(".lab-evidence"), o = i.querySelector("#lab-time"), s = i.querySelector(".lab-play"), c = i.querySelector(".lab-inspector"), l = !1, u = !1, d = !1, f = 0, p = null, m = null, h, g = /* @__PURE__ */ new Map(), _ = (e) => String(e).padStart(2, "0");
-	function v() {
-		i.querySelector(".lab-result").hidden = !0, i.querySelector(".lab-feedback").textContent = "";
+	let n = /* @__PURE__ */ new Set();
+	try {
+		n = new Set(JSON.parse(sessionStorage.getItem("portfolio-lab-cases") || "[]").filter((e) => e in X));
+	} catch {}
+	let r = n.has("timing") && !n.has("dns") ? "dns" : "timing", i = X[r], a = !1, o = 0, s = null, c = null, l = null, u = 0, d = "", f = "", p = !1, m = 75, h = !1, g = !1, _, v = "", y = /* @__PURE__ */ new Map(), b = /* @__PURE__ */ new Set(), x = document.createElement("section");
+	x.className = "security-lab page-width", x.id = "security-lab", x.setAttribute("aria-labelledby", "security-lab-title"), x.innerHTML = `<header class="lab-heading"><div><h2 id="security-lab-title">Network traffic lab</h2><p>Two guided cases: follow a connection, inspect a clue, and solve the pattern.</p></div><div class="lab-session-progress" aria-live="polite">${Ra}<span><strong class="lab-xp">0 XP</strong><small class="lab-case-count">0 of 2 cases solved</small></span></div></header>
+    <div class="lab-scenarios" role="group" aria-label="Practice cases">${Object.entries(X).map(([e, t], n) => `<button type="button" data-scenario="${e}" aria-pressed="${e === r}"><span class="lab-case-number">0${n + 1}</span><span>${t.name}</span><span class="lab-case-check" aria-hidden="true">${La}</span></button>`).join("")}</div>
+    <div class="lab-console"><div class="lab-visuals"><div class="lab-network" aria-label="Practice network connections"><svg class="lab-wires" viewBox="0 0 520 300" preserveAspectRatio="none" aria-hidden="true">${Object.entries(Y).map(([e, t]) => `<path data-flow-path="${e}" d="${t.path}"/>`).join("")}</svg><div class="lab-workstation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8m-4-5v5"/></svg><strong>Your computer</strong><small>10.10.0.12</small></div>${Object.entries(Y).map(([e, t]) => `<button type="button" class="lab-host lab-host-${e}" data-flow="${e}" aria-pressed="false"><span class="lab-node-dot" aria-hidden="true"></span><strong>${t.name}</strong><small>${t.destination}</small></button>`).join("")}<span class="lab-network-caption">Choose a case and follow the guide.</span></div><div class="lab-traffic" hidden><div class="lab-traffic-title"><strong>Connection timing</strong><span>0s <i aria-hidden="true">→</i> 75s</span></div><div class="lab-traffic-lanes"></div><p>Each dot is a packet—a small bundle of network data.</p></div></div>
+    <div class="lab-guide"><ol class="lab-stepper" aria-label="Case progress">${[
+		"Trace",
+		"Inspect",
+		"Solve"
+	].map((e, t) => `<li data-guide-step="${t}"><span class="lab-step-icon">${La}<b>${t + 1}</b></span><span>${e}</span></li>`).join("")}</ol><div class="lab-guide-content"></div><div class="lab-guide-feedback" role="status"></div><div class="lab-guide-help" hidden><button type="button" data-guide-hint>Need a hint?</button><button type="button" data-guide-show hidden>Show me where</button><p class="lab-hint-text" role="status"></p></div><div class="lab-confetti-layer" aria-hidden="true"></div></div></div>
+    <div class="lab-earned-badges" aria-label="Case badges">${Object.entries(X).map(([e, t]) => `<span data-earned-badge="${e}">${Ra}<span>${t.badge}</span>${La}</span>`).join("")}</div>
+    <details class="lab-advanced"><summary>Explore the full packet capture <span>Optional tools</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m5 8 5 5 5-5"/></svg></summary><div class="lab-evidence"><div class="lab-playback"><button type="button" class="lab-play lab-button" aria-label="Play sample traffic">Replay</button><label for="lab-time">Capture time <output id="lab-time-value">75s / 75s</output></label><input id="lab-time" type="range" min="0" max="75" value="75" aria-label="Capture time in seconds"><button type="button" class="lab-show-all">All connections</button></div><div class="lab-metrics" aria-label="Connection statistics"></div><div class="lab-packet-scroll"><table class="lab-packets"><caption class="sr-only">Sample packets at the selected time</caption><thead><tr><th scope="col">Time</th><th scope="col">Destination</th><th scope="col">Protocol</th><th scope="col">Bytes</th><th scope="col"><span class="sr-only">Inspect</span></th></tr></thead><tbody></tbody></table></div><div class="lab-inspector" aria-live="polite"></div></div></details>`, t.before(x);
+	let S = x.querySelector(".lab-guide"), C = x.querySelector(".lab-guide-content"), w = x.querySelector(".lab-advanced"), T = x.querySelector("#lab-time"), E = (e) => String(e).padStart(2, "0");
+	function D() {
+		try {
+			sessionStorage.setItem("portfolio-lab-cases", JSON.stringify([...n]));
+		} catch {}
 	}
-	function y() {
-		i.querySelector(".lab-preview-dots").innerHTML = r.map((e) => `<circle cx="${10 + e.time / 75 * 340}" cy="${{
-			dns: 30,
-			web: 75,
-			external: 120
-		}[e.flow]}" r="${Math.min(7, 3 + e.size / 250)}"/>`).join("");
+	function O() {
+		y.forEach((e) => e.stop()), y.clear(), x.querySelectorAll(".lab-travel-packet").forEach((e) => e.remove());
 	}
-	function b() {
-		g.forEach((e) => e.stop()), g.clear(), i.querySelectorAll(".lab-travel-packet").forEach((e) => e.remove()), i.querySelectorAll("[data-flow-path]").forEach((e) => e.getAnimations().forEach((e) => e.cancel()));
-	}
-	function x(t) {
-		let n = i.querySelector(`[data-flow-path="${t}"]`);
-		if (!n || !e() || !d || document.hidden) return;
-		n.getAnimations().forEach((e) => e.cancel()), n.animate([{
-			strokeDasharray: "5 8",
-			strokeDashoffset: 52,
-			opacity: 1
-		}, {
-			strokeDasharray: "5 8",
-			strokeDashoffset: 0,
-			opacity: 1
-		}], {
-			duration: 650,
-			easing: "ease-out"
-		}), g.get(t)?.stop(), i.querySelector(`.lab-travel-packet[data-route="${t}"]`)?.remove();
-		let r = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-		r.setAttribute("class", "lab-travel-packet"), r.setAttribute("data-route", t), r.setAttribute("r", "4");
-		let a = n.getPointAtLength(0);
-		r.setAttribute("cx", a.x), r.setAttribute("cy", a.y), n.after(r);
-		let o = n.getTotalLength(), s = J(0, 1, {
+	function ee(t) {
+		let n = x.querySelector(`[data-flow-path="${t}"]`);
+		if (!n || !e() || !g || document.hidden) return;
+		y.get(t)?.stop(), x.querySelector(`.lab-travel-packet[data-route="${t}"]`)?.remove();
+		let r = document.createElementNS("http://www.w3.org/2000/svg", "circle"), i = n.getPointAtLength(0), a = n.getTotalLength();
+		r.setAttribute("class", "lab-travel-packet"), r.dataset.route = t, r.setAttribute("r", "4"), r.setAttribute("cx", i.x), r.setAttribute("cy", i.y), n.after(r);
+		let o = J(0, 1, {
 			duration: .65,
 			ease: "linear",
 			onUpdate: (e) => {
-				let t = n.getPointAtLength(e * o);
+				let t = n.getPointAtLength(e * a);
 				r.setAttribute("cx", t.x), r.setAttribute("cy", t.y);
 			},
 			onComplete: () => {
-				r.remove(), g.delete(t);
+				r.remove(), y.delete(t);
 			}
 		});
-		g.set(t, s);
+		y.set(t, o);
 	}
-	function S() {
-		o.value = String(f), i.querySelector("#lab-time-value").textContent = `${_(f)}s / 75s`, s.textContent = u ? "Pause" : f === 75 ? "Replay" : "Play", s.setAttribute("aria-label", u ? "Pause simulated traffic" : "Play simulated traffic"), i.querySelectorAll("[data-flow]").forEach((e) => e.setAttribute("aria-pressed", String(e.dataset.flow === p))), i.querySelectorAll("[data-flow-path]").forEach((e) => e.classList.toggle("is-selected", e.dataset.flowPath === p));
-		let e = r.filter((e) => e.time <= f && (!p || e.flow === p));
-		i.querySelector(".lab-traffic-lanes").innerHTML = Object.entries(X).map(([e, t]) => {
-			let n = r.filter((t) => t.time <= f && t.flow === e);
-			return `<div class="lab-traffic-lane ${p && p !== e ? "is-muted" : ""}"><button type="button" class="lab-lane-name" data-select-flow="${e}" aria-pressed="${p === e}">${t.protocol}</button><div class="lab-lane-track">${n.map((e) => `<button type="button" class="lab-packet-dot ${e.id === m ? "is-selected" : ""}" data-packet="${e.id}" title="${_(e.time)}s · ${e.size} bytes" aria-label="Inspect ${t.protocol} packet at ${e.time} seconds, ${e.size} bytes" aria-pressed="${e.id === m}"></button>`).join("")}<i class="lab-capture-cursor" aria-hidden="true"></i></div><span class="lab-lane-count">${n.length}</span></div>`;
-		}).join(""), i.querySelectorAll(".lab-packet-dot").forEach((e) => {
-			let t = r[Number(e.dataset.packet)];
-			e.style.left = `${t.time / 75 * 100}%`, e.style.setProperty("--packet-dot-size", `${Math.min(16, 6 + Math.log2(Math.max(74, t.size) / 74) * 3)}px`);
-		}), i.querySelectorAll(".lab-capture-cursor").forEach((e) => e.style.left = `${f / 75 * 100}%`);
-		let t = e.map((e) => e.size), n = e.slice(1).map((t, n) => t.time - e[n].time), a = t.length ? Math.min(...t) === Math.max(...t) ? `${t[0]} B` : `${Math.min(...t)}–${Math.max(...t)} B` : "—", l = p ? [...new Set(n)].join(" / ") + (n.length ? " s" : "—") : String(new Set(e.map((e) => e.flow)).size);
-		i.querySelector(".lab-metrics").innerHTML = `<div><span>Packets</span><strong>${e.length}</strong></div><div><span>${p ? "Intervals" : "Destinations"}</span><strong>${l}</strong></div><div><span>Packet size</span><strong>${a}</strong></div>`, i.querySelector("tbody").innerHTML = e.length ? e.map((e) => `<tr class="${e.id === m ? "is-selected" : ""}"><td>${_(e.time)}s</td><td><span>10.10.0.12 →</span> ${X[e.flow].destination}</td><td>${X[e.flow].protocol}</td><td>${e.size}</td><td><button type="button" data-packet="${e.id}" aria-label="Inspect packet at ${e.time} seconds to ${X[e.flow].destination}" aria-pressed="${e.id === m}">Inspect</button></td></tr>`).join("") : "<tr><td colspan=\"5\">No packets for this connection at this time. Move the slider forward.</td></tr>", i.querySelector(".lab-selection").textContent = p ? `Selected: ${X[p].name}` : "No connection selected", i.querySelector(".lab-flag").disabled = !p;
-		let d = r.find((e) => e.id === m);
-		d ? c.innerHTML = `<strong>${X[d.flow].protocol} · ${d.size} bytes · ${_(d.time)}s</strong><p>${d.detail}</p>` : c.innerHTML = "<strong>Packet inspector</strong><p>Select a packet dot or an Inspect button to view its details.</p>";
+	function te() {
+		k();
+		let t = x.querySelector(".lab-confetti-layer"), n = e();
+		for (let e = 0; e < 44; e++) {
+			let r = document.createElement("i");
+			r.className = "lab-confetti", r.style.background = [
+				"#f2c75c",
+				"#9d8df1",
+				"#67cdb6",
+				"var(--ink)"
+			][e % 4];
+			let i = (Math.random() - .5) * Math.min(460, S.clientWidth), a = 70 + Math.random() * 260;
+			r.style.width = `${4 + Math.random() * 4}px`, r.style.height = `${5 + Math.random() * 6}px`, t.append(r), n || (r.style.left = `calc(50% + ${i}px)`, r.style.top = `${a}px`, r.style.rotate = `${e * 31}deg`);
+			let o = n ? [
+				{
+					opacity: 0,
+					transform: "translate(0,0) rotate(0deg)"
+				},
+				{
+					opacity: 1,
+					offset: .15
+				},
+				{
+					opacity: 0,
+					transform: `translate(${i}px,${a}px) rotate(${e % 2 ? 580 : -480}deg)`
+				}
+			] : [
+				{ opacity: 0 },
+				{
+					opacity: 1,
+					offset: .25
+				},
+				{ opacity: 0 }
+			], s = r.animate(o, {
+				duration: n ? 1300 + Math.random() * 350 : 700,
+				delay: e % 7 * 18,
+				easing: "cubic-bezier(.15,.6,.4,1)"
+			});
+			b.add(s), s.finished.then(() => {
+				r.remove(), b.delete(s);
+			}, () => r.remove());
+		}
 	}
-	function C() {
-		clearInterval(h), h = void 0, !(!u || !d || document.hidden) && (h = setInterval(() => {
-			let e = f;
-			f = Math.min(75, f + 5), r.filter((t) => t.time > e && t.time <= f).forEach((e) => x(e.flow)), f === 75 && (u = !1), S(), u || C();
-		}, 1e3));
+	function k() {
+		b.forEach((e) => e.cancel()), b.clear(), x.querySelectorAll(".lab-confetti").forEach((e) => e.remove());
 	}
-	function w() {
-		l || (l = !0, u = !1, f = 75, a.hidden = !1, i.querySelector(".lab-intro").hidden = !0, i.querySelector(".lab-traffic").hidden = !1, i.querySelector(".lab-start").hidden = !0, S(), C());
+	function ne() {
+		x.querySelector(".lab-xp").textContent = `${n.size * 100} XP`, x.querySelector(".lab-case-count").textContent = `${n.size} of 2 cases solved`, x.querySelectorAll("[data-earned-badge]").forEach((e) => e.classList.toggle("is-earned", n.has(e.dataset.earnedBadge))), x.querySelectorAll("[data-scenario]").forEach((e) => {
+			let t = n.has(e.dataset.scenario);
+			e.classList.toggle("is-solved", t), e.setAttribute("aria-pressed", String(e.dataset.scenario === r)), e.setAttribute("aria-label", `${X[e.dataset.scenario].name}${t ? ", solved" : ""}`);
+		});
 	}
-	i.querySelector(".lab-start").addEventListener("click", w), i.querySelectorAll("[data-flow]").forEach((e) => e.addEventListener("click", () => {
-		w(), p = e.dataset.flow, m = null, v(), S(), x(p);
-	})), i.addEventListener("click", (e) => {
-		let t = e.target.closest("[data-select-flow]");
-		if (t) {
-			p = t.dataset.selectFlow, m = null, v(), S(), x(p), i.querySelector(`[data-select-flow="${p}"]`).focus({ preventScroll: !0 });
+	function re() {
+		return r === "timing" ? "<div class=\"lab-rhythm\" aria-label=\"Packets at 5, 25, 45 and 65 seconds, all 96 bytes\">" + [
+			5,
+			25,
+			45,
+			65
+		].map((e, t) => `<span><b>${E(e)}s</b><i aria-hidden="true"></i><small>96 B</small></span>${t < 3 ? "<em>20s</em>" : ""}`).join("") + "</div>" : "<div class=\"lab-query-clue\"><span>Repeated query labels</span><code>a81f02c9b7d0… . c917fe0ad4b7…<br><strong>telemetry.example.test</strong></code></div>";
+	}
+	function ie() {
+		let e = JSON.stringify([
+			a,
+			r,
+			o,
+			s,
+			c,
+			l,
+			u,
+			d,
+			f,
+			n.size
+		]);
+		if (e === v) return;
+		v = e, x.querySelectorAll("[data-guide-step]").forEach((e) => {
+			let t = Number(e.dataset.guideStep);
+			e.classList.toggle("is-done", a && o > t), e.classList.toggle("is-current", a && o === t), a && o === t ? e.setAttribute("aria-current", "step") : e.removeAttribute("aria-current");
+		});
+		let t = x.querySelector(".lab-guide-help");
+		t.hidden = !a || o === 3, x.querySelector(".lab-guide-feedback").textContent = d;
+		let m = u && o < 3 ? i.hints[o][Math.min(u, 2) - 1] : "";
+		if (x.querySelector(".lab-hint-text").textContent = m, x.querySelector("[data-guide-hint]").textContent = u ? "Another hint" : "Need a hint?", x.querySelector("[data-guide-show]").hidden = u < 2 || o === 2, !a) {
+			C.innerHTML = `<div class="lab-welcome-art" aria-hidden="true">${Ra}<span>01 → 02 → 03</span></div><h3 tabindex="-1">Your case starts here.</h3><p>Choose a connection, open one clue, and explain what you found. Hints are here whenever you need them.</p><button type="button" class="lab-start lab-primary">Start case <span aria-hidden="true">→</span></button>`;
 			return;
 		}
-		let n = e.target.closest("[data-packet]");
-		if (!n) return;
-		let a = n.closest("table") ? ".lab-packets" : ".lab-traffic";
-		m = Number(n.dataset.packet), p = r[m].flow, u = !1, v(), C(), S(), x(p), i.querySelector(`${a} [data-packet="${m}"]`)?.focus({ preventScroll: !0 });
-	}), o.addEventListener("input", () => {
-		f = Number(o.value), u = !1, v(), m !== null && r[m].time > f && (m = null), C(), S();
-	}), s.addEventListener("click", () => {
-		v(), f === 75 && (f = 0, m = null), u = !u, S(), C();
-	}), i.querySelector(".lab-show-all").addEventListener("click", () => {
-		p = null, m = null, v(), S();
-	}), i.querySelectorAll("[data-scenario]").forEach((e) => e.addEventListener("click", () => {
-		n = e.dataset.scenario, r = n === "dns" ? Fa : Pa, u = !1, f = l ? 75 : 0, p = null, m = null, b(), v(), i.querySelectorAll("[data-scenario]").forEach((t) => t.setAttribute("aria-pressed", String(t === e))), y(), S(), C();
-	})), i.querySelector(".lab-flag").addEventListener("click", () => {
-		u = !1, C(), S();
-		let e = i.querySelector(".lab-feedback"), t = n === "dns" ? "dns" : "external", a = r.filter((e) => e.flow === t && e.time <= f && (n !== "dns" || e.size > 150)).length, o = p === t && a >= 4, s = i.querySelector(".lab-result");
-		s.hidden = !1, s.classList.toggle("is-success", o), e.textContent = p === t ? a < 4 ? "Keep this connection selected and move further into the capture to compare more packets." : n === "dns" ? "Pattern found: repeated long, encoded-looking DNS queries to one parent domain. Investigate the originating process and resolver logs." : "Pattern found: four 96-byte connections, each 20 seconds apart. Check the originating process and destination to explain the regular traffic." : "Compare another connection. Look at the spacing between its packets and whether their sizes repeat.";
+		o === 0 ? C.innerHTML = `<p class="lab-task-number">Step 1 of 3</p><h3 tabindex="-1">Choose a connection.</h3><p>${i.lead}</p><div class="lab-guide-nudge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 12H5m5-5-5 5 5 5"/></svg><span>Select a destination on the network map.</span></div>` : o === 1 ? C.innerHTML = `<p class="lab-task-number">Step 2 of 3</p><h3 tabindex="-1">A clue worth opening.</h3><p>${i.inspect}</p><div class="lab-clue-ticket"><span class="lab-clue-dot" aria-hidden="true"></span><div><strong>${Y[i.target].name}</strong><small>${E(i.packets[i.clue].time)}s · ${i.packets[i.clue].size} bytes</small></div><span aria-hidden="true">↗</span></div><button type="button" class="lab-primary" data-guide-inspect>Inspect clue <span aria-hidden="true">→</span></button>` : o === 2 ? C.innerHTML = `<p class="lab-task-number">Step 3 of 3 · clue collected ${La}</p><h3 tabindex="-1">${i.question}</h3>${re()}<div class="lab-answer-options" role="group" aria-label="Choose an explanation">${i.options.map((e) => `<button type="button" data-answer="${e.id}" class="${f === e.id ? "is-tried " : ""}${u >= 2 && e.correct ? "is-hinted" : ""}"><span class="lab-answer-ring" aria-hidden="true"></span><span>${e.text}</span><span aria-hidden="true">↗</span></button>`).join("")}</div>` : C.innerHTML = `<div class="lab-reward"><button type="button" class="lab-award" data-celebrate aria-label="Celebrate your solved case" title="More confetti!">${Ra}</button><p class="lab-reward-earned">${n.size === 2 ? "Both cases solved" : "Case solved"} · ${p ? "+100 XP" : "Badge earned"}</p><h3 tabindex="-1">${n.size === 2 ? "Traffic detective" : "Case cracked!"}</h3><span class="lab-reward-badge">${La}${n.size === 2 ? "Traffic detective" : i.badge} unlocked</span><p>${i.takeaway}</p><div class="lab-reward-actions"><button type="button" class="lab-primary" data-guide-next>${n.size === 2 ? "Try a case again" : "Next case"} <span aria-hidden="true">→</span></button><button type="button" class="lab-retry" data-guide-replay>Replay this case</button></div></div>`;
+	}
+	function A() {
+		C.querySelector("h3")?.focus({ preventScroll: !0 });
+		let t = S.getBoundingClientRect();
+		innerWidth <= 900 && (t.top < 70 || t.bottom > innerHeight) && S.scrollIntoView({
+			block: "nearest",
+			behavior: e() ? "smooth" : "instant"
+		});
+	}
+	function j() {
+		x.classList.toggle("lab-has-started", a), x.classList.toggle("lab-case-solved", o === 3), x.querySelector(".lab-traffic").hidden = !a, x.querySelectorAll("[data-flow]").forEach((e) => {
+			e.setAttribute("aria-pressed", String(e.dataset.flow === s)), e.classList.toggle("is-guide-target", a && o === 0 && u >= 2 && e.dataset.flow === i.target);
+		}), x.querySelectorAll("[data-flow-path]").forEach((e) => e.classList.toggle("is-selected", e.dataset.flowPath === s)), x.querySelector(".lab-network-caption").textContent = a ? o === 0 ? "Tap a destination to compare its traffic." : o === 1 ? "The outlined packet is your next clue." : o === 2 ? "Clue collected. Choose an explanation." : "Case solved. You can keep exploring." : "Choose a case and follow the guide.";
+		let e = i.packets.filter((e) => e.time <= m), t = e.filter((e) => !s || e.flow === s);
+		x.querySelector(".lab-traffic-lanes").innerHTML = Object.entries(Y).map(([t, n]) => {
+			let r = e.filter((e) => e.flow === t);
+			return `<div class="lab-traffic-lane ${s && s !== t ? "is-muted" : ""}"><button type="button" class="lab-lane-name" data-select-flow="${t}" aria-pressed="${s === t}">${n.protocol}</button><div class="lab-lane-track">${r.map((e) => `<button type="button" class="lab-packet-dot ${e.id === c ? "is-selected " : ""}${o === 1 && e.id === i.clue ? "is-guide-clue" : ""}" data-packet="${e.id}" aria-label="Inspect ${n.name} packet at ${e.time} seconds, ${e.size} bytes" title="${E(e.time)}s · ${e.size} bytes" aria-pressed="${e.id === c}"></button>`).join("")}</div><span class="lab-lane-count">${r.length}</span></div>`;
+		}).join(""), x.querySelectorAll(".lab-packet-dot").forEach((e) => {
+			let t = i.packets[Number(e.dataset.packet)];
+			e.style.left = `${t.time / 75 * 100}%`, e.style.setProperty("--packet-dot-size", `${Math.min(16, 6 + Math.log2(Math.max(74, t.size) / 74) * 3)}px`);
+		}), T.value = String(m), x.querySelector("#lab-time-value").textContent = `${E(m)}s / 75s`;
+		let n = x.querySelector(".lab-play");
+		n.textContent = h ? "Pause" : m === 75 ? "Replay" : "Play", n.setAttribute("aria-label", h ? "Pause sample traffic" : "Play sample traffic");
+		let r = t.map((e) => e.size), l = t.slice(1).map((e, n) => e.time - t[n].time), d = r.length ? Math.min(...r) === Math.max(...r) ? `${r[0]} B` : `${Math.min(...r)}–${Math.max(...r)} B` : "—";
+		x.querySelector(".lab-metrics").innerHTML = `<div><span>Packets</span><strong>${t.length}</strong></div><div><span>${s ? "Intervals" : "Destinations"}</span><strong>${s ? [...new Set(l)].join(" / ") + (l.length ? " s" : "—") : new Set(t.map((e) => e.flow)).size}</strong></div><div><span>Packet size</span><strong>${d}</strong></div>`, x.querySelector("tbody").innerHTML = t.length ? t.map((e) => `<tr class="${e.id === c ? "is-selected" : ""}"><td>${E(e.time)}s</td><td>${Y[e.flow].destination}</td><td>${Y[e.flow].protocol}</td><td>${e.size}</td><td><button type="button" data-packet="${e.id}" aria-label="Inspect table packet at ${e.time} seconds" aria-pressed="${e.id === c}">Inspect</button></td></tr>`).join("") : "<tr><td colspan=\"5\">Move the capture slider forward to reveal more packets.</td></tr>";
+		let f = i.packets.find((e) => e.id === c);
+		x.querySelector(".lab-inspector").innerHTML = f ? `<strong>${Y[f.flow].protocol} · ${f.size} bytes · ${E(f.time)}s</strong><p>${f.detail}</p>` : "<strong>Packet inspector</strong><p>Select a dot or an Inspect button to read a packet.</p>", ie(), ne();
+	}
+	function M() {
+		clearInterval(_), _ = void 0, !(!h || !g || document.hidden || !w.open) && (_ = setInterval(() => {
+			let e = m;
+			m = Math.min(75, m + 5), i.packets.filter((t) => t.time > e && t.time <= m).forEach((e) => ee(e.flow)), m === 75 && (h = !1), j(), h || M();
+		}, 1e3));
+	}
+	function ae() {
+		a || (a = !0, m = 75, o = n.has(r) ? 3 : 0, j());
+	}
+	function N(e) {
+		ae(), s = e, c = null, l = null, u = 0, d = "", f = "", h = !1, m = 75, M(), o !== 3 && (o = +(e === i.target), o === 0 && (d = i.wrong[e] || "Compare another connection.")), j(), ee(e), o !== 3 && A();
+	}
+	function oe(e, t = !1) {
+		let n = i.packets[e];
+		n && (ae(), s = n.flow, c = e, m = Math.max(m, n.time), h = !1, u = 0, d = "", f = "", M(), o !== 3 && (s === i.target ? r === "dns" && n.size <= 150 ? (o = 1, l = null, d = "That short lookup looks routine. Try the outlined larger packet.") : (o = 2, l = e) : (o = 0, l = null, d = i.wrong[s] || "Compare another connection.")), j(), ee(s), t ? x.querySelector(`.lab-packets [data-packet="${e}"]`)?.focus({ preventScroll: !0 }) : o === 3 ? x.querySelector(`.lab-traffic [data-packet="${e}"]`)?.focus({ preventScroll: !0 }) : A());
+	}
+	function se() {
+		a = !0, o = 0, s = null, c = null, l = null, u = 0, d = "", f = "", p = !1, h = !1, m = 75, k(), O(), M(), j(), A();
+	}
+	function ce(e, t = !1) {
+		e in X && (r = e, i = X[e], s = null, c = null, l = null, u = 0, d = "", f = "", p = !1, h = !1, m = 75, o = n.has(e) && !t ? 3 : 0, k(), O(), M(), j(), a && A());
+	}
+	x.addEventListener("click", (e) => {
+		let t = e.target.closest("button");
+		if (t) {
+			if (t.matches(".lab-start")) ae(), A();
+			else if (t.dataset.flow) N(t.dataset.flow);
+			else if (t.dataset.selectFlow) N(t.dataset.selectFlow);
+			else if (t.dataset.packet !== void 0) oe(Number(t.dataset.packet), !!t.closest(".lab-advanced"));
+			else if (t.dataset.scenario) ce(t.dataset.scenario);
+			else if (t.hasAttribute("data-guide-inspect")) oe(i.clue);
+			else if (t.hasAttribute("data-guide-hint")) u = Math.min(2, u + 1), j(), x.querySelector("[data-guide-hint]").focus({ preventScroll: !0 });
+			else if (t.hasAttribute("data-guide-show")) o === 0 ? N(i.target) : o === 1 && oe(i.clue);
+			else if (t.dataset.answer) {
+				if (o !== 2) return;
+				let e = i.options.find((e) => e.id === t.dataset.answer);
+				if (!e) return;
+				e.correct ? (o = 3, d = "", f = "", u = 0, p = !n.has(r), n.add(r), D(), j(), A(), te()) : (f = e.id, d = e.feedback, j(), x.querySelector(`[data-answer="${e.id}"]`)?.focus({ preventScroll: !0 }));
+			} else t.hasAttribute("data-guide-next") ? ce(Object.keys(X).find((e) => !n.has(e)) || Object.keys(X).find((e) => e !== r), !0) : t.hasAttribute("data-guide-replay") ? se() : t.hasAttribute("data-celebrate") ? te() : t.matches(".lab-play") ? (m === 75 && (m = 0, c = null), h = !h, j(), M()) : t.matches(".lab-show-all") && (s = null, c = null, j());
+		}
+	}), T.addEventListener("input", () => {
+		m = Number(T.value), h = !1, c !== null && i.packets[c].time > m && (c = null), M(), j();
+	}), w.addEventListener("toggle", () => {
+		w.open ? ae() : h = !1, M(), j();
 	}), new IntersectionObserver((e) => {
-		d = e[0].isIntersecting, C(), d || b();
-	}, { threshold: .05 }).observe(i), document.addEventListener("visibilitychange", () => {
-		C(), document.hidden && b();
-	}), y();
+		g = e[0].isIntersecting, M(), g || (O(), k());
+	}, { threshold: .05 }).observe(x), document.addEventListener("visibilitychange", () => {
+		M(), document.hidden && (O(), k());
+	}), j();
 }
 //#endregion
 //#region project-metadata.js
@@ -3870,7 +4039,7 @@ var Z = [
 			"CSS"
 		]
 	}
-], La = [
+], Ba = [
 	[17, 15],
 	[50, 11],
 	[83, 15],
@@ -3882,25 +4051,25 @@ var Z = [
 	[83, 61],
 	[32, 86],
 	[70, 86]
-], Ra = [
+], Va = [
 	"Python",
 	"JavaScript",
 	"TypeScript",
 	"SQL",
 	"Electron"
 ], Q = (e, t) => t === "All" || e.skills.some((e) => e.toLowerCase() === t.toLowerCase() || t === "SQL" && /^(sqlite|sql)$/i.test(e));
-function za(e) {
+function Ha(e) {
 	let t = document.querySelector("#work [data-project-rail]");
 	if (!t) return;
 	let n = t.closest("section"), r = document.createElement("div");
-	r.className = "project-explorer-tools", r.innerHTML = `<div class="project-view-switch" role="group" aria-label="Project view"><button type="button" data-view="cards" aria-pressed="true">Cards</button><button type="button" data-view="map" aria-pressed="false">Map <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 5 11-2-5 12L4 5l12 7"/><circle cx="4" cy="5" r="2"/><circle cx="15" cy="3" r="2"/><circle cx="10" cy="15" r="2"/></svg></button></div><div class="project-skill-filters" role="group" aria-label="Highlight projects by skill">${["All", ...Ra].map((e) => `<button type="button" data-skill="${e}" aria-pressed="${e === "All"}">${e}</button>`).join("")}</div><span class="project-filter-status" role="status"></span>`, t.before(r);
+	r.className = "project-explorer-tools", r.innerHTML = `<div class="project-view-switch" role="group" aria-label="Project view"><button type="button" data-view="cards" aria-pressed="true">Cards</button><button type="button" data-view="map" aria-pressed="false">Map <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 5 11-2-5 12L4 5l12 7"/><circle cx="4" cy="5" r="2"/><circle cx="15" cy="3" r="2"/><circle cx="10" cy="15" r="2"/></svg></button></div><div class="project-skill-filters" role="group" aria-label="Highlight projects by skill">${["All", ...Va].map((e) => `<button type="button" data-skill="${e}" aria-pressed="${e === "All"}">${e}</button>`).join("")}</div><span class="project-filter-status" role="status"></span>`, t.before(r);
 	let i = document.createElement("div");
 	i.className = "project-map", i.hidden = !0, i.innerHTML = "<p class=\"project-map-help\">Shared skills connect the projects. Select a node to inspect it; use arrow keys to move between nodes.</p><div class=\"project-map-scroll\" tabindex=\"0\" role=\"region\" aria-label=\"Project constellation. On small screens, scroll horizontally to explore the map.\"><div class=\"project-map-stage\"><svg class=\"project-map-wires\" viewBox=\"0 0 1000 440\" preserveAspectRatio=\"none\" aria-hidden=\"true\"></svg></div></div><div class=\"project-map-preview\" aria-live=\"polite\"></div>", t.after(i);
 	let a = i.querySelector(".project-map-stage"), o = i.querySelector("svg"), s = i.querySelector(".project-map-preview"), c = "All", l = "cards", u = Z[0].id, d = /* @__PURE__ */ new Map(), f = [...t.querySelectorAll(".project-card")], p = [];
 	Z.forEach((e, t) => {
 		let n = 0;
 		for (let r = t + 1; r < Z.length && n < 2; r++) {
-			let t = Ra.filter((t) => Q(e, t) && Q(Z[r], t));
+			let t = Va.filter((t) => Q(e, t) && Q(Z[r], t));
 			t.length && (p.push({
 				from: e.id,
 				to: Z[r].id,
@@ -3936,7 +4105,7 @@ function za(e) {
 		});
 		let a = [...Z].sort((e, t) => Number(Q(t, c)) - Number(Q(e, c))), s = /* @__PURE__ */ new Map();
 		a.forEach((e, t) => {
-			let [n, r] = La[t], i = d.get(e.id);
+			let [n, r] = Ba[t], i = d.get(e.id);
 			s.set(e.id, [n * 10, r * 4.4]), i.style.left = `calc(${n}% - 90px)`, i.style.top = `calc(${r}% - 31px)`, i.classList.toggle("is-skill-muted", !Q(e, c)), i.setAttribute("aria-pressed", String(u === e.id));
 		});
 		let l = [];
@@ -3990,7 +4159,7 @@ function za(e) {
 }
 //#endregion
 //#region project-history.js
-var Ba = {
+var Ua = {
 	"canvas-copy-pasta": {
 		mode: "Selected public commits",
 		pipeline: [
@@ -4531,10 +4700,10 @@ var Ba = {
 };
 //#endregion
 //#region project-timeline.js
-function Va(e) {
+function Wa(e) {
 	let t = document.querySelector(".compact-case-layout");
 	if (!t) return;
-	let n = Ba[location.pathname.split("/").filter(Boolean)[1]];
+	let n = Ua[location.pathname.split("/").filter(Boolean)[1]];
 	if (!n) return;
 	let r = n.stages.length, i = document.createElement("details");
 	i.className = "project-timeline", i.open = !0;
@@ -4585,16 +4754,16 @@ function Va(e) {
 }
 //#endregion
 //#region enhancements.js
-var Ha = document.documentElement, Ua = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => Ha.dataset.motion !== "paused";
-$() && Ha.classList.add("js-motion");
-var Wa = document.querySelector(".theme-toggle");
-if (Wa) {
+var Ga = document.documentElement, Ka = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => Ga.dataset.motion !== "paused";
+$() && Ga.classList.add("js-motion");
+var qa = document.querySelector(".theme-toggle");
+if (qa) {
 	let e = document.createElement("div");
-	e.className = "header-actions", Wa.before(e), e.append(Wa);
+	e.className = "header-actions", qa.before(e), e.append(qa);
 }
-Ua.addEventListener("change", () => {
-	Ha.dataset.motion = Ua.matches ? "paused" : "full", Ha.classList.toggle("js-motion", !Ua.matches), document.dispatchEvent(new Event("portfolio:motion"));
-}), Oa($), ka($), Aa($), Na($), Ia($), za($), Va($), document.querySelectorAll("[data-project-rail]").forEach((e, t) => {
+Ka.addEventListener("change", () => {
+	Ga.dataset.motion = Ka.matches ? "paused" : "full", Ga.classList.toggle("js-motion", !Ka.matches), document.dispatchEvent(new Event("portfolio:motion"));
+}), ka($), Aa($), ja($), Pa($), za($), Ha($), Wa($), document.querySelectorAll("[data-project-rail]").forEach((e, t) => {
 	let n = [...e.querySelectorAll(":scope > a")];
 	if (n.length < 2) return;
 	e.id ||= `project-rail-${t + 1}`, e.tabIndex = 0, e.setAttribute("role", "region"), e.setAttribute("aria-roledescription", "carousel");
@@ -4735,9 +4904,9 @@ Ua.addEventListener("change", () => {
 		_(), y();
 	}).observe(e), y();
 });
-var Ga = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Ka = Ga.map((e) => document.querySelector(e.hash)).filter(Boolean), qa = new IntersectionObserver((e) => {
+var Ja = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Ya = Ja.map((e) => document.querySelector(e.hash)).filter(Boolean), Xa = new IntersectionObserver((e) => {
 	e.forEach((e) => {
-		e.isIntersecting && Ga.forEach((t) => {
+		e.isIntersecting && Ja.forEach((t) => {
 			t.hash === `#${e.target.id}` ? t.setAttribute("aria-current", "location") : t.removeAttribute("aria-current");
 		});
 	});
@@ -4745,11 +4914,11 @@ var Ga = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Ka = Ga.map
 	rootMargin: "-15% 0px -60% 0px",
 	threshold: 0
 });
-Ka.forEach((e) => qa.observe(e)), document.addEventListener("keydown", (e) => {
+Ya.forEach((e) => Xa.observe(e)), document.addEventListener("keydown", (e) => {
 	if (e.key !== "Escape") return;
 	let t = document.querySelector(".menu-button");
 	t?.getAttribute("aria-expanded") === "true" && (t.click(), t.focus());
-}), $() && Y(".project-card", (e) => {
+}), $() && Oa(".project-card", (e) => {
 	let t = e.querySelector(".project-image img");
 	t && $() && J(t, {
 		opacity: [0, 1],
