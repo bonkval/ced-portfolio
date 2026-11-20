@@ -24,9 +24,29 @@ export function initMusicPlayer() {
   document.body.append(panel);
   let animation;
   let open = false;
+  let controller;
+  let session = 0;
+  let playbackTimer;
+  let apiPromise;
+  function loadApi() {
+    if (apiPromise) return apiPromise;
+    apiPromise = new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error('Spotify API timed out')), 10000);
+      window.onSpotifyIframeApiReady = api => { clearTimeout(timer); resolve(api); };
+      const script = document.createElement('script');
+      script.src = 'https://open.spotify.com/embed/iframe-api/v1';
+      script.async = true;
+      script.onerror = () => { clearTimeout(timer); reject(new Error('Spotify API unavailable')); };
+      document.head.append(script);
+    });
+    return apiPromise;
+  }
   function close(restoreFocus = true) {
     animation?.cancel();
     open = false;
+    session++;
+    clearTimeout(playbackTimer);
+    if (controller) { try { controller.pause(); controller.destroy(); } catch {} controller = undefined; }
     // Removing the iframe actually stops sound; hiding it alone would not.
     mount.replaceChildren();
     panel.hidden = true;
@@ -39,6 +59,7 @@ export function initMusicPlayer() {
   function show() {
     animation?.cancel();
     open = true; panel.hidden = false;
+    const currentSession = ++session;
     button.setAttribute('aria-expanded', 'true');
     button.setAttribute('aria-label', 'Close music player and stop playback');
     button.innerHTML = '<span aria-hidden="true">&#215;</span>';
@@ -51,8 +72,49 @@ export function initMusicPlayer() {
     frame.width = '100%'; frame.height = '152';
     frame.allow = 'autoplay; encrypted-media';
     frame.referrerPolicy = 'strict-origin-when-cross-origin';
-    frame.addEventListener('load', () => { if (open) status.textContent = 'Press Play in Spotify to listen.'; });
-    mount.replaceChildren(frame);
+    frame.addEventListener('load', () => { if (open && session === currentSession) status.textContent = 'Starting music. If it stays silent, press Play below.'; });
+    mount.replaceChildren();
+    loadApi().then(api => {
+      if (!open || session !== currentSession) return;
+      const slot = document.createElement('div');
+      mount.replaceChildren(slot);
+      try {
+        api.createController(slot, { url: `${trackUrl}?theme=0`, width: '100%', height: 152 }, player => {
+          if (!open || session !== currentSession) { player.destroy(); return; }
+          controller = player;
+          const iframe = mount.querySelector('iframe');
+          if (iframe) { iframe.title = frame.title; iframe.allow = 'autoplay; encrypted-media'; }
+          player.addListener('ready', () => {
+            if (!open || session !== currentSession) return;
+            status.textContent = 'Starting music. If it stays silent, press Play below.';
+            try { player.play(); } catch { status.textContent = 'Press Play in Spotify to listen.'; }
+            playbackTimer = setTimeout(() => {
+              if (open && session === currentSession) status.textContent = 'If the music is silent, press Play below.';
+            }, 4000);
+          });
+          player.addListener('playback_started', () => {
+            if (!open || session !== currentSession) return;
+            clearTimeout(playbackTimer);
+            status.textContent = 'Playing Bleachers via Spotify.';
+          });
+          player.addListener('playback_update', event => {
+            if (!open || session !== currentSession) return;
+            if (!event.data.isPaused && !event.data.isBuffering) {
+              clearTimeout(playbackTimer);
+              status.textContent = 'Playing Bleachers via Spotify.';
+            } else if (event.data.isPaused) status.textContent = 'Paused. Press Play below to resume.';
+          });
+        });
+      } catch {
+        mount.replaceChildren(frame);
+        status.textContent = 'Press Play in Spotify to listen.';
+      }
+    }).catch(() => {
+      if (open && session === currentSession) {
+        mount.replaceChildren(frame);
+        status.textContent = 'Press Play in Spotify to listen.';
+      }
+    });
     const quiet = matchMedia('(prefers-reduced-motion: reduce)').matches;
     animation = panel.animate(quiet ? [{opacity:0},{opacity:1}] : [
       {opacity:0, transform:'translateY(-8px) scale(.97)'},

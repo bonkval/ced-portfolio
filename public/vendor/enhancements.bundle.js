@@ -3230,31 +3230,90 @@ function Oa() {
 	i.id = "portfolio-music", i.className = "music-panel", i.hidden = !0, i.setAttribute("role", "dialog"), i.setAttribute("aria-label", "Spotify music player"), i.innerHTML = "<header><h2>Music</h2><button type=\"button\" class=\"music-close\" aria-label=\"Close music player and stop playback\">&#215;</button></header><p class=\"music-status\" role=\"status\"></p><div class=\"music-frame\"></div><a class=\"music-spotify-link\" target=\"_blank\" rel=\"noopener noreferrer\">Open in Spotify &nearr;</a>", i.querySelector("a").href = n;
 	let a = i.querySelector(".music-frame"), o = i.querySelector("button");
 	document.body.append(i);
-	let s, c = !1;
-	function l(e = !0) {
-		s?.cancel(), c = !1, a.replaceChildren(), i.hidden = !0, r.setAttribute("aria-expanded", "false"), r.setAttribute("aria-label", "Open Spotify music player"), r.innerHTML = "<span aria-hidden=\"true\">&#9834;</span>", r.title = "Music: Bleachers", e && r.focus({ preventScroll: !0 });
+	let s, c = !1, l, u = 0, d, f;
+	function p() {
+		return f || (f = new Promise((e, t) => {
+			let n = setTimeout(() => t(/* @__PURE__ */ Error("Spotify API timed out")), 1e4);
+			window.onSpotifyIframeApiReady = (t) => {
+				clearTimeout(n), e(t);
+			};
+			let r = document.createElement("script");
+			r.src = "https://open.spotify.com/embed/iframe-api/v1", r.async = !0, r.onerror = () => {
+				clearTimeout(n), t(/* @__PURE__ */ Error("Spotify API unavailable"));
+			}, document.head.append(r);
+		}), f);
 	}
-	function u() {
-		s?.cancel(), c = !0, i.hidden = !1, r.setAttribute("aria-expanded", "true"), r.setAttribute("aria-label", "Close music player and stop playback"), r.innerHTML = "<span aria-hidden=\"true\">&#215;</span>", r.title = "Close player and stop music";
-		let e = document.createElement("iframe"), n = i.querySelector(".music-status");
-		n.textContent = "Loading Spotify…", e.title = "Merry Christmas, Please Don't Call by Bleachers — Spotify player", e.src = `https://open.spotify.com/embed/track/${t}?utm_source=generator&theme=0`, e.width = "100%", e.height = "152", e.allow = "autoplay; encrypted-media", e.referrerPolicy = "strict-origin-when-cross-origin", e.addEventListener("load", () => {
-			c && (n.textContent = "Press Play in Spotify to listen.");
-		}), a.replaceChildren(e);
-		let l = matchMedia("(prefers-reduced-motion: reduce)").matches;
-		s = i.animate(l ? [{ opacity: 0 }, { opacity: 1 }] : [{
+	function m(e = !0) {
+		if (s?.cancel(), c = !1, u++, clearTimeout(d), l) {
+			try {
+				l.pause(), l.destroy();
+			} catch {}
+			l = void 0;
+		}
+		a.replaceChildren(), i.hidden = !0, r.setAttribute("aria-expanded", "false"), r.setAttribute("aria-label", "Open Spotify music player"), r.innerHTML = "<span aria-hidden=\"true\">&#9834;</span>", r.title = "Music: Bleachers", e && r.focus({ preventScroll: !0 });
+	}
+	function h() {
+		s?.cancel(), c = !0, i.hidden = !1;
+		let e = ++u;
+		r.setAttribute("aria-expanded", "true"), r.setAttribute("aria-label", "Close music player and stop playback"), r.innerHTML = "<span aria-hidden=\"true\">&#215;</span>", r.title = "Close player and stop music";
+		let f = document.createElement("iframe"), m = i.querySelector(".music-status");
+		m.textContent = "Loading Spotify…", f.title = "Merry Christmas, Please Don't Call by Bleachers — Spotify player", f.src = `https://open.spotify.com/embed/track/${t}?utm_source=generator&theme=0`, f.width = "100%", f.height = "152", f.allow = "autoplay; encrypted-media", f.referrerPolicy = "strict-origin-when-cross-origin", f.addEventListener("load", () => {
+			c && u === e && (m.textContent = "Starting music. If it stays silent, press Play below.");
+		}), a.replaceChildren(), p().then((t) => {
+			if (!c || u !== e) return;
+			let r = document.createElement("div");
+			a.replaceChildren(r);
+			try {
+				t.createController(r, {
+					url: `${n}?theme=0`,
+					width: "100%",
+					height: 152
+				}, (t) => {
+					if (!c || u !== e) {
+						t.destroy();
+						return;
+					}
+					l = t;
+					let n = a.querySelector("iframe");
+					n && (n.title = f.title, n.allow = "autoplay; encrypted-media"), t.addListener("ready", () => {
+						if (!(!c || u !== e)) {
+							m.textContent = "Starting music. If it stays silent, press Play below.";
+							try {
+								t.play();
+							} catch {
+								m.textContent = "Press Play in Spotify to listen.";
+							}
+							d = setTimeout(() => {
+								c && u === e && (m.textContent = "If the music is silent, press Play below.");
+							}, 4e3);
+						}
+					}), t.addListener("playback_started", () => {
+						!c || u !== e || (clearTimeout(d), m.textContent = "Playing Bleachers via Spotify.");
+					}), t.addListener("playback_update", (t) => {
+						!c || u !== e || (!t.data.isPaused && !t.data.isBuffering ? (clearTimeout(d), m.textContent = "Playing Bleachers via Spotify.") : t.data.isPaused && (m.textContent = "Paused. Press Play below to resume."));
+					});
+				});
+			} catch {
+				a.replaceChildren(f), m.textContent = "Press Play in Spotify to listen.";
+			}
+		}).catch(() => {
+			c && u === e && (a.replaceChildren(f), m.textContent = "Press Play in Spotify to listen.");
+		});
+		let h = matchMedia("(prefers-reduced-motion: reduce)").matches;
+		s = i.animate(h ? [{ opacity: 0 }, { opacity: 1 }] : [{
 			opacity: 0,
 			transform: "translateY(-8px) scale(.97)"
 		}, {
 			opacity: 1,
 			transform: "translateY(0) scale(1)"
 		}], {
-			duration: l ? 120 : 260,
+			duration: h ? 120 : 260,
 			easing: "cubic-bezier(.16,1,.3,1)"
 		}), o.focus({ preventScroll: !0 });
 	}
-	r.addEventListener("click", () => c ? l() : u()), o.addEventListener("click", () => l()), document.addEventListener("keydown", (e) => {
-		e.key === "Escape" && c && (e.preventDefault(), l());
-	}), addEventListener("pagehide", () => l(!1));
+	r.addEventListener("click", () => c ? m() : h()), o.addEventListener("click", () => m()), document.addEventListener("keydown", (e) => {
+		e.key === "Escape" && c && (e.preventDefault(), m());
+	}), addEventListener("pagehide", () => m(!1));
 }
 //#endregion
 //#region enhancements.js
