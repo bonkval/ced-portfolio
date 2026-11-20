@@ -7,6 +7,7 @@
  * 3. Use either issued or expires (or both). Leave a date out if it does not apply.
  */
 window.PORTFOLIO_CERTIFICATIONS = [
+  { title: 'Cisco Certified Support Technician Networking (CCST Networking)', issuer: 'Cisco', image: '/public/assets/certifications/ccst-networking.png', issued: 'Oct 2026' },
   { title: 'Ethical Hacker', issuer: 'Cisco', image: '/public/assets/certifications/ethical-hacker.webp', issued: 'Jul 12, 2026' },
   { title: 'Introduction to Cybersecurity', issuer: 'Cisco', image: '/public/assets/certifications/introduction-to-cybersecurity.webp', issued: 'Feb 8, 2026' },
   { title: 'Junior Cybersecurity Analyst Career Path', issuer: 'Cisco', image: '/public/assets/certifications/junior-cybersecurity-analyst-career-path.webp', issued: 'Mar 24, 2026' },

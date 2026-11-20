@@ -2,19 +2,51 @@ const paw = '<svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><el
 const boxArt = '<svg class="cat-box-art" viewBox="0 0 200 160" fill="none" aria-hidden="true"><path class="cat-box-shadow" d="M25 143q75-14 150 0-75 20-150 0"/><g class="cat-box-body"><path d="m30 70 70-22 70 22v61l-70 23-70-23Z"/><path d="m30 70 70 23 70-23M100 93v61"/><path class="cat-box-tape" d="m82 55 35 11v24l-17 5-18-6V55Z"/><path d="m44 108 18 6m-18 5 12 4"/></g><g class="cat-box-lid"><path d="m30 70 70-23 70 23-70 24Z"/><path d="m30 70-15-21 69-21 16 19m0 0 17-19 68 21-15 21"/><path d="m84 28 33 0"/></g></svg>';
 
 export function initCatInvestigation(enabled) {
-  const portrait=document.querySelector('.hero .profile-wrap'),row=document.querySelector('.hero .about-copy');
-  if(!portrait||!row)return;
-  portrait.tabIndex=0;portrait.setAttribute('role','button');portrait.setAttribute('aria-label','Play hide and seek with the hidden cat');
-  const hint=document.createElement('button');hint.type='button';hint.className='cat-hint';
-  hint.innerHTML=`${paw}<span>Hide N Seek</span>`;portrait.after(hint);
+  const portrait=document.querySelector('.hero .profile-wrap');
+  if(!portrait)return;
+  const trigger=document.createElement('button');trigger.type='button';trigger.className='cat-secret-trigger';
+  trigger.setAttribute('aria-label','Play hide and seek with the hidden cat');
+  portrait.append(trigger);
   const game=document.createElement('section');game.className='cat-game';game.id='cat-game';game.hidden=true;
   game.setAttribute('aria-labelledby','cat-game-title');
-  hint.setAttribute('aria-controls',game.id);hint.setAttribute('aria-expanded','false');
+  trigger.setAttribute('aria-controls',game.id);trigger.setAttribute('aria-expanded','false');
   game.innerHTML=`<header class="cat-game-header"><div><h2 id="cat-game-title">Hide N Seek</h2><p>Kitty's hiding. Think you can keep up?</p></div><div class="cat-game-score" role="img" aria-label="0 of 3 rounds complete">${[0,1,2].map(i=>`<span data-cat-score="${i}">${paw}</span>`).join('')}</div><button type="button" class="cat-game-close" aria-label="Close cat game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button></header><div class="cat-game-board" role="group" aria-label="Three hiding boxes">${[0,1,2].map(id=>`<button type="button" class="cat-box" data-cat-box="${id}"><span class="cat-box-head" aria-hidden="true"><img src="/public/assets/profile/profile2.webp" alt="" draggable="false"></span>${boxArt}<span class="cat-box-empty" aria-hidden="true">${paw}</span></button>`).join('')}</div><footer class="cat-game-footer"><p class="cat-game-status" role="status"></p><button type="button" class="cat-game-action">Let's hide! <span aria-hidden="true">↝</span></button></footer>`;
   portrait.closest('.hero').append(game);
+  const discovery=document.createElement('p');discovery.className='cat-discovery';
+  discovery.innerHTML=`${paw}<span>Secret discovered</span>`;game.prepend(discovery);
+  const announcement=document.createElement('span');announcement.className='sr-only';announcement.setAttribute('role','status');portrait.after(announcement);
   const boxes=[...game.querySelectorAll('.cat-box')],action=game.querySelector('.cat-game-action'),status=game.querySelector('.cat-game-status');
   let phase='closed',round=0,cat=0,slots=[0,1,2],timers=[];
   const motions=new Set();
+  const discoveryMotions=new Set(),discoveryEffects=new Set();
+  function stopDiscovery(){discoveryMotions.forEach(animation=>animation.cancel());discoveryMotions.clear();discoveryEffects.forEach(node=>node.remove());discoveryEffects.clear();}
+  function revealMotion(node,frames,options,temporary=false){
+    if(temporary)discoveryEffects.add(node);
+    const animation=node.animate(frames,options);discoveryMotions.add(animation);
+    const cleanup=()=>{discoveryMotions.delete(animation);if(temporary){node.remove();discoveryEffects.delete(node);}};
+    animation.finished.then(cleanup,cleanup);
+  }
+  function revealSecret(){
+    stopDiscovery();announcement.textContent='Secret discovered. You found the hidden cat game.';
+    if(!enabled())return;
+    const rect=trigger.getBoundingClientRect();
+    const origin=document.createElement('div');origin.className='cat-secret-effects';origin.setAttribute('aria-hidden','true');
+    origin.style.left=`${rect.left+rect.width/2}px`;origin.style.top=`${rect.top+rect.height/2}px`;
+    const ring=document.createElement('span');ring.className='cat-secret-ring';origin.append(ring);
+    for(let i=0;i<7;i++){
+      const print=document.createElement('span');print.className='cat-secret-paw';print.innerHTML=paw;origin.append(print);
+      const angle=-Math.PI+(i/6)*Math.PI,distance=65+(i%3)*24;
+      revealMotion(print,[{opacity:0,transform:'translate(-50%,-50%) scale(.4)'},{opacity:.8,offset:.16},{opacity:0,transform:`translate(calc(-50% + ${Math.cos(angle)*distance}px),calc(-50% + ${Math.sin(angle)*distance-30}px)) rotate(${(i-3)*15}deg) scale(1)`}],{duration:1050,delay:i*45,easing:'cubic-bezier(.16,1,.3,1)'});
+    }
+    document.body.append(origin);
+    revealMotion(ring,[{opacity:0,transform:'translate(-50%,-50%) scale(.25)'},{opacity:.7,offset:.15},{opacity:0,transform:'translate(-50%,-50%) scale(1.5)'}],{duration:1400,easing:'ease-out'});
+    revealMotion(origin,[{opacity:1},{opacity:0}],{duration:1700},true);
+    const note=document.createElement('div');note.className='cat-secret-note';note.setAttribute('aria-hidden','true');
+    note.innerHTML=`${paw}<span><strong>Psst… you found me.</strong><small>This little corner is yours to explore.</small></span>`;
+    document.body.append(note);
+    revealMotion(note,[{opacity:0,transform:'translate(-50%,14px) scale(.97)'},{opacity:1,transform:'translate(-50%,0) scale(1)',offset:.14},{opacity:1,transform:'translate(-50%,0) scale(1)',offset:.82},{opacity:0,transform:'translate(-50%,-6px) scale(.99)'}],{duration:3000,easing:'cubic-bezier(.16,1,.3,1)'},true);
+    revealMotion(game,[{opacity:0,transform:'translateY(16px) scale(.985)'},{opacity:1,transform:'translateY(0) scale(1)'}],{duration:550,easing:'cubic-bezier(.16,1,.3,1)'});
+  }
   function stopMotions(){motions.forEach(animation=>animation.cancel());motions.clear();}
   const schedule=(fn,delay)=>{const timer=setTimeout(fn,delay);timers.push(timer);};
   function cancel(){timers.forEach(clearTimeout);timers=[];}
@@ -29,7 +61,7 @@ export function initCatInvestigation(enabled) {
   }
   function open(){
     if(!game.hidden){game.querySelector('.cat-game-close').focus({preventScroll:true});return;}
-    game.hidden=false;hint.setAttribute('aria-expanded','true');round=0;prepare();
+    game.hidden=false;trigger.setAttribute('aria-expanded','true');round=0;prepare();revealSecret();
     game.scrollIntoView({block:'nearest',behavior:enabled()?'smooth':'instant'});action.focus({preventScroll:true});
   }
   function shuffle(){
@@ -92,15 +124,17 @@ export function initCatInvestigation(enabled) {
       const next=candidates[(candidates.indexOf(box)+(event.key==='ArrowRight'?1:candidates.length-1))%candidates.length];next?.focus();
     });
   });
-  function close(){cancel();stopMotions();phase='closed';game.hidden=true;hint.setAttribute('aria-expanded','false');hint.focus({preventScroll:true});}
+  function close(){cancel();stopMotions();stopDiscovery();phase='closed';game.hidden=true;announcement.textContent='';trigger.setAttribute('aria-expanded','false');trigger.focus({preventScroll:true});}
   game.querySelector('.cat-game-close').addEventListener('click',close);
   game.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();close();}});
-  hint.addEventListener('click',open);
+  trigger.addEventListener('focus',()=>portrait.classList.add('cat-peek'));
+  trigger.addEventListener('blur',()=>portrait.classList.remove('cat-peek'));
+  trigger.addEventListener('click',event=>{event.stopPropagation();open();});
   portrait.addEventListener('click',event=>{
-    if(event.pointerType==='touch'&&!portrait.classList.contains('cat-peek')){portrait.classList.add('cat-peek');return;}
-    open();
+    if(event.pointerType==='touch')portrait.classList.add('cat-peek');
   });
-  portrait.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();portrait.classList.add('cat-peek');open();}});
+  document.addEventListener('pointerdown',event=>{if(!portrait.contains(event.target))portrait.classList.remove('cat-peek');},{passive:true});
+  document.addEventListener('portfolio:motion',()=>{if(!enabled())stopDiscovery();});
   function pauseShuffle(){if(phase==='shuffle'||phase==='hiding'){cancel();stopMotions();phase='pick';status.textContent='Pick a box. No peeking!';}}
   document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseShuffle();});
   new IntersectionObserver(entries=>{
