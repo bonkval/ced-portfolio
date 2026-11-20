@@ -5,15 +5,15 @@
   "scripts": {
     "predev": "npm run bundle",
     "dev": "node scripts/serve.mjs",
-    "bundle": "vite build --config vite.enhancements.config.mjs",
-    "build": "node scripts/validate.mjs",
+    "bundle": "vite build --config vite.enhancements.config.mjs && node scripts/version-assets.mjs",
+    "build": "npm run bundle && node scripts/validate.mjs",
     "test": "node scripts/validate.mjs"
   },
   "dependencies": {
-    "motion": "13.1.0",
-    "swiper": "14.1.0"
+    "motion": "13.1.0"
   },
   "devDependencies": {
+    "lightningcss": "1.33.0",
     "vite": "8.2.1"
   }
 }

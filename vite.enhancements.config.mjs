@@ -6,7 +6,9 @@ const projectRoot = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   publicDir: false,
+  define: { 'process.env.NODE_ENV': JSON.stringify('production') },
   build: {
+    minify: true,
     lib: {
       entry: resolve(projectRoot, 'enhancements.js'),
       formats: ['es'],
