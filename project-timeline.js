@@ -23,9 +23,10 @@ export function initProjectTimeline(enabled) {
     current=index;
     const date=stage.date ? ` · ${new Date(stage.date+'T00:00:00Z').toLocaleDateString('en',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})}`:'';
     article.innerHTML=`<p class="interaction-label">${stage.kind}${date}</p><h3>${stage.title}</h3><p>${stage.text}</p><a class="timeline-source" href="${stage.source}" target="_blank" rel="noopener noreferrer">${stage.kind==='Public commit'?'View commit':'Source snapshot'} <code>${stage.sha}</code> <span aria-hidden="true">↗</span></a>`;
-    timeline.querySelectorAll('[data-flow-step]').forEach(node=>node.classList.toggle('is-active',Number(node.dataset.flowStep)===Math.round(index/(count-1)*3)));
+    timeline.querySelectorAll('[data-flow-step]').forEach(node=>node.classList.toggle('is-active',stage.flowStep!==null&&Number(node.dataset.flowStep)===stage.flowStep));
     animation?.cancel();
-    if(enabled()&&timeline.open) animation=article.animate([{opacity:.45},{opacity:1}],{duration:220,easing:'ease-out'});
+    const bounds=timeline.getBoundingClientRect();
+    if(enabled()&&timeline.open&&!document.hidden&&bounds.top<innerHeight&&bounds.bottom>0) animation=article.animate([{opacity:.45},{opacity:1}],{duration:220,easing:'ease-out'});
   }
   range.addEventListener('input',()=>render(Math.round(Number(range.value)/1000*(count-1)),false));
   range.addEventListener('change',()=>render(current));

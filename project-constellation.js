@@ -47,7 +47,8 @@ export function initProjectConstellation(enabled) {
   function draw(rearrange=false,pulse=false) {
     const old=new Map();
     if(rearrange&&enabled()&&!map.hidden) nodes.forEach((node,id)=>{
-      node.getAnimations().forEach(animation=>animation.finish());old.set(id,node.getBoundingClientRect());
+      const current=node.getBoundingClientRect();
+      node.getAnimations().forEach(animation=>animation.cancel());old.set(id,current);
     });
     const ordered=[...projects].sort((a,b)=>Number(uses(b,skill))-Number(uses(a,skill)));
     const coords=new Map();
