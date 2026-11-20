@@ -3,7 +3,7 @@ import { initAscii } from './ascii.js';
 import { initCinematic } from './cinematic.js';
 import { initInteractions } from './interactions.js';
 import { initCatInvestigation } from './cat-game.js';
-import { initSecurityLab } from './guided-lab.js';
+import { initSecurityLab } from './signal-arcade.js';
 import { initProjectConstellation } from './project-constellation.js';
 import { initProjectTimeline } from './project-timeline.js';
 
