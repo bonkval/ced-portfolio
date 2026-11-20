@@ -3614,7 +3614,7 @@ function za(e) {
 	}
 	function te() {
 		if (i.hidden = u === "playing", u !== "playing") {
-			if (u === "ready") i.innerHTML = `<div class="arcade-intro-icons" aria-hidden="true">${Ia}<span>vs</span>${La}</div><h3>Catch me if you can.</h3><p>Catch 6 diamonds to clear a round.<br>Circles are your friends. Let them through.</p><button type="button" class="arcade-primary" data-arcade-start>Let's play <span aria-hidden="true">↗</span></button><small>No countdown. Find your rhythm.</small>`;
+			if (u === "ready") i.innerHTML = `<div class="arcade-intro-icons" aria-hidden="true">${Ia}<span>vs</span>${La}</div><h3>Catch me if you can.</h3><p>Catch 6 diamonds to clear a round.<br>Circles are your friends. Let them through.</p><button type="button" class="arcade-primary" data-arcade-start>Let's play <span aria-hidden="true"><svg class="ui-arrow" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 15 15 5M5 5h10v10"/></svg></span></button><small>No countdown. Find your rhythm.</small>`;
 			else if (u === "paused") i.innerHTML = "<span class=\"arcade-pause-symbol\" aria-hidden=\"true\">Ⅱ</span><h3>Taking a breather?</h3><button type=\"button\" class=\"arcade-primary\" data-arcade-resume>Jump back in <span aria-hidden=\"true\">→</span></button>";
 			else {
 				let e = u === "complete";
@@ -4068,7 +4068,7 @@ function Ha(e) {
 		});
 	});
 	function m(e) {
-		s.innerHTML = `<div><p class="interaction-label">Project details</p><h3>${e.name}</h3><p>${e.summary}</p></div><div class="map-preview-links"><span>${e.skills.slice(0, 5).join(" · ")}</span><a href="${e.url}" class="text-link">Read documentation <span aria-hidden="true">↗</span></a></div>`;
+		s.innerHTML = `<div><p class="interaction-label">Project details</p><h3>${e.name}</h3><p>${e.summary}</p></div><div class="map-preview-links"><span>${e.skills.slice(0, 5).join(" · ")}</span><a href="${e.url}" class="text-link">Read documentation <span aria-hidden="true"><svg class="ui-arrow" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 15 15 5M5 5h10v10"/></svg></span></a></div>`;
 	}
 	function h(t = !1, n = !1) {
 		let r = /* @__PURE__ */ new Map();
@@ -4699,7 +4699,7 @@ function Wa(e) {
 			year: "numeric",
 			timeZone: "UTC"
 		})}` : "";
-		s.innerHTML = `<p class="interaction-label">${u.kind}${d}</p><h3>${u.title}</h3><p>${u.text}</p><a class="timeline-source" href="${u.source}" target="_blank" rel="noopener noreferrer">${u.kind === "Public commit" ? "View commit" : "Source snapshot"} <code>${u.sha}</code> <span aria-hidden="true">↗</span></a>`, i.querySelectorAll("[data-flow-step]").forEach((e) => e.classList.toggle("is-active", u.flowStep !== null && Number(e.dataset.flowStep) === u.flowStep)), l?.cancel();
+		s.innerHTML = `<p class="interaction-label">${u.kind}${d}</p><h3>${u.title}</h3><p>${u.text}</p><a class="timeline-source" href="${u.source}" target="_blank" rel="noopener noreferrer">${u.kind === "Public commit" ? "View commit" : "Source snapshot"} <code>${u.sha}</code> <span aria-hidden="true"><svg class="ui-arrow" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 15 15 5M5 5h10v10"/></svg></span></a>`, i.querySelectorAll("[data-flow-step]").forEach((e) => e.classList.toggle("is-active", u.flowStep !== null && Number(e.dataset.flowStep) === u.flowStep)), l?.cancel();
 		let f = i.getBoundingClientRect();
 		e() && i.open && !document.hidden && f.top < innerHeight && f.bottom > 0 && (l = s.animate([{ opacity: .45 }, { opacity: 1 }], {
 			duration: 220,

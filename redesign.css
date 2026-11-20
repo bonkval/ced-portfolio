@@ -811,3 +811,6 @@ html.js-motion .reveal:not(.visible) { opacity: 0; transform: translateY(30px); 
 .project-timeline summary:focus-visible,.timeline-range:focus-visible,.timeline-milestones button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 @media(max-width:650px){.project-timeline summary{padding:14px 16px;gap:5px 10px}.timeline-mode{order:3;flex-basis:100%;font-size:9px}.timeline-body{padding:0 16px 14px}.timeline-stage-row{grid-template-columns:1fr;gap:12px;min-height:0}.timeline-stage{min-height:172px}.timeline-diagram{max-width:300px;justify-self:center}.timeline-diagram svg{height:95px}.timeline-stage h3{font-size:21px}.timeline-stage>p:not(.interaction-label){font-size:12px}}
 @media(prefers-reduced-motion:reduce){.timeline-chevron,.timeline-diagram rect,.timeline-diagram text,.timeline-milestones button{transition:none}}
+
+/* Vector arrows keep their shape and inherit text color on every platform. */
+.ui-arrow{display:inline-block;width:1em;height:1em;vertical-align:-.12em;flex-shrink:0;pointer-events:none}

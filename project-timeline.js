@@ -22,7 +22,7 @@ export function initProjectTimeline(enabled) {
     if(index===current)return;
     current=index;
     const date=stage.date ? ` · ${new Date(stage.date+'T00:00:00Z').toLocaleDateString('en',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})}`:'';
-    article.innerHTML=`<p class="interaction-label">${stage.kind}${date}</p><h3>${stage.title}</h3><p>${stage.text}</p><a class="timeline-source" href="${stage.source}" target="_blank" rel="noopener noreferrer">${stage.kind==='Public commit'?'View commit':'Source snapshot'} <code>${stage.sha}</code> <span aria-hidden="true">↗</span></a>`;
+    article.innerHTML=`<p class="interaction-label">${stage.kind}${date}</p><h3>${stage.title}</h3><p>${stage.text}</p><a class="timeline-source" href="${stage.source}" target="_blank" rel="noopener noreferrer">${stage.kind==='Public commit'?'View commit':'Source snapshot'} <code>${stage.sha}</code> <span aria-hidden="true"><svg class="ui-arrow" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 15 15 5M5 5h10v10"/></svg></span></a>`;
     timeline.querySelectorAll('[data-flow-step]').forEach(node=>node.classList.toggle('is-active',stage.flowStep!==null&&Number(node.dataset.flowStep)===stage.flowStep));
     animation?.cancel();
     const bounds=timeline.getBoundingClientRect();

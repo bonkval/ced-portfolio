@@ -38,7 +38,7 @@
   const cvCopy = document.querySelector('.cv-copy');
   cvCopy?.querySelector('code')?.parentElement.remove();
   const cvActions = cvCopy?.querySelector('.cv-actions');
-  if (cvActions) cvActions.innerHTML = '<a class="text-link" href="/public/Cedrick-Vales-CV.pdf" download>Download CV <span aria-hidden="true">↗</span></a>';
+  if (cvActions) cvActions.innerHTML = '<a class="text-link" href="/public/Cedrick-Vales-CV.pdf" download>Download CV <span aria-hidden="true"><svg class="ui-arrow" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 15 15 5M5 5h10v10"/></svg></span></a>';
   if (cvCopy) cvCopy.querySelector('h2').textContent = 'My experience, on paper.';
   const certificateList = document.querySelector('.cert-list');
   const certificates = window.PORTFOLIO_CERTIFICATIONS || [];

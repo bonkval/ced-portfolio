@@ -42,7 +42,7 @@ export function initProjectConstellation(enabled) {
     });
   });
   function showPreview(project) {
-    preview.innerHTML=`<div><p class="interaction-label">Project details</p><h3>${project.name}</h3><p>${project.summary}</p></div><div class="map-preview-links"><span>${project.skills.slice(0,5).join(' · ')}</span><a href="${project.url}" class="text-link">Read documentation <span aria-hidden="true">↗</span></a></div>`;
+    preview.innerHTML=`<div><p class="interaction-label">Project details</p><h3>${project.name}</h3><p>${project.summary}</p></div><div class="map-preview-links"><span>${project.skills.slice(0,5).join(' · ')}</span><a href="${project.url}" class="text-link">Read documentation <span aria-hidden="true"><svg class="ui-arrow" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 15 15 5M5 5h10v10"/></svg></span></a></div>`;
   }
   function draw(rearrange=false,pulse=false) {
     const old=new Map();
