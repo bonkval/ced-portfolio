@@ -3235,114 +3235,150 @@ function ja(e) {
 	});
 }
 //#endregion
-//#region cat-investigation.js
-var Ma = "<svg viewBox=\"0 0 32 32\" fill=\"currentColor\" aria-hidden=\"true\"><ellipse cx=\"16\" cy=\"22\" rx=\"8\" ry=\"6\"/><ellipse cx=\"7\" cy=\"13\" rx=\"3\" ry=\"4\" transform=\"rotate(-25 7 13)\"/><ellipse cx=\"14\" cy=\"8\" rx=\"3\" ry=\"4\"/><ellipse cx=\"22\" cy=\"9\" rx=\"3\" ry=\"4\"/><ellipse cx=\"27\" cy=\"15\" rx=\"3\" ry=\"4\" transform=\"rotate(25 27 15)\"/></svg>";
-function Na(e) {
+//#region cat-game.js
+var Ma = "<svg viewBox=\"0 0 32 32\" fill=\"currentColor\" aria-hidden=\"true\"><ellipse cx=\"16\" cy=\"22\" rx=\"8\" ry=\"6\"/><ellipse cx=\"7\" cy=\"13\" rx=\"3\" ry=\"4\" transform=\"rotate(-25 7 13)\"/><ellipse cx=\"14\" cy=\"8\" rx=\"3\" ry=\"4\"/><ellipse cx=\"22\" cy=\"9\" rx=\"3\" ry=\"4\"/><ellipse cx=\"27\" cy=\"15\" rx=\"3\" ry=\"4\" transform=\"rotate(25 27 15)\"/></svg>", Na = "<svg class=\"cat-box-art\" viewBox=\"0 0 200 160\" fill=\"none\" aria-hidden=\"true\"><path class=\"cat-box-shadow\" d=\"M25 143q75-14 150 0-75 20-150 0\"/><g class=\"cat-box-body\"><path d=\"m30 70 70-22 70 22v61l-70 23-70-23Z\"/><path d=\"m30 70 70 23 70-23M100 93v61\"/><path class=\"cat-box-tape\" d=\"m82 55 35 11v24l-17 5-18-6V55Z\"/><path d=\"m44 108 18 6m-18 5 12 4\"/></g><g class=\"cat-box-lid\"><path d=\"m30 70 70-23 70 23-70 24Z\"/><path d=\"m30 70-15-21 69-21 16 19m0 0 17-19 68 21-15 21\"/><path d=\"m84 28 33 0\"/></g></svg>";
+function Pa(e) {
 	let t = document.querySelector(".hero .profile-wrap"), n = document.querySelector(".hero .about-copy");
 	if (!t || !n) return;
-	t.tabIndex = 0, t.setAttribute("role", "button"), t.setAttribute("aria-label", "Reveal the hidden cat. Activate again to follow it.");
+	t.tabIndex = 0, t.setAttribute("role", "button"), t.setAttribute("aria-label", "Play hide and seek with the hidden cat");
 	let r = document.createElement("button");
-	r.className = "cat-hint", r.type = "button", r.innerHTML = `${Ma}<span>Find the cat</span>`, t.after(r);
-	let i = document.createElement("button");
-	i.type = "button", i.className = "cat-folder", i.hidden = !0, i.innerHTML = "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path d=\"M3 7V5h7l2 2h9v13H3Z\"/><path d=\"M3 10h18\"/></svg><span>Sealed note</span>", i.setAttribute("aria-expanded", "false"), i.setAttribute("aria-controls", "cat-case"), n.append(i);
-	let a = document.createElement("section");
-	a.id = "cat-case", a.className = "cat-case", a.hidden = !0, a.setAttribute("aria-labelledby", "cat-case-title"), a.innerHTML = "<div><p class=\"interaction-label\">Recovered note</p><h2 id=\"cat-case-title\">The cat stayed.</h2><p>The portrait and the cat behind it were part of the original portfolio. During the redesign, the original mosaic hover was restored and the extra particles over the portrait were removed.</p><a class=\"text-link\" href=\"https://github.com/bonkval/ced-portfolio/commit/315ac3b\" target=\"_blank\" rel=\"noopener noreferrer\">Portfolio redesign source &nearr;</a></div><div class=\"cat-terminal\"><span>cat /notes/portfolio</span><pre>Mosaic reveal: preserved\nFace particles: removed\nVerdict: keep the cat.</pre><small>A fictional terminal, a real design decision.</small></div>", n.after(a);
-	let o = document.createElement("span");
-	o.className = "sr-only", o.setAttribute("role", "status"), n.append(o);
-	let s = !1, c, l, u = !1;
-	try {
-		u = sessionStorage.getItem("portfolio-cat-found") === "yes";
-	} catch {}
-	function d() {
-		r.querySelector("span").textContent = "Cat found", i.hidden = !1;
-	}
-	u && d();
-	function f() {
-		clearTimeout(c), s = !1, l?.remove(), u = !0, d();
-		try {
-			sessionStorage.setItem("portfolio-cat-found", "yes");
-		} catch {}
-		a.hidden = !1, i.setAttribute("aria-expanded", "true"), i.querySelector("span").textContent = "Cat found", o.textContent = "Cat found. Recovered note opened below the contact links.";
-	}
-	function p() {
-		if (s) return;
-		if (u) {
-			a.hidden = !a.hidden, i.setAttribute("aria-expanded", String(!a.hidden));
-			return;
-		}
-		if (s = !0, i.hidden = !1, !e()) {
-			f();
-			return;
-		}
-		let n = t.getBoundingClientRect(), r = i.getBoundingClientRect();
-		l = document.createElement("div"), l.className = "cat-paw-trail", l.setAttribute("aria-hidden", "true"), document.body.append(l);
-		let o = {
-			x: n.left + n.width * .6,
-			y: n.bottom - 15
-		}, d = {
-			x: r.left + r.width * .5,
-			y: r.top + r.height * .5
-		};
-		for (let e = 0; e < 10; e++) {
-			let t = e / 9, n = document.createElement("span");
-			n.innerHTML = Ma;
-			let r = o.x + (d.x - o.x) * t + Math.sin(t * Math.PI) * -55, i = o.y + (d.y - o.y) * t + (e % 2 ? 6 : -6);
-			n.style.left = `${r}px`, n.style.top = `${i}px`, n.style.rotate = `${-25 + t * 70}deg`, l.append(n), n.animate([
-				{
-					opacity: 0,
-					scale: .65
-				},
-				{
-					opacity: .7,
-					scale: 1,
-					offset: .25
-				},
-				{
-					opacity: 0,
-					scale: 1.1
-				}
-			], {
-				duration: 700,
-				delay: e * 115,
-				fill: "both",
-				easing: "ease-out"
-			});
-			let a = document.createElement("i");
-			a.className = "cat-ascii-disturbance", a.textContent = " : / + : ", a.style.left = `${r - 20}px`, a.style.top = `${i + 12}px`, l.append(a), a.animate([
-				{
-					opacity: 0,
-					translate: "0 0"
-				},
-				{
-					opacity: .5,
-					offset: .3
-				},
-				{
-					opacity: 0,
-					translate: "0 12px"
-				}
-			], {
-				duration: 650,
-				delay: e * 115,
-				fill: "both"
-			});
-		}
-		c = setTimeout(f, 1800);
-	}
+	r.type = "button", r.className = "cat-hint", r.innerHTML = `${Ma}<span>Play hide &amp; seek</span>`, t.after(r);
+	let i = document.createElement("section");
+	i.className = "cat-game", i.id = "cat-game", i.hidden = !0, i.setAttribute("aria-labelledby", "cat-game-title"), r.setAttribute("aria-controls", i.id), r.setAttribute("aria-expanded", "false"), i.innerHTML = `<header class="cat-game-header"><div><h2 id="cat-game-title">Cat &amp; boxes</h2><p>Watch the cat. Follow the shuffle. Pick a box.</p></div><div class="cat-game-score" role="img" aria-label="0 of 3 rounds complete">${[
+		0,
+		1,
+		2
+	].map((e) => `<span data-cat-score="${e}">${Ma}</span>`).join("")}</div><button type="button" class="cat-game-close" aria-label="Close cat game">×</button></header><div class="cat-game-board" role="group" aria-label="Three hiding boxes">${[
+		0,
+		1,
+		2
+	].map((e) => `<button type="button" class="cat-box" data-cat-box="${e}"><span class="cat-box-head" aria-hidden="true"><img src="/public/assets/profile/profile2.webp" alt="" draggable="false"></span>${Na}<span class="cat-box-empty" aria-hidden="true">${Ma}</span><span class="cat-box-number" aria-hidden="true">${e + 1}</span></button>`).join("")}</div><footer class="cat-game-footer"><p class="cat-game-status" role="status"></p><button type="button" class="cat-game-action">Shuffle boxes <span aria-hidden="true">↝</span></button></footer>`, n.after(i);
+	let a = [...i.querySelectorAll(".cat-box")], o = i.querySelector(".cat-game-action"), s = i.querySelector(".cat-game-status"), c = "closed", l = 0, u = 0, d = [
+		0,
+		1,
+		2
+	], f = [], p = (e, t) => {
+		let n = setTimeout(e, t);
+		f.push(n);
+	};
 	function m() {
-		if (t.classList.contains("cat-peek")) {
-			p();
+		f.forEach(clearTimeout), f = [];
+	}
+	function h() {
+		a.forEach((e, t) => {
+			e.style.setProperty("--cat-slot", d[t]), e.setAttribute("aria-label", `Open the ${[
+				"left",
+				"middle",
+				"right"
+			][d[t]]} box`);
+		});
+	}
+	function g() {
+		i.querySelectorAll("[data-cat-score]").forEach((e, t) => e.classList.toggle("is-earned", t < l)), i.querySelector(".cat-game-score").setAttribute("aria-label", `${l} of 3 rounds complete`);
+	}
+	function _() {
+		m(), c = "preview", u = Math.floor(Math.random() * 3), d = [
+			0,
+			1,
+			2
+		], i.classList.remove("is-complete"), a.forEach((e, t) => {
+			e.disabled = !1, e.classList.remove("is-open", "is-correct", "is-empty"), e.classList.toggle("is-peeking", t === u);
+		}), h(), g(), o.hidden = !1, o.innerHTML = "Shuffle boxes <span aria-hidden=\"true\">↝</span>", s.textContent = `Round ${l + 1} of 3. The cat is in the ${[
+			"left",
+			"middle",
+			"right"
+		][d[u]]} box.`;
+	}
+	function v() {
+		if (!i.hidden) {
+			i.querySelector(".cat-game-close").focus({ preventScroll: !0 });
 			return;
 		}
-		t.classList.add("cat-peek"), t.setAttribute("aria-label", "Follow the revealed cat to its hidden note."), r.querySelector("span").textContent = u ? "Cat found" : "Follow the cat";
+		i.hidden = !1, r.setAttribute("aria-expanded", "true"), l = 0, _(), i.scrollIntoView({
+			block: "nearest",
+			behavior: e() ? "smooth" : "instant"
+		}), o.focus({ preventScroll: !0 });
 	}
-	r.addEventListener("click", () => u ? p() : m()), t.addEventListener("click", (e) => {
-		e.pointerType === "mouse" ? p() : m();
-	}), t.addEventListener("keydown", (e) => {
-		(e.key === "Enter" || e.key === " ") && (e.preventDefault(), m());
-	}), i.addEventListener("click", () => s ? f() : p()), document.addEventListener("visibilitychange", () => {
-		document.hidden && s && (clearTimeout(c), l?.remove(), s = !1);
+	function y() {
+		if (m(), c = "shuffle", o.hidden = !0, a.forEach((e) => e.classList.remove("is-peeking")), s.textContent = "Follow the boxes…", !e()) {
+			c = "pick", s.textContent = "Which box was the cat in?";
+			return;
+		}
+		let t = 3 + l;
+		for (let e = 0; e < t; e++) p(() => {
+			let e = Math.floor(Math.random() * 3), t = (e + 1 + Math.floor(Math.random() * 2)) % 3;
+			[d[e], d[t]] = [d[t], d[e]], h();
+		}, 220 + e * 620);
+		p(() => {
+			c = "pick", s.textContent = "Where is the cat?";
+		}, t * 620 + 220);
+	}
+	function b() {
+		if (!e()) return;
+		let t = i.querySelector(".cat-game-board");
+		for (let e = 0; e < 9; e++) {
+			let n = document.createElement("span");
+			n.className = "cat-win-paw", n.innerHTML = Ma, t.append(n), n.animate([
+				{
+					opacity: 0,
+					transform: "translate(0,0) scale(.5)"
+				},
+				{
+					opacity: .6,
+					offset: .2
+				},
+				{
+					opacity: 0,
+					transform: `translate(${(e - 4) * 35}px,${-60 - Math.sin(e) * 35}px) scale(1)`
+				}
+			], {
+				duration: 950,
+				delay: e * 35,
+				easing: "ease-out"
+			}).finished.finally(() => n.remove());
+		}
+	}
+	function x(e) {
+		if (c === "preview") {
+			y();
+			return;
+		}
+		if (c === "pick" || c === "shuffle") {
+			if (m(), c = "pick", a[e].classList.add("is-open"), e !== u) {
+				a[e].classList.add("is-empty"), a[e].disabled = !0, s.textContent = "Empty. Try another box.", a.find((e) => !e.disabled)?.focus({ preventScroll: !0 });
+				return;
+			}
+			c = "found", a[e].classList.add("is-correct"), a.forEach((e) => e.disabled = !0), l++, g(), b(), o.hidden = !1, l === 3 ? (c = "complete", i.classList.add("is-complete"), s.textContent = "Three for three. You found the cat!", o.textContent = "Play again") : (s.textContent = "Found it!", o.innerHTML = "Next round <span aria-hidden=\"true\">→</span>"), o.focus({ preventScroll: !0 });
+		}
+	}
+	o.addEventListener("click", () => {
+		c === "preview" ? y() : c === "found" ? _() : c === "complete" && (l = 0, _());
+	}), a.forEach((e, t) => {
+		e.addEventListener("click", () => x(t)), e.addEventListener("keydown", (t) => {
+			if (t.key !== "ArrowLeft" && t.key !== "ArrowRight") return;
+			t.preventDefault();
+			let n = a.filter((e) => !e.disabled).sort((e, t) => d[Number(e.dataset.catBox)] - d[Number(t.dataset.catBox)]);
+			n[(n.indexOf(e) + (t.key === "ArrowRight" ? 1 : n.length - 1)) % n.length]?.focus();
+		});
 	});
+	function S() {
+		m(), c = "closed", i.hidden = !0, r.setAttribute("aria-expanded", "false"), r.focus({ preventScroll: !0 });
+	}
+	i.querySelector(".cat-game-close").addEventListener("click", S), i.addEventListener("keydown", (e) => {
+		e.key === "Escape" && (e.preventDefault(), S());
+	}), r.addEventListener("click", v), t.addEventListener("click", (e) => {
+		if (e.pointerType === "touch" && !t.classList.contains("cat-peek")) {
+			t.classList.add("cat-peek");
+			return;
+		}
+		v();
+	}), t.addEventListener("keydown", (e) => {
+		(e.key === "Enter" || e.key === " ") && (e.preventDefault(), t.classList.add("cat-peek"), v());
+	}), document.addEventListener("visibilitychange", () => {
+		document.hidden && c === "shuffle" && (m(), c = "pick", s.textContent = "Where is the cat?");
+	}), new IntersectionObserver((e) => {
+		!e[0].isIntersecting && c === "shuffle" && (m(), c = "pick", s.textContent = "Where is the cat?");
+	}, { threshold: .05 }).observe(i);
 }
 //#endregion
 //#region security-lab.js
@@ -3445,7 +3481,7 @@ var Y = {
 	size: n,
 	detail: r
 }));
-function Pa(e) {
+function Fa(e) {
 	let t = document.querySelector("#skills");
 	if (!t) return;
 	let n = document.createElement("section");
@@ -3693,7 +3729,7 @@ var Z = [
 			"CSS"
 		]
 	}
-], Fa = [
+], Ia = [
 	[17, 15],
 	[50, 11],
 	[83, 15],
@@ -3705,25 +3741,25 @@ var Z = [
 	[83, 61],
 	[32, 86],
 	[70, 86]
-], Ia = [
+], La = [
 	"Python",
 	"JavaScript",
 	"TypeScript",
 	"SQL",
 	"Electron"
 ], Q = (e, t) => t === "All" || e.skills.some((e) => e.toLowerCase() === t.toLowerCase() || t === "SQL" && /^(sqlite|sql)$/i.test(e));
-function La(e) {
+function Ra(e) {
 	let t = document.querySelector("#work [data-project-rail]");
 	if (!t) return;
 	let n = t.closest("section"), r = document.createElement("div");
-	r.className = "project-explorer-tools", r.innerHTML = `<div class="project-view-switch" role="group" aria-label="Project view"><button type="button" data-view="cards" aria-pressed="true">Cards</button><button type="button" data-view="map" aria-pressed="false">Map <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 5 11-2-5 12L4 5l12 7"/><circle cx="4" cy="5" r="2"/><circle cx="15" cy="3" r="2"/><circle cx="10" cy="15" r="2"/></svg></button></div><div class="project-skill-filters" role="group" aria-label="Highlight projects by skill">${["All", ...Ia].map((e) => `<button type="button" data-skill="${e}" aria-pressed="${e === "All"}">${e}</button>`).join("")}</div><span class="project-filter-status" role="status"></span>`, t.before(r);
+	r.className = "project-explorer-tools", r.innerHTML = `<div class="project-view-switch" role="group" aria-label="Project view"><button type="button" data-view="cards" aria-pressed="true">Cards</button><button type="button" data-view="map" aria-pressed="false">Map <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 5 11-2-5 12L4 5l12 7"/><circle cx="4" cy="5" r="2"/><circle cx="15" cy="3" r="2"/><circle cx="10" cy="15" r="2"/></svg></button></div><div class="project-skill-filters" role="group" aria-label="Highlight projects by skill">${["All", ...La].map((e) => `<button type="button" data-skill="${e}" aria-pressed="${e === "All"}">${e}</button>`).join("")}</div><span class="project-filter-status" role="status"></span>`, t.before(r);
 	let i = document.createElement("div");
 	i.className = "project-map", i.hidden = !0, i.innerHTML = "<p class=\"project-map-help\">Shared skills connect the projects. Select a node to inspect it; use arrow keys to move between nodes.</p><div class=\"project-map-scroll\" tabindex=\"0\" role=\"region\" aria-label=\"Project constellation. On small screens, scroll horizontally to explore the map.\"><div class=\"project-map-stage\"><svg class=\"project-map-wires\" viewBox=\"0 0 1000 440\" preserveAspectRatio=\"none\" aria-hidden=\"true\"></svg></div></div><div class=\"project-map-preview\" aria-live=\"polite\"></div>", t.after(i);
 	let a = i.querySelector(".project-map-stage"), o = i.querySelector("svg"), s = i.querySelector(".project-map-preview"), c = "All", l = "cards", u = Z[0].id, d = /* @__PURE__ */ new Map(), f = [...t.querySelectorAll(".project-card")], p = [];
 	Z.forEach((e, t) => {
 		let n = 0;
 		for (let r = t + 1; r < Z.length && n < 2; r++) {
-			let t = Ia.filter((t) => Q(e, t) && Q(Z[r], t));
+			let t = La.filter((t) => Q(e, t) && Q(Z[r], t));
 			t.length && (p.push({
 				from: e.id,
 				to: Z[r].id,
@@ -3759,7 +3795,7 @@ function La(e) {
 		});
 		let a = [...Z].sort((e, t) => Number(Q(t, c)) - Number(Q(e, c))), s = /* @__PURE__ */ new Map();
 		a.forEach((e, t) => {
-			let [n, r] = Fa[t], i = d.get(e.id);
+			let [n, r] = Ia[t], i = d.get(e.id);
 			s.set(e.id, [n * 10, r * 4.4]), i.style.left = `calc(${n}% - 90px)`, i.style.top = `calc(${r}% - 31px)`, i.classList.toggle("is-skill-muted", !Q(e, c)), i.setAttribute("aria-pressed", String(u === e.id));
 		});
 		let l = [];
@@ -3813,7 +3849,7 @@ function La(e) {
 }
 //#endregion
 //#region project-history.js
-var Ra = {
+var za = {
 	"canvas-copy-pasta": {
 		mode: "Selected public commits",
 		pipeline: [
@@ -4354,10 +4390,10 @@ var Ra = {
 };
 //#endregion
 //#region project-timeline.js
-function za(e) {
+function Ba(e) {
 	let t = document.querySelector(".compact-case-layout");
 	if (!t) return;
-	let n = Ra[location.pathname.split("/").filter(Boolean)[1]];
+	let n = za[location.pathname.split("/").filter(Boolean)[1]];
 	if (!n) return;
 	let r = n.stages.length, i = document.createElement("details");
 	i.className = "project-timeline", i.open = !0;
@@ -4408,16 +4444,16 @@ function za(e) {
 }
 //#endregion
 //#region enhancements.js
-var Ba = document.documentElement, Va = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => Ba.dataset.motion !== "paused";
-$() && Ba.classList.add("js-motion");
-var Ha = document.querySelector(".theme-toggle");
-if (Ha) {
+var Va = document.documentElement, Ha = matchMedia("(prefers-reduced-motion: reduce)"), $ = () => Va.dataset.motion !== "paused";
+$() && Va.classList.add("js-motion");
+var Ua = document.querySelector(".theme-toggle");
+if (Ua) {
 	let e = document.createElement("div");
-	e.className = "header-actions", Ha.before(e), e.append(Ha);
+	e.className = "header-actions", Ua.before(e), e.append(Ua);
 }
-Va.addEventListener("change", () => {
-	Ba.dataset.motion = Va.matches ? "paused" : "full", Ba.classList.toggle("js-motion", !Va.matches), document.dispatchEvent(new Event("portfolio:motion"));
-}), ka($), Aa($), ja($), Na($), Pa($), La($), za($), document.querySelectorAll("[data-project-rail]").forEach((e, t) => {
+Ha.addEventListener("change", () => {
+	Va.dataset.motion = Ha.matches ? "paused" : "full", Va.classList.toggle("js-motion", !Ha.matches), document.dispatchEvent(new Event("portfolio:motion"));
+}), ka($), Aa($), ja($), Pa($), Fa($), Ra($), Ba($), document.querySelectorAll("[data-project-rail]").forEach((e, t) => {
 	let n = [...e.querySelectorAll(":scope > a")];
 	if (n.length < 2) return;
 	e.id ||= `project-rail-${t + 1}`, e.tabIndex = 0, e.setAttribute("role", "region"), e.setAttribute("aria-roledescription", "carousel");
@@ -4558,9 +4594,9 @@ Va.addEventListener("change", () => {
 		_(), y();
 	}).observe(e), y();
 });
-var Ua = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Wa = Ua.map((e) => document.querySelector(e.hash)).filter(Boolean), Ga = new IntersectionObserver((e) => {
+var Wa = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Ga = Wa.map((e) => document.querySelector(e.hash)).filter(Boolean), Ka = new IntersectionObserver((e) => {
 	e.forEach((e) => {
-		e.isIntersecting && Ua.forEach((t) => {
+		e.isIntersecting && Wa.forEach((t) => {
 			t.hash === `#${e.target.id}` ? t.setAttribute("aria-current", "location") : t.removeAttribute("aria-current");
 		});
 	});
@@ -4568,7 +4604,7 @@ var Ua = [...document.querySelectorAll(".site-nav a[href^=\"#\"]")], Wa = Ua.map
 	rootMargin: "-15% 0px -60% 0px",
 	threshold: 0
 });
-Wa.forEach((e) => Ga.observe(e)), document.addEventListener("keydown", (e) => {
+Ga.forEach((e) => Ka.observe(e)), document.addEventListener("keydown", (e) => {
 	if (e.key !== "Escape") return;
 	let t = document.querySelector(".menu-button");
 	t?.getAttribute("aria-expanded") === "true" && (t.click(), t.focus());
