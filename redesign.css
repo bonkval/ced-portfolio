@@ -838,6 +838,8 @@ html.js-motion .reveal:not(.visible) { opacity: 0; transform: translateY(30px); 
 .ui-arrow{display:inline-block;width:1em;height:1em;vertical-align:-.12em;flex-shrink:0;pointer-events:none}
 
 /* The discovery is a brief, unmistakable reveal, anchored above the page. */
+.credentials .cert-image[src$="/ccst-networking.png"]{height:52px;padding:7px 6px;border:1px solid #dedede;border-radius:9px;background:#fff;object-fit:contain;box-sizing:border-box}
+@media(max-width:700px){.credentials .cert-image[src$="/ccst-networking.png"]{height:44px;padding:6px 5px}}
 .cat-secret-note{top:50%;bottom:auto;z-index:10001;transform:translate(-50%,-50%);padding:28px 34px;gap:22px;border-color:#d4af67;box-shadow:0 0 0 100vmax #0009,0 0 80px #d4af6740;isolation:isolate}
 .cat-secret-note>svg{width:46px;height:46px;flex-basis:46px;color:#c39443}
 .cat-secret-note strong{font-size:clamp(23px,5vw,34px);letter-spacing:-.04em}
