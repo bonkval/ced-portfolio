@@ -3224,71 +3224,39 @@ function Da(e) {
 function Oa() {
 	let e = document.querySelector(".header-actions");
 	if (!e) return;
-	let t = document.createElement("div");
-	t.className = "header-track", t.innerHTML = "<button type=\"button\" class=\"header-track-start\" aria-label=\"Play Merry Christmas, Please Don't Call by Bleachers\"><span class=\"header-track-play\" aria-hidden=\"true\">&#9654;</span><span class=\"header-track-copy\"><strong>Merry Christmas, Please Don't Call</strong><small>Bleachers <span aria-hidden=\"true\">&middot;</span> Spotify</small></span></button><div class=\"header-track-player\" hidden></div><span class=\"sr-only\" role=\"status\"></span>", e.prepend(t);
-	let n = t.querySelector("button"), r = t.querySelector(".header-track-player"), i = t.querySelector("[role=\"status\"]"), a, o = !1, s, c = 0;
-	function l() {
-		return s || (s = new Promise((e, t) => {
-			let n = setTimeout(() => t(/* @__PURE__ */ Error("Spotify API timed out")), 1e4);
-			window.onSpotifyIframeApiReady = (t) => {
-				clearTimeout(n), e(t);
-			};
-			let r = document.createElement("script");
-			r.src = "https://open.spotify.com/embed/iframe-api/v1", r.async = !0, r.onerror = () => {
-				clearTimeout(n), t(/* @__PURE__ */ Error("Spotify API unavailable"));
-			}, document.head.append(r);
-		}), s);
+	let t = document.createElement("button");
+	t.type = "button", t.className = "music-toggle", t.innerHTML = "<span class=\"music-bars\" aria-hidden=\"true\"><i></i><i></i><i></i><i></i></span>", t.setAttribute("aria-pressed", "false");
+	let n = document.createElement("span");
+	n.className = "sr-only", n.setAttribute("role", "status"), e.prepend(t), e.append(n);
+	let r, i = !1, a = 0;
+	function o() {
+		t.setAttribute("aria-pressed", String(i)), t.setAttribute("aria-label", i ? "Turn background music off" : "Turn background music on"), t.title = i ? "Music off" : "Music on - original instrumental";
 	}
-	function u() {
-		if (c++, o = !1, a) {
-			try {
-				a.pause(), a.destroy();
-			} catch {}
-			a = void 0;
+	function s() {
+		a++, i = !1, r?.pause(), t.removeAttribute("aria-busy"), o();
+	}
+	o(), t.addEventListener("click", async () => {
+		if (i) {
+			s(), n.textContent = "Music off.";
+			return;
 		}
-		r.replaceChildren(), r.hidden = !0, n.hidden = !1, n.disabled = !1, n.removeAttribute("aria-busy"), i.textContent = "Music stopped.";
-	}
-	function d() {
-		let e = document.createElement("iframe");
-		e.src = "https://open.spotify.com/embed/track/0UOG0zUn7t8m8QcxfzR7AH?utm_source=generator", e.title = "Merry Christmas, Please Don't Call by Bleachers - Spotify player", e.width = "100%", e.height = "80", e.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture", r.replaceChildren(e), r.hidden = !1, n.hidden = !0, n.disabled = !1, n.removeAttribute("aria-busy"), o = !1, i.textContent = "Press Play in the header track to listen.";
-	}
-	n.addEventListener("click", async () => {
-		if (o) return;
-		o = !0;
-		let e = ++c;
-		n.disabled = !0, n.setAttribute("aria-busy", "true"), i.textContent = "Loading Spotify.";
+		r || (r = new Audio("/public/audio/afterglow-v1.mp3"), r.preload = "none", r.loop = !0, r.volume = .35, r.addEventListener("error", () => {
+			s(), n.textContent = "Music could not load. Click to try again.";
+		})), i = !0;
+		let e = ++a;
+		o(), t.setAttribute("aria-busy", "true");
 		try {
-			let t = await l();
-			if (c !== e || document.hidden) return;
-			let s = document.createElement("div");
-			r.replaceChildren(s), r.hidden = !1, n.hidden = !0, t.createController(s, {
-				url: "https://open.spotify.com/track/0UOG0zUn7t8m8QcxfzR7AH",
-				width: "100%",
-				height: 80
-			}, (t) => {
-				if (c !== e || document.hidden) {
-					t.destroy();
-					return;
-				}
-				a = t;
-				let n = r.querySelector("iframe");
-				n && (n.title = "Merry Christmas, Please Don't Call by Bleachers - Spotify player"), t.addListener("ready", () => {
-					if (!(c !== e || document.hidden)) {
-						o = !1, i.textContent = "Use the header track to play or pause music.";
-						try {
-							t.play();
-						} catch {
-							i.textContent = "Press Play in the header track to listen.";
-						}
-					}
-				});
-			});
+			if (await r.play(), e !== a) {
+				i || r.pause();
+				return;
+			}
+			t.removeAttribute("aria-busy"), n.textContent = "Background music on.";
 		} catch {
-			c === e && !document.hidden && d();
+			e === a && (s(), n.textContent = "Playback did not start. Click to try again.");
 		}
 	}), document.addEventListener("visibilitychange", () => {
-		document.hidden && u();
-	}), addEventListener("pagehide", u);
+		document.hidden && s();
+	}), addEventListener("pagehide", s);
 }
 //#endregion
 //#region enhancements.js

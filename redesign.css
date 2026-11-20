@@ -686,29 +686,21 @@ html.js-motion .reveal:not(.visible) { opacity: 0; transform: translateY(30px); 
 }
 
 
-/* On-demand official Spotify player; no audio or third-party requests on page load. */
-/* The track is part of the header, never an overlay. */
-.site-header{min-height:96px;height:auto;padding-block:8px}
-.header-actions{min-width:0}
-.header-track{width:300px;max-width:100%;min-width:0}
-.header-track-start{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:10px 12px;text-align:left;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);cursor:pointer;transition:background .25s,border-color .25s}
-.header-track-start:hover{background:var(--soft);border-color:var(--ink)}
-.header-track-start:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-.header-track-play{display:grid;place-items:center;flex:0 0 30px;height:30px;border:1px solid var(--line);border-radius:50%;font-size:10px;transition:transform .25s}
-.header-track-start:hover .header-track-play{transform:scale(1.1)}
-.header-track-copy{min-width:0;display:grid;gap:3px}
-.header-track-copy strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 12px/1.5 'Segoe UI',Arial,sans-serif;letter-spacing:0}
-.header-track-copy small{font:400 11px/1.5 'Segoe UI',Arial,sans-serif;color:var(--muted)}
-.header-track-start[aria-busy=true]{opacity:.65;cursor:progress}
-.header-track-player{height:80px;overflow:hidden;border-radius:12px;background:var(--soft)}
-.header-track-player iframe{display:block;width:100%;height:80px;border:0;border-radius:12px}
-.header-track [hidden]{display:none!important}
-@media(max-width:1100px){
-  .site-header{grid-template-columns:1fr auto auto;row-gap:4px}
-  .header-actions{display:contents}
-  .header-actions .theme-toggle{grid-column:3;grid-row:1;justify-self:end}
-  .header-track{grid-column:1/-1;grid-row:2;width:100%;padding-bottom:4px}
-  .site-nav{grid-column:2;grid-row:1}
-}
-@media(max-width:850px){.site-nav{top:144px}.site-header{min-height:144px}.header-track-start{min-height:64px}.site-header:has(.header-track-player:not([hidden])) .site-nav{top:160px}}
-@media(prefers-reduced-motion:reduce){.header-track-play,.header-track-start{transition:none}}
+/* Compact local-audio toggle, paired with the theme icon. */
+.music-toggle{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--ink);cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .25s}
+.music-toggle:hover{border-color:var(--ink);background:var(--soft)}
+.music-toggle:active{transform:scale(.93)}
+.music-toggle:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.music-toggle[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.music-toggle[aria-busy=true]{opacity:.6}
+.music-bars{height:18px;display:flex;align-items:center;gap:3px}
+.music-bars i{display:block;width:2px;height:6px;border-radius:2px;background:currentColor;transform-origin:center}
+.music-bars i:nth-child(2){height:14px}
+.music-bars i:nth-child(3){height:10px}
+.music-bars i:nth-child(4){height:16px}
+.music-toggle[aria-pressed=true] .music-bars i{animation:music-level .85s ease-in-out infinite alternate}
+.music-bars i:nth-child(2){animation-delay:-.3s!important}
+.music-bars i:nth-child(3){animation-delay:-.6s!important}
+.music-bars i:nth-child(4){animation-delay:-.15s!important}
+@keyframes music-level{from{transform:scaleY(.4)}to{transform:scaleY(1)}}
+@media(prefers-reduced-motion:reduce){.music-toggle{transition:none}.music-toggle .music-bars i{animation:none!important}}
