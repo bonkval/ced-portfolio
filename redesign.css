@@ -687,23 +687,28 @@ html.js-motion .reveal:not(.visible) { opacity: 0; transform: translateY(30px); 
 
 
 /* On-demand official Spotify player; no audio or third-party requests on page load. */
-.music-toggle{display:grid;place-items:center;width:40px;height:40px;min-width:40px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--ink);cursor:pointer;transition:background .25s,color .25s,border-color .25s}
-.music-toggle>span{display:block;font:24px/1 Georgia,serif;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-.music-toggle:hover{border-color:var(--ink);background:var(--soft)}
-.music-toggle:hover>span{transform:rotate(-12deg)}
-.music-toggle[aria-expanded=true]{background:var(--ink);color:var(--paper)}
-.music-toggle:active{transform:scale(.94)}
-.music-panel{position:fixed;top:80px;right:max(20px,calc((100vw - 1120px)/2));z-index:80;width:min(360px,calc(100vw - 32px));padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);box-shadow:0 16px 55px #0002;transform-origin:top right}
-.music-panel[hidden]{display:none!important}
-.music-panel>header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:10px}
-.music-panel h2{margin:0;font:500 15px/1.5 'Segoe UI',Arial,sans-serif;letter-spacing:0}
-.music-close{width:32px;height:32px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;padding:0;background:var(--paper);color:var(--ink);font:22px/1 Arial,sans-serif;cursor:pointer}
-.music-close:hover{border-color:var(--ink);background:var(--soft)}
-.music-frame{min-height:152px;border-radius:12px;overflow:hidden;background:#121212}
-.music-frame iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
-.music-spotify-link{display:inline-block;font-size:12px;line-height:1.6;color:var(--muted);margin-top:10px}
-.music-spotify-link:hover{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
-@media(max-width:600px){.music-panel{top:78px;right:16px}}
-@media(prefers-reduced-motion:reduce){.music-toggle>span{transition:none;transform:none!important}}
-
-.music-status{margin:0 0 10px;color:var(--muted);font-size:12px;line-height:1.5}
+/* The track is part of the header, never an overlay. */
+.site-header{min-height:96px;height:auto;padding-block:8px}
+.header-actions{min-width:0}
+.header-track{width:300px;max-width:100%;min-width:0}
+.header-track-start{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:10px 12px;text-align:left;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);cursor:pointer;transition:background .25s,border-color .25s}
+.header-track-start:hover{background:var(--soft);border-color:var(--ink)}
+.header-track-start:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.header-track-play{display:grid;place-items:center;flex:0 0 30px;height:30px;border:1px solid var(--line);border-radius:50%;font-size:10px;transition:transform .25s}
+.header-track-start:hover .header-track-play{transform:scale(1.1)}
+.header-track-copy{min-width:0;display:grid;gap:3px}
+.header-track-copy strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 12px/1.5 'Segoe UI',Arial,sans-serif;letter-spacing:0}
+.header-track-copy small{font:400 11px/1.5 'Segoe UI',Arial,sans-serif;color:var(--muted)}
+.header-track-start[aria-busy=true]{opacity:.65;cursor:progress}
+.header-track-player{height:80px;overflow:hidden;border-radius:12px;background:var(--soft)}
+.header-track-player iframe{display:block;width:100%;height:80px;border:0;border-radius:12px}
+.header-track [hidden]{display:none!important}
+@media(max-width:1100px){
+  .site-header{grid-template-columns:1fr auto auto;row-gap:4px}
+  .header-actions{display:contents}
+  .header-actions .theme-toggle{grid-column:3;grid-row:1;justify-self:end}
+  .header-track{grid-column:1/-1;grid-row:2;width:100%;padding-bottom:4px}
+  .site-nav{grid-column:2;grid-row:1}
+}
+@media(max-width:850px){.site-nav{top:144px}.site-header{min-height:144px}.header-track-start{min-height:64px}.site-header:has(.header-track-player:not([hidden])) .site-nav{top:160px}}
+@media(prefers-reduced-motion:reduce){.header-track-play,.header-track-start{transition:none}}
