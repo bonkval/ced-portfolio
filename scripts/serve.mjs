@@ -3,9 +3,13 @@ import { readFile, stat } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 
 const root = normalize(join(import.meta.dirname, '..'));
-const types = { '.html':'text/html; charset=utf-8', '.css':'text/css; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.svg':'image/svg+xml', '.png':'image/png', '.jpg':'image/jpeg', '.pdf':'application/pdf' };
+const types = { '.html':'text/html; charset=utf-8', '.css':'text/css; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.svg':'image/svg+xml', '.png':'image/png', '.jpg':'image/jpeg', '.pdf':'application/pdf', '.webp':'image/webp', '.jpeg':'image/jpeg' };
 
 createServer(async (request, response) => {
+  // Local previews should always show the current files, including fixed-URL assets.
+  response.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+  response.setHeader('Pragma', 'no-cache');
+  response.setHeader('Expires', '0');
   try {
     const pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
     let file = normalize(join(root, pathname));
