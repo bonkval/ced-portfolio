@@ -3061,7 +3061,7 @@ function Da(e) {
 		t.addEventListener("pointerup", o), t.addEventListener("pointerleave", o), t.addEventListener("pointercancel", o), document.addEventListener("portfolio:motion", () => {
 			e() || (r.jump(0), i.jump(0));
 		});
-	}), document.querySelectorAll(".explore-button,.hero-actions .text-link,.profile-links a,.theme-toggle").forEach((t) => {
+	}), document.querySelectorAll(".explore-button,.hero-actions .text-link,.theme-toggle").forEach((t) => {
 		t.addEventListener("pointermove", (n) => {
 			if (!e()) return;
 			let r = t.getBoundingClientRect();
@@ -3252,7 +3252,7 @@ function ja(e) {
 		0,
 		1,
 		2
-	].map((e) => `<button type="button" class="cat-box" data-cat-box="${e}"><span class="cat-box-head" aria-hidden="true"><img src="/public/assets/profile/profile2.webp" alt="" draggable="false"></span>${Aa}<span class="cat-box-empty" aria-hidden="true">${ka}</span></button>`).join("")}</div><footer class="cat-game-footer"><p class="cat-game-status" role="status"></p><button type="button" class="cat-game-action">Let's hide! <span aria-hidden="true">↝</span></button></footer>`, n.after(i);
+	].map((e) => `<button type="button" class="cat-box" data-cat-box="${e}"><span class="cat-box-head" aria-hidden="true"><img src="/public/assets/profile/profile2.webp" alt="" draggable="false"></span>${Aa}<span class="cat-box-empty" aria-hidden="true">${ka}</span></button>`).join("")}</div><footer class="cat-game-footer"><p class="cat-game-status" role="status"></p><button type="button" class="cat-game-action">Let's hide! <span aria-hidden="true">↝</span></button></footer>`, t.closest(".hero").append(i);
 	let a = [...i.querySelectorAll(".cat-box")], o = i.querySelector(".cat-game-action"), s = i.querySelector(".cat-game-status"), c = "closed", l = 0, u = 0, d = [
 		0,
 		1,

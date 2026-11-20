@@ -686,21 +686,30 @@ html.js-motion .reveal:not(.visible) { opacity: 0; transform: translateY(30px); 
 }
 
 
-/* Contact actions share one compact row; email copies without opening another app. */
-.hero>.about-copy{justify-content:flex-start;border-bottom:0;padding-bottom:0}
-.hero>.about-copy .profile-links{align-items:center;gap:8px}
-.hero>.about-copy .email-copy{position:relative;display:grid;place-items:center;flex:0 0 40px;width:40px;height:38px;padding:9px;border:1px solid var(--line);border-radius:0;background:var(--paper);color:var(--ink);cursor:pointer;transition:border-color .3s,background .3s,box-shadow .3s,scale .2s}
-.email-copy svg{width:18px;height:18px;grid-area:1/1;transition:opacity .2s,transform .3s}
+/* Contact dock stays attached to the introduction in both themes. */
+.hero .hero-contact{display:flex;align-items:center;gap:14px;width:max-content;max-width:calc(100vw - 40px);margin:24px 0 0;padding:0;border:0}
+.contact-caption{font-size:12px;color:var(--muted)}
+.hero-contact .profile-links{display:flex;flex-wrap:nowrap;align-items:center;gap:4px;margin:0;padding:4px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.hero-contact .profile-links a,.hero-contact .email-copy{position:relative;display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;min-height:40px;padding:10px;border:0;border-radius:8px;background:transparent;color:var(--ink);cursor:pointer;translate:none!important;transform:none!important;box-shadow:none;transition:background .2s,scale .2s!important}
+.hero-contact .email-copy{margin-right:5px}
+.hero-contact .email-copy::after{content:"";position:absolute;right:-5px;top:9px;bottom:9px;width:1px;background:var(--line)}
+.hero-contact .profile-links a:hover,.hero-contact .email-copy:hover,.hero-contact .email-copy.is-copied{background:var(--soft);box-shadow:none}
+.hero-contact .profile-links a img{width:20px;height:20px;filter:none;transition:transform .25s}
+.hero-contact .profile-links a:hover img{filter:none;transform:translateY(-1px) scale(1.08)}
+:root[data-theme=dark] .hero-contact .profile-links a img,:root[data-theme=dark] .hero-contact .profile-links a:hover img{filter:invert(1)}
+.email-copy svg{width:20px;height:20px;grid-area:1/1;transition:opacity .2s,transform .3s}
 .email-copy-check{opacity:0;transform:scale(.6)}
 .email-copy.is-copied .email-copy-envelope{opacity:0;transform:scale(.6)}
 .email-copy.is-copied .email-copy-check{opacity:1;transform:scale(1)}
-.hero>.about-copy .email-copy:hover,.hero>.about-copy .email-copy.is-copied{border-color:var(--ink);background:var(--soft);box-shadow:0 5px 15px color-mix(in srgb,var(--ink) 8%,transparent)}
-.email-copy:active{scale:.94}
-.email-copy:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-.hero>.about-copy .profile-links .email-copy-feedback{position:absolute;top:auto;left:0;bottom:calc(100% + 10px);z-index:5;display:block;width:max-content;height:auto;padding:5px 9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:400 12px/1.5 'Segoe UI',Arial,sans-serif;text-transform:none;letter-spacing:normal;white-space:nowrap;opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .2s,transform .2s}
-.email-copy:hover .email-copy-feedback,.email-copy:focus-visible .email-copy-feedback,.email-copy.is-copied .email-copy-feedback,.email-copy.copy-unavailable .email-copy-feedback{opacity:1!important;transform:translateY(0)!important}
+.hero-contact .profile-links a:active,.email-copy:active{scale:.94}
+.hero-contact .profile-links a:focus-visible,.email-copy:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.hero-contact .profile-links a span,.hero-contact .profile-links .email-copy-feedback{position:absolute;top:auto;left:50%;bottom:calc(100% + 12px);z-index:5;display:block;width:max-content;height:auto;padding:5px 9px;border:1px solid var(--line);border-radius:5px;background:var(--paper);color:var(--ink);font:400 12px/1.5 'Segoe UI',Arial,sans-serif;text-transform:none;letter-spacing:normal;white-space:nowrap;opacity:0;transform:translate(-50%,4px);pointer-events:none;transition:opacity .2s,transform .2s}
+.hero-contact .profile-links a:hover span,.hero-contact .profile-links a:focus-visible span,.email-copy:hover .email-copy-feedback,.email-copy:focus-visible .email-copy-feedback,.email-copy.is-copied .email-copy-feedback,.email-copy.copy-unavailable .email-copy-feedback{opacity:1!important;transform:translate(-50%,0)!important}
+.hero-contact .profile-links .email-copy-feedback{left:0;transform:translateY(4px)}
+.hero-contact .email-copy:hover .email-copy-feedback,.hero-contact .email-copy:focus-visible .email-copy-feedback,.hero-contact .email-copy.is-copied .email-copy-feedback,.hero-contact .email-copy.copy-unavailable .email-copy-feedback{transform:translateY(0)!important}
 .email-copy.copy-unavailable .email-copy-feedback{pointer-events:auto;user-select:text;cursor:text}
-@media(prefers-reduced-motion:reduce){.email-copy,.email-copy svg,.email-copy-feedback{transition:none!important}}
+@media(max-width:600px){.hero .hero-contact{align-items:flex-start;flex-direction:column;gap:9px;margin-top:22px}}
+@media(prefers-reduced-motion:reduce){.hero-contact .profile-links a,.hero-contact .profile-links a img,.email-copy,.email-copy svg,.email-copy-feedback{transition:none!important}}
 
 /* Visual cat game. The original pointer mosaic is unchanged. */
 [hidden]{display:none!important}

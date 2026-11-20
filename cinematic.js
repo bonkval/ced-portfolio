@@ -69,7 +69,7 @@ export function initCinematic(enabled) {
         if (!enabled()) { tiltX.jump(0); tiltY.jump(0); }
       });
     });
-    document.querySelectorAll('.explore-button,.hero-actions .text-link,.profile-links a,.theme-toggle').forEach(button => {
+    document.querySelectorAll('.explore-button,.hero-actions .text-link,.theme-toggle').forEach(button => {
       button.addEventListener('pointermove', event => {
         if (!enabled()) return;
         const rect = button.getBoundingClientRect();
