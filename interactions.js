@@ -4,6 +4,32 @@ export function initInteractions(enabled) {
   const ease = [.16, 1, .3, 1];
   const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
 
+  document.querySelectorAll('[data-copy-email]').forEach(button => {
+    const feedback = button.querySelector('[role="status"]');
+    let timer;
+    button.addEventListener('click', async () => {
+      clearTimeout(timer);
+      try {
+        await navigator.clipboard.writeText(button.dataset.copyEmail);
+        button.classList.add('is-copied');
+        feedback.textContent = 'Copied!';
+      } catch {
+        // Keep the address available when clipboard access is blocked.
+        button.classList.add('copy-unavailable');
+        feedback.textContent = button.dataset.copyEmail;
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(feedback);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+      timer = setTimeout(() => {
+        button.classList.remove('is-copied', 'copy-unavailable');
+        feedback.textContent = 'Copy email';
+      }, 3500);
+    });
+  });
+
   // Two visual faces, one accessible link name. Navigation rolls toward its destination.
   document.querySelectorAll('.site-nav a').forEach(link => {
     const text = link.textContent;
@@ -20,7 +46,7 @@ export function initInteractions(enabled) {
   if (enabled()) {
     const hero = document.querySelector('.hero');
     if (hero) {
-      const targets = hero.querySelectorAll('.hero-status,.hero-lower>p,.hero-actions>a,.hero-portrait .profile-wrap,.hero-email,.profile-links>a');
+      const targets = hero.querySelectorAll('.hero-status,.hero-lower>p,.hero-actions>a,.hero-portrait .profile-wrap,.hero-email,.profile-links>a,.profile-links>button');
       animate(targets, { opacity: [0, 1], y: [22, 0] }, {
         duration: .95, delay: index => .12 + index * .065, ease
       });

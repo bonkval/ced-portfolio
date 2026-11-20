@@ -704,3 +704,19 @@ html.js-motion .reveal:not(.visible) { opacity: 0; transform: translateY(30px); 
 .music-bars i:nth-child(4){animation-delay:-.15s!important}
 @keyframes music-level{from{transform:scaleY(.4)}to{transform:scaleY(1)}}
 @media(prefers-reduced-motion:reduce){.music-toggle{transition:none}.music-toggle .music-bars i{animation:none!important}}
+
+/* Contact actions share one compact row; email copies without opening another app. */
+.hero>.about-copy{justify-content:flex-start;border-bottom:0;padding-bottom:0}
+.hero>.about-copy .profile-links{align-items:center;gap:8px}
+.hero>.about-copy .email-copy{position:relative;display:grid;place-items:center;flex:0 0 40px;width:40px;height:38px;padding:9px;border:1px solid var(--line);border-radius:0;background:var(--paper);color:var(--ink);cursor:pointer;transition:border-color .3s,background .3s,box-shadow .3s,scale .2s}
+.email-copy svg{width:18px;height:18px;grid-area:1/1;transition:opacity .2s,transform .3s}
+.email-copy-check{opacity:0;transform:scale(.6)}
+.email-copy.is-copied .email-copy-envelope{opacity:0;transform:scale(.6)}
+.email-copy.is-copied .email-copy-check{opacity:1;transform:scale(1)}
+.hero>.about-copy .email-copy:hover,.hero>.about-copy .email-copy.is-copied{border-color:var(--ink);background:var(--soft);box-shadow:0 5px 15px color-mix(in srgb,var(--ink) 8%,transparent)}
+.email-copy:active{scale:.94}
+.email-copy:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.hero>.about-copy .profile-links .email-copy-feedback{position:absolute;top:auto;left:0;bottom:calc(100% + 10px);z-index:5;display:block;width:max-content;height:auto;padding:5px 9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:400 12px/1.5 'Segoe UI',Arial,sans-serif;text-transform:none;letter-spacing:normal;white-space:nowrap;opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .2s,transform .2s}
+.email-copy:hover .email-copy-feedback,.email-copy:focus-visible .email-copy-feedback,.email-copy.is-copied .email-copy-feedback,.email-copy.copy-unavailable .email-copy-feedback{opacity:1!important;transform:translateY(0)!important}
+.email-copy.copy-unavailable .email-copy-feedback{pointer-events:auto;user-select:text;cursor:text}
+@media(prefers-reduced-motion:reduce){.email-copy,.email-copy svg,.email-copy-feedback{transition:none!important}}

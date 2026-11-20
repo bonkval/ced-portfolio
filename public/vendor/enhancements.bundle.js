@@ -3112,7 +3112,22 @@ function Da(e) {
 		.3,
 		1
 	], n = matchMedia("(hover:hover) and (pointer:fine)").matches;
-	if (document.querySelectorAll(".site-nav a").forEach((e) => {
+	if (document.querySelectorAll("[data-copy-email]").forEach((e) => {
+		let t = e.querySelector("[role=\"status\"]"), n;
+		e.addEventListener("click", async () => {
+			clearTimeout(n);
+			try {
+				await navigator.clipboard.writeText(e.dataset.copyEmail), e.classList.add("is-copied"), t.textContent = "Copied!";
+			} catch {
+				e.classList.add("copy-unavailable"), t.textContent = e.dataset.copyEmail;
+				let n = window.getSelection(), r = document.createRange();
+				r.selectNodeContents(t), n.removeAllRanges(), n.addRange(r);
+			}
+			n = setTimeout(() => {
+				e.classList.remove("is-copied", "copy-unavailable"), t.textContent = "Copy email";
+			}, 3500);
+		});
+	}), document.querySelectorAll(".site-nav a").forEach((e) => {
 		let t = e.textContent, n = document.createElement("span");
 		n.className = "nav-roll";
 		let r = document.createElement("span");
@@ -3121,7 +3136,7 @@ function Da(e) {
 		i.className = "nav-echo", i.setAttribute("aria-hidden", "true"), n.append(r, i), e.replaceChildren(n);
 	}), e()) {
 		let e = document.querySelector(".hero");
-		e && Z(e.querySelectorAll(".hero-status,.hero-lower>p,.hero-actions>a,.hero-portrait .profile-wrap,.hero-email,.profile-links>a"), {
+		e && Z(e.querySelectorAll(".hero-status,.hero-lower>p,.hero-actions>a,.hero-portrait .profile-wrap,.hero-email,.profile-links>a,.profile-links>button"), {
 			opacity: [0, 1],
 			y: [22, 0]
 		}, {
