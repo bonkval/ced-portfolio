@@ -3248,7 +3248,7 @@ function Na(e) {
 		0,
 		1,
 		2
-	].map((e) => `<span data-cat-score="${e}">${ja}</span>`).join("")}</div><button type="button" class="cat-game-close" aria-label="Close cat game">×</button></header><div class="cat-game-board" role="group" aria-label="Three hiding boxes">${[
+	].map((e) => `<span data-cat-score="${e}">${ja}</span>`).join("")}</div><button type="button" class="cat-game-close" aria-label="Close cat game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button></header><div class="cat-game-board" role="group" aria-label="Three hiding boxes">${[
 		0,
 		1,
 		2

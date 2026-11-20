@@ -715,6 +715,7 @@ html.js-motion .reveal:not(.visible) { opacity: 0; transform: translateY(30px); 
 .cat-game-header p{font-size:12px;line-height:1.7;color:var(--muted);margin:0}
 .cat-game-score{display:flex;gap:8px;margin-left:auto}.cat-game-score span{width:20px;height:20px;opacity:.2;transition:opacity .3s,scale .3s}.cat-game-score .is-earned{opacity:1;scale:1.1}
 .cat-game-close{display:grid;place-items:center;flex:0 0 34px;height:34px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--ink);font-size:22px;cursor:pointer}
+.cat-game-close svg{display:block;width:18px;height:18px;pointer-events:none}
 .cat-game-board{position:relative;height:230px;max-width:650px;margin:10px auto 0;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 50% 100%,var(--soft),transparent 65%)}
 .cat-box{position:absolute;bottom:6px;left:calc(var(--cat-slot)*33.3333%);width:33.3333%;height:185px;border:0;padding:0 8px;background:none;color:var(--ink);cursor:pointer;transition:none}
 .cat-box-art{position:relative;z-index:2;width:100%;height:175px;overflow:visible;pointer-events:none}
