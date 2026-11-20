@@ -3322,7 +3322,9 @@ function Oa() {
 		!i.contains(e.target) && !r.contains(e.target) && p();
 	}), addEventListener("scroll", () => p(), { passive: !0 }), o.addEventListener("click", () => h()), document.addEventListener("keydown", (e) => {
 		e.key === "Escape" && c && (e.preventDefault(), p(!0));
-	}), addEventListener("pagehide", () => h(!1));
+	}), addEventListener("pagehide", () => h(!1)), document.addEventListener("visibilitychange", () => {
+		document.hidden && c && h(!1);
+	});
 }
 //#endregion
 //#region enhancements.js

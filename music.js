@@ -150,4 +150,8 @@ export function initMusicPlayer() {
     if (event.key === 'Escape' && open) { event.preventDefault(); minimize(true); }
   });
   addEventListener('pagehide', () => close(false));
+  // Stop playback when the visitor leaves this tab; returning never starts audio unprompted.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && open) close(false);
+  });
 }
