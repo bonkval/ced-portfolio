@@ -3242,9 +3242,9 @@ function Na(e) {
 	if (!t || !n) return;
 	t.tabIndex = 0, t.setAttribute("role", "button"), t.setAttribute("aria-label", "Play hide and seek with the hidden cat");
 	let r = document.createElement("button");
-	r.type = "button", r.className = "cat-hint", r.innerHTML = `${ja}<span>Play hide &amp; seek</span>`, t.after(r);
+	r.type = "button", r.className = "cat-hint", r.innerHTML = `${ja}<span>Hide N Seek</span>`, t.after(r);
 	let i = document.createElement("section");
-	i.className = "cat-game", i.id = "cat-game", i.hidden = !0, i.setAttribute("aria-labelledby", "cat-game-title"), r.setAttribute("aria-controls", i.id), r.setAttribute("aria-expanded", "false"), i.innerHTML = `<header class="cat-game-header"><div><h2 id="cat-game-title">Cat &amp; boxes</h2><p>Watch the cat. Follow the shuffle. Pick a box.</p></div><div class="cat-game-score" role="img" aria-label="0 of 3 rounds complete">${[
+	i.className = "cat-game", i.id = "cat-game", i.hidden = !0, i.setAttribute("aria-labelledby", "cat-game-title"), r.setAttribute("aria-controls", i.id), r.setAttribute("aria-expanded", "false"), i.innerHTML = `<header class="cat-game-header"><div><h2 id="cat-game-title">Hide N Seek</h2><p>Kitty's hiding. Think you can keep up?</p></div><div class="cat-game-score" role="img" aria-label="0 of 3 rounds complete">${[
 		0,
 		1,
 		2
@@ -3252,68 +3252,83 @@ function Na(e) {
 		0,
 		1,
 		2
-	].map((e) => `<button type="button" class="cat-box" data-cat-box="${e}"><span class="cat-box-head" aria-hidden="true"><img src="/public/assets/profile/profile2.webp" alt="" draggable="false"></span>${Ma}<span class="cat-box-empty" aria-hidden="true">${ja}</span><span class="cat-box-number" aria-hidden="true">${e + 1}</span></button>`).join("")}</div><footer class="cat-game-footer"><p class="cat-game-status" role="status"></p><button type="button" class="cat-game-action">Shuffle boxes <span aria-hidden="true">↝</span></button></footer>`, n.after(i);
+	].map((e) => `<button type="button" class="cat-box" data-cat-box="${e}"><span class="cat-box-head" aria-hidden="true"><img src="/public/assets/profile/profile2.webp" alt="" draggable="false"></span>${Ma}<span class="cat-box-empty" aria-hidden="true">${ja}</span></button>`).join("")}</div><footer class="cat-game-footer"><p class="cat-game-status" role="status"></p><button type="button" class="cat-game-action">Let's hide! <span aria-hidden="true">↝</span></button></footer>`, n.after(i);
 	let a = [...i.querySelectorAll(".cat-box")], o = i.querySelector(".cat-game-action"), s = i.querySelector(".cat-game-status"), c = "closed", l = 0, u = 0, d = [
 		0,
 		1,
 		2
-	], f = [], p = (e, t) => {
+	], f = [], p = /* @__PURE__ */ new Set();
+	function m() {
+		p.forEach((e) => e.cancel()), p.clear();
+	}
+	let h = (e, t) => {
 		let n = setTimeout(e, t);
 		f.push(n);
 	};
-	function m() {
+	function g() {
 		f.forEach(clearTimeout), f = [];
 	}
-	function h() {
+	function _() {
 		a.forEach((e, t) => {
 			e.style.setProperty("--cat-slot", d[t]), e.setAttribute("aria-label", `Open the ${[
 				"left",
 				"middle",
 				"right"
-			][d[t]]} box`), e.querySelector(".cat-box-number").textContent = String(d[t] + 1);
+			][d[t]]} box`);
 		});
 	}
-	function g() {
+	function v() {
 		i.querySelectorAll("[data-cat-score]").forEach((e, t) => e.classList.toggle("is-earned", t < l)), i.querySelector(".cat-game-score").setAttribute("aria-label", `${l} of 3 rounds complete`);
 	}
-	function _() {
-		m(), c = "preview", u = Math.floor(Math.random() * 3), d = [
+	function y() {
+		g(), m(), c = "preview", u = Math.floor(Math.random() * 3), d = [
 			0,
 			1,
 			2
 		], i.classList.remove("is-complete"), a.forEach((e, t) => {
 			e.disabled = !1, e.classList.remove("is-open", "is-correct", "is-empty"), e.classList.toggle("is-peeking", t === u);
-		}), h(), g(), o.hidden = !1, o.innerHTML = "Shuffle boxes <span aria-hidden=\"true\">↝</span>", s.textContent = `Round ${l + 1} of 3. The cat is in the ${[
-			"left",
-			"middle",
-			"right"
-		][d[u]]} box.`;
+		}), _(), v(), o.hidden = !1, o.innerHTML = "Let's hide! <span aria-hidden=\"true\">↝</span>", s.textContent = `Round ${l + 1} of 3. Ready or not…`;
 	}
-	function v() {
+	function b() {
 		if (!i.hidden) {
 			i.querySelector(".cat-game-close").focus({ preventScroll: !0 });
 			return;
 		}
-		i.hidden = !1, r.setAttribute("aria-expanded", "true"), l = 0, _(), i.scrollIntoView({
+		i.hidden = !1, r.setAttribute("aria-expanded", "true"), l = 0, y(), i.scrollIntoView({
 			block: "nearest",
 			behavior: e() ? "smooth" : "instant"
 		}), o.focus({ preventScroll: !0 });
 	}
-	function y() {
-		if (m(), c = "shuffle", o.hidden = !0, a.forEach((e) => e.classList.remove("is-peeking")), s.textContent = "Follow the boxes…", !e()) {
-			c = "pick", s.textContent = "Which box was the cat in?";
-			return;
-		}
-		let t = 3 + l;
-		for (let e = 0; e < t; e++) p(() => {
-			let e = Math.floor(Math.random() * 3), t = (e + 1 + Math.floor(Math.random() * 2)) % 3;
-			[d[e], d[t]] = [d[t], d[e]], h();
-		}, 220 + e * 620);
-		p(() => {
-			c = "pick", s.textContent = "Where is the cat?";
-		}, t * 620 + 220);
+	function x() {
+		g(), c = "hiding", o.hidden = !0, a.forEach((e) => e.classList.remove("is-peeking")), s.textContent = "Shhh… hiding!";
+		let t = e(), n = t ? 520 : 360, r = n + 100, i = t ? 560 : 180, u = 3 + l;
+		for (let e = 0; e < u; e++) h(() => {
+			c = "shuffle", s.textContent = "Keep your eyes on the boxes…";
+			let e = a.map((e) => e.getBoundingClientRect());
+			m();
+			let r = Math.floor(Math.random() * 3), i = (r + 1 + Math.floor(Math.random() * 2)) % 3;
+			[d[r], d[i]] = [d[i], d[r]], _();
+			let o = a.map((e) => e.getBoundingClientRect());
+			[r, i].forEach((i) => {
+				let s = e[i].left - o[i].left, c = t ? i === r ? -18 : 18 : 0, l = t ? [
+					{ transform: `translate(${s}px,0)` },
+					{
+						transform: `translate(${s / 2}px,${c}px)`,
+						offset: .5
+					},
+					{ transform: "translate(0,0)" }
+				] : [{ transform: `translate(${s}px,0)` }, { transform: "translate(0,0)" }], u = a[i].animate(l, {
+					duration: n,
+					easing: "cubic-bezier(.4,0,.2,1)"
+				});
+				p.add(u), u.finished.then(() => p.delete(u), () => p.delete(u));
+			});
+		}, i + e * r);
+		h(() => {
+			c = "pick", s.textContent = "Pick a box. No peeking!";
+		}, i + u * r);
 	}
-	function b() {
+	function S() {
 		if (!e()) return;
 		let t = i.querySelector(".cat-game-board");
 		for (let e = 0; e < 9; e++) {
@@ -3338,46 +3353,50 @@ function Na(e) {
 			}).finished.finally(() => n.remove());
 		}
 	}
-	function x(e) {
+	function C(e) {
 		if (c === "preview") {
-			y();
+			x();
 			return;
 		}
 		if (c === "pick" || c === "shuffle") {
-			if (m(), c = "pick", a[e].classList.add("is-open"), e !== u) {
-				a[e].classList.add("is-empty"), a[e].disabled = !0, s.textContent = "Empty. Try another box.", a.find((e) => !e.disabled)?.focus({ preventScroll: !0 });
+			if (g(), c = "pick", a[e].classList.add("is-open"), e !== u) {
+				a[e].classList.add("is-empty"), a[e].disabled = !0, s.textContent = "Nope! Kitty's not in there.", a.find((e) => !e.disabled)?.focus({ preventScroll: !0 });
 				return;
 			}
-			c = "found", a[e].classList.add("is-correct"), a.forEach((e) => e.disabled = !0), l++, g(), b(), o.hidden = !1, l === 3 ? (c = "complete", i.classList.add("is-complete"), s.textContent = "Three for three. You found the cat!", o.textContent = "Play again") : (s.textContent = "Found it!", o.innerHTML = "Next round <span aria-hidden=\"true\">→</span>"), o.focus({ preventScroll: !0 });
+			c = "found", a[e].classList.add("is-correct"), a.forEach((e) => e.disabled = !0), l++, v(), S(), o.hidden = !1, l === 3 ? (c = "complete", i.classList.add("is-complete"), s.textContent = "You found me three times!", o.textContent = "Play again") : (s.textContent = "Peekaboo! You found me.", o.innerHTML = "Next round <span aria-hidden=\"true\">→</span>"), o.focus({ preventScroll: !0 });
 		}
 	}
 	o.addEventListener("click", () => {
-		c === "preview" ? y() : c === "found" ? _() : c === "complete" && (l = 0, _());
+		c === "preview" ? x() : c === "found" ? y() : c === "complete" && (l = 0, y());
 	}), a.forEach((e, t) => {
-		e.addEventListener("click", () => x(t)), e.addEventListener("keydown", (t) => {
+		e.addEventListener("click", () => C(t)), e.addEventListener("keydown", (t) => {
 			if (t.key !== "ArrowLeft" && t.key !== "ArrowRight") return;
 			t.preventDefault();
 			let n = a.filter((e) => !e.disabled).sort((e, t) => d[Number(e.dataset.catBox)] - d[Number(t.dataset.catBox)]);
 			n[(n.indexOf(e) + (t.key === "ArrowRight" ? 1 : n.length - 1)) % n.length]?.focus();
 		});
 	});
-	function S() {
-		m(), c = "closed", i.hidden = !0, r.setAttribute("aria-expanded", "false"), r.focus({ preventScroll: !0 });
+	function w() {
+		g(), m(), c = "closed", i.hidden = !0, r.setAttribute("aria-expanded", "false"), r.focus({ preventScroll: !0 });
 	}
-	i.querySelector(".cat-game-close").addEventListener("click", S), i.addEventListener("keydown", (e) => {
-		e.key === "Escape" && (e.preventDefault(), S());
-	}), r.addEventListener("click", v), t.addEventListener("click", (e) => {
+	i.querySelector(".cat-game-close").addEventListener("click", w), i.addEventListener("keydown", (e) => {
+		e.key === "Escape" && (e.preventDefault(), w());
+	}), r.addEventListener("click", b), t.addEventListener("click", (e) => {
 		if (e.pointerType === "touch" && !t.classList.contains("cat-peek")) {
 			t.classList.add("cat-peek");
 			return;
 		}
-		v();
+		b();
 	}), t.addEventListener("keydown", (e) => {
-		(e.key === "Enter" || e.key === " ") && (e.preventDefault(), t.classList.add("cat-peek"), v());
-	}), document.addEventListener("visibilitychange", () => {
-		document.hidden && c === "shuffle" && (m(), c = "pick", s.textContent = "Where is the cat?");
+		(e.key === "Enter" || e.key === " ") && (e.preventDefault(), t.classList.add("cat-peek"), b());
+	});
+	function T() {
+		(c === "shuffle" || c === "hiding") && (g(), m(), c = "pick", s.textContent = "Pick a box. No peeking!");
+	}
+	document.addEventListener("visibilitychange", () => {
+		document.hidden && T();
 	}), new IntersectionObserver((e) => {
-		!e[0].isIntersecting && c === "shuffle" && (m(), c = "pick", s.textContent = "Where is the cat?");
+		e[0].isIntersecting || T();
 	}, { threshold: .05 }).observe(i);
 }
 //#endregion

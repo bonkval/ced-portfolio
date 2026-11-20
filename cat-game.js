@@ -6,24 +6,26 @@ export function initCatInvestigation(enabled) {
   if(!portrait||!row)return;
   portrait.tabIndex=0;portrait.setAttribute('role','button');portrait.setAttribute('aria-label','Play hide and seek with the hidden cat');
   const hint=document.createElement('button');hint.type='button';hint.className='cat-hint';
-  hint.innerHTML=`${paw}<span>Play hide &amp; seek</span>`;portrait.after(hint);
+  hint.innerHTML=`${paw}<span>Hide N Seek</span>`;portrait.after(hint);
   const game=document.createElement('section');game.className='cat-game';game.id='cat-game';game.hidden=true;
   game.setAttribute('aria-labelledby','cat-game-title');
   hint.setAttribute('aria-controls',game.id);hint.setAttribute('aria-expanded','false');
-  game.innerHTML=`<header class="cat-game-header"><div><h2 id="cat-game-title">Cat &amp; boxes</h2><p>Watch the cat. Follow the shuffle. Pick a box.</p></div><div class="cat-game-score" role="img" aria-label="0 of 3 rounds complete">${[0,1,2].map(i=>`<span data-cat-score="${i}">${paw}</span>`).join('')}</div><button type="button" class="cat-game-close" aria-label="Close cat game">×</button></header><div class="cat-game-board" role="group" aria-label="Three hiding boxes">${[0,1,2].map(id=>`<button type="button" class="cat-box" data-cat-box="${id}"><span class="cat-box-head" aria-hidden="true"><img src="/public/assets/profile/profile2.webp" alt="" draggable="false"></span>${boxArt}<span class="cat-box-empty" aria-hidden="true">${paw}</span><span class="cat-box-number" aria-hidden="true">${id+1}</span></button>`).join('')}</div><footer class="cat-game-footer"><p class="cat-game-status" role="status"></p><button type="button" class="cat-game-action">Shuffle boxes <span aria-hidden="true">↝</span></button></footer>`;
+  game.innerHTML=`<header class="cat-game-header"><div><h2 id="cat-game-title">Hide N Seek</h2><p>Kitty's hiding. Think you can keep up?</p></div><div class="cat-game-score" role="img" aria-label="0 of 3 rounds complete">${[0,1,2].map(i=>`<span data-cat-score="${i}">${paw}</span>`).join('')}</div><button type="button" class="cat-game-close" aria-label="Close cat game">×</button></header><div class="cat-game-board" role="group" aria-label="Three hiding boxes">${[0,1,2].map(id=>`<button type="button" class="cat-box" data-cat-box="${id}"><span class="cat-box-head" aria-hidden="true"><img src="/public/assets/profile/profile2.webp" alt="" draggable="false"></span>${boxArt}<span class="cat-box-empty" aria-hidden="true">${paw}</span></button>`).join('')}</div><footer class="cat-game-footer"><p class="cat-game-status" role="status"></p><button type="button" class="cat-game-action">Let's hide! <span aria-hidden="true">↝</span></button></footer>`;
   row.after(game);
   const boxes=[...game.querySelectorAll('.cat-box')],action=game.querySelector('.cat-game-action'),status=game.querySelector('.cat-game-status');
   let phase='closed',round=0,cat=0,slots=[0,1,2],timers=[];
+  const motions=new Set();
+  function stopMotions(){motions.forEach(animation=>animation.cancel());motions.clear();}
   const schedule=(fn,delay)=>{const timer=setTimeout(fn,delay);timers.push(timer);};
   function cancel(){timers.forEach(clearTimeout);timers=[];}
-  function position(){boxes.forEach((box,id)=>{box.style.setProperty('--cat-slot',slots[id]);box.setAttribute('aria-label',`Open the ${['left','middle','right'][slots[id]]} box`);box.querySelector('.cat-box-number').textContent=String(slots[id]+1);});}
+  function position(){boxes.forEach((box,id)=>{box.style.setProperty('--cat-slot',slots[id]);box.setAttribute('aria-label',`Open the ${['left','middle','right'][slots[id]]} box`);});}
   function progress(){game.querySelectorAll('[data-cat-score]').forEach((node,i)=>node.classList.toggle('is-earned',i<round));game.querySelector('.cat-game-score').setAttribute('aria-label',`${round} of 3 rounds complete`);}
   function prepare(){
-    cancel();phase='preview';cat=Math.floor(Math.random()*3);slots=[0,1,2];
+    cancel();stopMotions();phase='preview';cat=Math.floor(Math.random()*3);slots=[0,1,2];
     game.classList.remove('is-complete');
     boxes.forEach((box,id)=>{box.disabled=false;box.classList.remove('is-open','is-correct','is-empty');box.classList.toggle('is-peeking',id===cat);});
-    position();progress();action.hidden=false;action.innerHTML='Shuffle boxes <span aria-hidden="true">↝</span>';
-    status.textContent=`Round ${round+1} of 3. The cat is in the ${['left','middle','right'][slots[cat]]} box.`;
+    position();progress();action.hidden=false;action.innerHTML="Let's hide! <span aria-hidden=\"true\">↝</span>";
+    status.textContent=`Round ${round+1} of 3. Ready or not…`;
   }
   function open(){
     if(!game.hidden){game.querySelector('.cat-game-close').focus({preventScroll:true});return;}
@@ -31,15 +33,32 @@ export function initCatInvestigation(enabled) {
     game.scrollIntoView({block:'nearest',behavior:enabled()?'smooth':'instant'});action.focus({preventScroll:true});
   }
   function shuffle(){
-    cancel();phase='shuffle';action.hidden=true;boxes.forEach(box=>box.classList.remove('is-peeking'));
-    status.textContent='Follow the boxes…';
-    if(!enabled()) {phase='pick';status.textContent='Which box was the cat in?';return;}
+    cancel();phase='hiding';action.hidden=true;boxes.forEach(box=>box.classList.remove('is-peeking'));
+    status.textContent='Shhh… hiding!';
+    // Movement is part of this explicitly started game. Reduced motion gets
+    // shorter straight swaps, without the decorative arc or victory burst.
+    const fullMotion=enabled(),duration=fullMotion?520:360,spacing=duration+100;
+    const hideDelay=fullMotion?560:180;
     const moves=3+round;
     for(let i=0;i<moves;i++)schedule(()=>{
+      phase='shuffle';status.textContent='Keep your eyes on the boxes…';
+      const before=boxes.map(box=>box.getBoundingClientRect());
+      stopMotions();
       const first=Math.floor(Math.random()*3),second=(first+1+Math.floor(Math.random()*2))%3;
       [slots[first],slots[second]]=[slots[second],slots[first]];position();
-    },220+i*620);
-    schedule(()=>{phase='pick';status.textContent='Where is the cat?';},moves*620+220);
+      const after=boxes.map(box=>box.getBoundingClientRect());
+      [first,second].forEach(id=>{
+        const dx=before[id].left-after[id].left,arc=fullMotion?(id===first?-18:18):0;
+        const frames=fullMotion?[
+          {transform:`translate(${dx}px,0)`},
+          {transform:`translate(${dx/2}px,${arc}px)`,offset:.5},
+          {transform:'translate(0,0)'}
+        ]:[{transform:`translate(${dx}px,0)`},{transform:'translate(0,0)'}];
+        const animation=boxes[id].animate(frames,{duration,easing:'cubic-bezier(.4,0,.2,1)'});
+        motions.add(animation);animation.finished.then(()=>motions.delete(animation),()=>motions.delete(animation));
+      });
+    },hideDelay+i*spacing);
+    schedule(()=>{phase='pick';status.textContent='Pick a box. No peeking!';},hideDelay+moves*spacing);
   }
   function celebrate(){
     if(!enabled())return;
@@ -53,11 +72,11 @@ export function initCatInvestigation(enabled) {
     if(phase==='preview'){shuffle();return;}
     if(phase!=='pick'&&phase!=='shuffle')return;
     cancel();phase='pick';boxes[id].classList.add('is-open');
-    if(id!==cat){boxes[id].classList.add('is-empty');boxes[id].disabled=true;status.textContent='Empty. Try another box.';boxes.find(box=>!box.disabled)?.focus({preventScroll:true});return;}
+    if(id!==cat){boxes[id].classList.add('is-empty');boxes[id].disabled=true;status.textContent="Nope! Kitty's not in there.";boxes.find(box=>!box.disabled)?.focus({preventScroll:true});return;}
     phase='found';boxes[id].classList.add('is-correct');boxes.forEach(box=>box.disabled=true);round++;progress();celebrate();
     action.hidden=false;
-    if(round===3){phase='complete';game.classList.add('is-complete');status.textContent='Three for three. You found the cat!';action.textContent='Play again';}
-    else{status.textContent='Found it!';action.innerHTML='Next round <span aria-hidden="true">→</span>';}
+    if(round===3){phase='complete';game.classList.add('is-complete');status.textContent='You found me three times!';action.textContent='Play again';}
+    else{status.textContent='Peekaboo! You found me.';action.innerHTML='Next round <span aria-hidden="true">→</span>';}
     action.focus({preventScroll:true});
   }
   action.addEventListener('click',()=>{
@@ -73,7 +92,7 @@ export function initCatInvestigation(enabled) {
       const next=candidates[(candidates.indexOf(box)+(event.key==='ArrowRight'?1:candidates.length-1))%candidates.length];next?.focus();
     });
   });
-  function close(){cancel();phase='closed';game.hidden=true;hint.setAttribute('aria-expanded','false');hint.focus({preventScroll:true});}
+  function close(){cancel();stopMotions();phase='closed';game.hidden=true;hint.setAttribute('aria-expanded','false');hint.focus({preventScroll:true});}
   game.querySelector('.cat-game-close').addEventListener('click',close);
   game.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();close();}});
   hint.addEventListener('click',open);
@@ -82,8 +101,9 @@ export function initCatInvestigation(enabled) {
     open();
   });
   portrait.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();portrait.classList.add('cat-peek');open();}});
-  document.addEventListener('visibilitychange',()=>{if(document.hidden&&phase==='shuffle'){cancel();phase='pick';status.textContent='Where is the cat?';}});
+  function pauseShuffle(){if(phase==='shuffle'||phase==='hiding'){cancel();stopMotions();phase='pick';status.textContent='Pick a box. No peeking!';}}
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseShuffle();});
   new IntersectionObserver(entries=>{
-    if(!entries[0].isIntersecting&&phase==='shuffle'){cancel();phase='pick';status.textContent='Where is the cat?';}
+    if(!entries[0].isIntersecting)pauseShuffle();
   },{threshold:.05}).observe(game);
 }
